@@ -1,0 +1,4 @@
+# preprocessing {#sec-ch3c}
+
+File formats, data structures, conversion, and data loss control.
+

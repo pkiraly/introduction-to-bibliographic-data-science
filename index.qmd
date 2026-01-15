@@ -1,5 +1,3 @@
 # Preface {.unnumbered}
 
-This is the landing page of the tutorial. It must always be called "index.qmd".
-
-See [https://quarto.org/docs/books/](https://quarto.org/docs/books/) for more information on customizing a Quarto book.
+This book is an attempt to implement the ideas described in the essay _An outline of an imagined training course on bibliographic data science_ published in [Bibliographic data](https://bibliodata.substack.com/p/an-outline-of-an-imagined-training) blog, 2026.

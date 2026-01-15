@@ -1,0 +1,4 @@
+# data harmonisation {#sec-ch3d}
+
+normalization and data enrichment. The reproducible conversion into a data set suitable for quantitative humanities analysis.
+

@@ -1,0 +1,4 @@
+# dissemination {#sec-ch3f}
+
+dissemination of results. Publication of software and research data for reuse.
+

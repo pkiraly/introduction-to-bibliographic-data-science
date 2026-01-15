@@ -2,8 +2,9 @@ project:
   type: book
 
 book:
-  title: "A Tutorial Template"
-  author: "DSS Superstar #1"
+  title: "Introduction to Bibliographic Data Science"
+  subtitle: "A training material"
+  author: "Péter Király"
   date: "last-modified"
   page-navigation: true
   search: true
@@ -11,13 +12,20 @@ book:
   chapters:
     - index.qmd
     - introduction.qmd
-    - part: "Section 1"
+    - ch1.qmd
+    - part: "Theoretical models"
       chapters:
-        - step1.qmd
-    - part: "Section 2"
+        - ch2a.qmd
+        - ch2b.qmd
+    - part: "The data analysis workflow"
       chapters:
-        - step2.qmd
-    - step3.qmd
+        - ch3a.qmd
+        - ch3b.qmd
+        - ch3c.qmd
+        - ch3d.qmd
+        - ch3e.qmd
+        - ch3f.qmd
+    - ch4.qmd
     - references.qmd
 
 bibliography: references.bib

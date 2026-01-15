@@ -1,0 +1,4 @@
+# data validation {#sec-ch3b}
+
+Technical validity (XML, JSON validity check) and quality assessment.
+

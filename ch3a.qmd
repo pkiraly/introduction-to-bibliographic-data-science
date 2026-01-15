@@ -1,0 +1,4 @@
+# data acquisition {#sec-ch3a}
+
+Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.
+
