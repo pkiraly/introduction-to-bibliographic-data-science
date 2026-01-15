@@ -1,0 +1,120 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction to Bibliographic Data Science",
+    "section": "",
+    "text": "Preface\nThis book is an attempt to implement the ideas described in the essay An outline of an imagined training course on bibliographic data science published in Bibliographic data blog, 2026.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "This is the introduction of the tutorial.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "ch2a.html",
+    "href": "ch2a.html",
+    "title": "3  Scientific theories and models",
+    "section": "",
+    "text": "Darnton and his followers, Bourdieu, quantitative history, computational and data models of historical events – Thibodeau and Thaller",
+    "crumbs": [
+      "Theoretical models",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Scientific theories and models</span>"
+    ]
+  },
+  {
+    "objectID": "ch2b.html",
+    "href": "ch2b.html",
+    "title": "4  Cultural heritage data models",
+    "section": "",
+    "text": "the work-expression-manifestation-item model and its branches, ontologies, archival data models",
+    "crumbs": [
+      "Theoretical models",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Cultural heritage data models</span>"
+    ]
+  },
+  {
+    "objectID": "ch3a.html",
+    "href": "ch3a.html",
+    "title": "5  data acquisition",
+    "section": "",
+    "text": "Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.",
+    "crumbs": [
+      "The data analysis workflow",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>data acquisition</span>"
+    ]
+  },
+  {
+    "objectID": "ch3b.html",
+    "href": "ch3b.html",
+    "title": "6  data validation",
+    "section": "",
+    "text": "Technical validity (XML, JSON validity check) and quality assessment.",
+    "crumbs": [
+      "The data analysis workflow",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>data validation</span>"
+    ]
+  },
+  {
+    "objectID": "ch3c.html",
+    "href": "ch3c.html",
+    "title": "7  preprocessing",
+    "section": "",
+    "text": "File formats, data structures, conversion, and data loss control.",
+    "crumbs": [
+      "The data analysis workflow",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>preprocessing</span>"
+    ]
+  },
+  {
+    "objectID": "ch3d.html",
+    "href": "ch3d.html",
+    "title": "8  data harmonisation",
+    "section": "",
+    "text": "normalization and data enrichment. The reproducible conversion into a data set suitable for quantitative humanities analysis.",
+    "crumbs": [
+      "The data analysis workflow",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>data harmonisation</span>"
+    ]
+  },
+  {
+    "objectID": "ch3e.html",
+    "href": "ch3e.html",
+    "title": "9  data analysis",
+    "section": "",
+    "text": "data analysis and data visualization with programming (Python, R) and specialized tools.",
+    "crumbs": [
+      "The data analysis workflow",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>data analysis</span>"
+    ]
+  },
+  {
+    "objectID": "ch3f.html",
+    "href": "ch3f.html",
+    "title": "10  dissemination",
+    "section": "",
+    "text": "dissemination of results. Publication of software and research data for reuse.",
+    "crumbs": [
+      "The data analysis workflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>dissemination</span>"
+    ]
+  },
+  {
+    "objectID": "ch4.html",
+    "href": "ch4.html",
+    "title": "11  After the research",
+    "section": "",
+    "text": "The broader context. Professional communities, conferences, journals, continuing education opportunities.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>After the research</span>"
+    ]
+  }
+]
