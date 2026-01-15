@@ -14,7 +14,7 @@
     "href": "introduction.html",
     "title": "1  Introduction",
     "section": "",
-    "text": "This is the introduction of the tutorial.",
+    "text": "Bibliographic data science is a relatively new interdisciplinary field of research that lies at the intersection of library science (or, more broadly, cultural heritage science), history and social sciences, and certain components of computer science. The objective of bibliographic data science is to establish previously hidden or possibly only suspected historical or collection trends based on data sources containing a (typically but not exclusively) large number of bibliographic records, ideally all those related to a given topic (e.g., national bibliographies), and on data science methods. Some of the field’s research questions:\n\nWhat was the spatial distribution and prosopography of 17th-century German legal dissertations? (Heßbrüggen-Walter 2025)\nWhat degree of interdisciplinarity can be observed based on the metadata of philosophical dissertations? (Heßbrüggen-Walter 2024)\nHow did the format and language of books change over time in different regions? (Lahti et al. 2019)\nWhat are the patterns of translations from a given language, how have they changed, and which languages were super-central, central, and peripheral in a given era?6\nWhat impact do publishers have on fiction?7\nWhat were the profiles of the various book collections?\nIs there a correlation between the genre and format of the book?8\nHow have genre proportions changed?9\nHow many early modern publications could have been destroyed without a trace?10\nHow can the reception of works be examined using bibliographic data?11\nWhat is the quality of cultural heritage data, and what improvement strategies can be developed?12\nHow do cultural heritage data, data structures, and standards help (or hinder) answering the above questions? What development opportunities does the research suggest for cultural heritage data standards?13\n\nAlthough digital humanities education has developed dynamically in recent years, computer-based analysis of bibliographic sources is unfortunately rarely featured, and similarly absent from library science and IT education. In my opinion, this gap could be remedied by a new informal vocational training program that would appeal to those who are interested in some of the above issues and who already have some knowledge in one of the relevant fields (e.g., library science, cultural history, literary sociology, information technology). The analysis of records based on library bibliographic standards would probably also be of interest in library training. The training may take the form of a summer university or a seminar/course jointly organized by several university departments. Participants in the training could be university students or practicing professionals.\n\n\n\n\nHeßbrüggen-Walter, Stefan. 2024. “Interdisciplinarity in the 17th Century? A Co-Occurrence Analysis of Early Modern German Dissertation Titles.” Synthese 203 (2): 67. https://doi.org/10.1007/s11229-024-04494-2.\n\n\n———. 2025. “Early Modern Dissertations in French Libraries: The EMDFL Dataset.” Journal of Open Humanities Data 11 (June): 36. https://doi.org/10.5334/johd.307.\n\n\nLahti, Leo, Jani Marjanen, Hege Roivainen, and Mikko Tolonen. 2019. “Bibliographic Data Science and the History of the Book (c. 1500–1800).” Cataloging & Classification Quarterly 57 (1): 5–23. https://doi.org/10.1080/01639374.2018.1543747.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -115,6 +115,16 @@
     "text": "The broader context. Professional communities, conferences, journals, continuing education opportunities.",
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>After the research</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Heßbrüggen-Walter, Stefan. 2024. “Interdisciplinarity in the 17th\nCentury? A Co-Occurrence Analysis of Early Modern\nGerman Dissertation Titles.” Synthese 203\n(2): 67. https://doi.org/10.1007/s11229-024-04494-2.\n\n\n———. 2025. “Early Modern Dissertations\nin French Libraries: The\nEMDFL Dataset.” Journal of Open\nHumanities Data 11 (June): 36. https://doi.org/10.5334/johd.307.\n\n\nLahti, Leo, Jani Marjanen, Hege Roivainen, and Mikko Tolonen. 2019.\n“Bibliographic Data Science and the\nHistory of the Book (c. 1500–1800).”\nCataloging & Classification Quarterly 57 (1): 5–23. https://doi.org/10.1080/01639374.2018.1543747.",
+    "crumbs": [
+      "References"
     ]
   }
 ]
