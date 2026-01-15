@@ -23,7 +23,7 @@ jobs:
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           # the current location of the documentation
-          path: _book
+          # path: _book
           # the target is GitHub pages
           target: gh-pages
         env:
