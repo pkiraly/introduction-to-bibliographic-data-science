@@ -238,6 +238,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">After the research</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendicis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Books</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Journals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ap3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Conferences</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
@@ -281,7 +310,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.</p>
+<p>abstract: Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.</p>
+<p>Digital data can be retrieved in three main methods. The most convenient option is for these to be available as downloadable files (e.g., as reusable research data), however this type of data sharing is relatively rare. It is more common for data sources to be accessed through some kind of application programming interface. Various applications are available for the most common interfaces (OAI-PMH, Z39.50, SRW/SRU, SPARQL), so programming is not necessarily required, but time must be set aside to study the institution-specific settings and parameters of the interfaces. Finally, it is often the case that no previous opportunity was available. At this point, we extract the data from the HTML source of the website, assuming that the typographical formatting consistently indicates certain semantic elements17 – but in this case, it is worth consulting with the website operator to see if there are any other options not documented on the site. Whichever solution you choose, make sure that the data license allows reuse. After downloading the data, the first step is to import it. Programming libraries supporting various bibliographic formats are available; for MARC21, for example, there are ones for Java, Python, Go, JavaScript, R, PHP, and other programming languages. In this textbook we will work with Python, but the code could be adapted to other programming languages.</p>
+<p>There are four main types of data sources for library history research:</p>
+<ol type="1">
+<li>library catalogs (e.g., national libraries or general purpose union catalogs, as well as catalogs of specifically old books, such as the VD16, VD17 and VD18 series that register 16th, 17th, and 18th century German books, their Italian counterpart EDIT16, and the Heritage of the Printed Book database),</li>
+<li>digital library catalogs (Europeana, Gallica, German Digital Library, Hungarian Electronic Library, HathiTrust),</li>
+<li>citation databases and research data repositories (DataCite, Zenodo, OpenAlex, Open Citation), and finally</li>
+<li>databases of digitized (book) historical sources (the database of the Société Typographique de Neuchâtel, the database of 18th-century Dutch auction book catalogs MEDIATE, or the no defunct Eruditio in Hungary).</li>
+</ol>
 <section id="creating-directories" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="creating-directories"><span class="header-section-number">5.1</span> Creating directories</h2>
 <p>In this textbook we will work with different directories:</p>
@@ -324,37 +361,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="download-a-file" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="download-a-file"><span class="header-section-number">5.2</span> Download a file</h2>
-<p>We download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided by the Latvian National Library’s <a href="https://dati.lnb.lv/">Open Data Portal</a>. The files are compressed with zip, so in order to use them we should extract them,</p>
+<p>You can find a list of downloadable library catalogues <a href="https://github.com/pkiraly/qa-catalogue#datasources">ḣere</a>. Now download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided by the <a href="https://dati.lnb.lv/">Open Data Portal</a> of the National Library of Latvia. The files are compressed with zip, so in order to use them we should extract them, and because the zip file contains a <code>data</code> subdirectory, we rename that to <code>lnb</code> (after the domain name of the National Library of Latvia).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-2"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-1" class="code-annotation-target"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
 <span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
-<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip'</span></span>
-<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>target_dir <span class="op">=</span> <span class="st">'raw-data'</span></span>
-<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>target_file <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/lnb-natl_bibliography-2014-2023-marc.zip'</span></span>
-<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-2-8" class="code-annotation-target"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>urllib.request.urlretrieve(url, target_file)</span>
-<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-2-10" class="code-annotation-target"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(target_file, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
-<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a>    zip_ref.extractall(target_dir)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-2-5" class="code-annotation-target"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip'</span></span>
+<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>target_dir <span class="op">=</span> <span class="st">'raw-data'</span></span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>target_file <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/lnb-natl_bibliography-2014-2023-marc.zip'</span></span>
+<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-2-9" class="code-annotation-target"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>urllib.request.urlretrieve(url, target_file)</span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-2-11" class="code-annotation-target"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(target_file, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
+<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a>    zip_ref.extractall(target_dir)</span>
+<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-2-14" class="code-annotation-target"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a>os.rename(target_dir <span class="op">+</span> <span class="st">'/data'</span>, target_dir <span class="op">+</span> <span class="st">'/lnb'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="1,2" data-code-annotation="1">Import the Python libraries: <code>urllib</code> for the download, and <code>zipfile</code> for uncompressing</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="1,2,3" data-code-annotation="1">Import the Python libraries: <code>urllib</code> for the download, and <code>zipfile</code> for uncompressing</span>
 </dd>
 <dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="4,5,6" data-code-annotation="2">creating variables</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="5,6,7" data-code-annotation="2">creating variables</span>
 </dd>
 <dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="8" data-code-annotation="3">call the download function with two arguments: the URL of the data source and the target file in our system</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="9" data-code-annotation="3">call the download function with two arguments: the URL of the data source and the target file in our system</span>
 </dd>
 <dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="10" data-code-annotation="4">uncompress the zip file to our target directory</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="11" data-code-annotation="4">uncompress the zip file to our target directory</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="14" data-code-annotation="5">rename the <code>data</code> subdirectory (comes inside the zip file) to <code>lnb</code></span>
 </dd>
 </dl>
-<p>At the end of the process we will have a file <code>raw-data/data/natl_bibliography-2014-2023-marc.xml</code>, because the zip file contains a <code>data</code> directory. The file itself is in MARCXML format.</p>
+<p>At the end of the process we will have a file <code>raw-data/lnb/natl_bibliography-2014-2023-marc.xml</code>, a set of MARC21 record in MARCXML serialization format, that is MARC21 in XML.</p>
 <p>The code of this section is available at <code>scripts/ch3a-download-a-file.py</code> of the repository.</p>
 
 

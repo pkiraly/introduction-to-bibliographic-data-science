@@ -46,7 +46,7 @@
     "href": "ch3a.html",
     "title": "5  data acquisition",
     "section": "",
-    "text": "5.1 Creating directories\nMain types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.\nIn this textbook we will work with different directories:\nThe first programming task is to create these directories. To create them we use the os Python library that provides standard operating system functions, such as makedirs that creates a directory.\nThe code of this section is available at scripts/ch3a-create-directories.py of the repository.",
+    "text": "5.1 Creating directories\nabstract: Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.\nDigital data can be retrieved in three main methods. The most convenient option is for these to be available as downloadable files (e.g., as reusable research data), however this type of data sharing is relatively rare. It is more common for data sources to be accessed through some kind of application programming interface. Various applications are available for the most common interfaces (OAI-PMH, Z39.50, SRW/SRU, SPARQL), so programming is not necessarily required, but time must be set aside to study the institution-specific settings and parameters of the interfaces. Finally, it is often the case that no previous opportunity was available. At this point, we extract the data from the HTML source of the website, assuming that the typographical formatting consistently indicates certain semantic elements17 – but in this case, it is worth consulting with the website operator to see if there are any other options not documented on the site. Whichever solution you choose, make sure that the data license allows reuse. After downloading the data, the first step is to import it. Programming libraries supporting various bibliographic formats are available; for MARC21, for example, there are ones for Java, Python, Go, JavaScript, R, PHP, and other programming languages. In this textbook we will work with Python, but the code could be adapted to other programming languages.\nThere are four main types of data sources for library history research:\nIn this textbook we will work with different directories:\nThe first programming task is to create these directories. To create them we use the os Python library that provides standard operating system functions, such as makedirs that creates a directory.\nThe code of this section is available at scripts/ch3a-create-directories.py of the repository.",
     "crumbs": [
       "The data analysis workflow",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>data acquisition</span>"
@@ -68,7 +68,7 @@
     "href": "ch3a.html#download-a-file",
     "title": "5  data acquisition",
     "section": "5.2 Download a file",
-    "text": "5.2 Download a file\nWe download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided by the Latvian National Library’s Open Data Portal. The files are compressed with zip, so in order to use them we should extract them,\n1import urllib.request\nimport zipfile\n\n2url = 'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip'\ntarget_dir = 'raw-data'\ntarget_file = target_dir + '/lnb-natl_bibliography-2014-2023-marc.zip'\n\n3urllib.request.urlretrieve(url, target_file)\n\n4with zipfile.ZipFile(target_file, 'r') as zip_ref:\n    zip_ref.extractall(target_dir)\n\n1\n\nImport the Python libraries: urllib for the download, and zipfile for uncompressing\n\n2\n\ncreating variables\n\n3\n\ncall the download function with two arguments: the URL of the data source and the target file in our system\n\n4\n\nuncompress the zip file to our target directory\n\n\nAt the end of the process we will have a file raw-data/data/natl_bibliography-2014-2023-marc.xml, because the zip file contains a data directory. The file itself is in MARCXML format.\nThe code of this section is available at scripts/ch3a-download-a-file.py of the repository.",
+    "text": "5.2 Download a file\nYou can find a list of downloadable library catalogues ḣere. Now download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided by the Open Data Portal of the National Library of Latvia. The files are compressed with zip, so in order to use them we should extract them, and because the zip file contains a data subdirectory, we rename that to lnb (after the domain name of the National Library of Latvia).\n1import urllib.request\nimport zipfile\nimport os\n\n2url = 'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip'\ntarget_dir = 'raw-data'\ntarget_file = target_dir + '/lnb-natl_bibliography-2014-2023-marc.zip'\n\n3urllib.request.urlretrieve(url, target_file)\n\n4with zipfile.ZipFile(target_file, 'r') as zip_ref:\n    zip_ref.extractall(target_dir)\n\n5os.rename(target_dir + '/data', target_dir + '/lnb')\n\n1\n\nImport the Python libraries: urllib for the download, and zipfile for uncompressing\n\n2\n\ncreating variables\n\n3\n\ncall the download function with two arguments: the URL of the data source and the target file in our system\n\n4\n\nuncompress the zip file to our target directory\n\n5\n\nrename the data subdirectory (comes inside the zip file) to lnb\n\n\nAt the end of the process we will have a file raw-data/lnb/natl_bibliography-2014-2023-marc.xml, a set of MARC21 record in MARCXML serialization format, that is MARC21 in XML.\nThe code of this section is available at scripts/ch3a-download-a-file.py of the repository.",
     "crumbs": [
       "The data analysis workflow",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>data acquisition</span>"
@@ -137,6 +137,39 @@
     "text": "The broader context. Professional communities, conferences, journals, continuing education opportunities.",
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>After the research</span>"
+    ]
+  },
+  {
+    "objectID": "ap1.html",
+    "href": "ap1.html",
+    "title": "12  Books",
+    "section": "",
+    "text": "The broader context. Professional communities, conferences, journals, continuing education opportunities.",
+    "crumbs": [
+      "Appendicis",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Books</span>"
+    ]
+  },
+  {
+    "objectID": "ap2.html",
+    "href": "ap2.html",
+    "title": "13  Journals",
+    "section": "",
+    "text": "The broader context. Professional communities, conferences, journals, continuing education opportunities.",
+    "crumbs": [
+      "Appendicis",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journals</span>"
+    ]
+  },
+  {
+    "objectID": "ap3.html",
+    "href": "ap3.html",
+    "title": "14  Conferences",
+    "section": "",
+    "text": "The broader context. Professional communities, conferences, journals, continuing education opportunities.",
+    "crumbs": [
+      "Appendicis",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Conferences</span>"
     ]
   },
   {
