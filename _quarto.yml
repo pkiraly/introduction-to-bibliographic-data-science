@@ -26,6 +26,11 @@ book:
         - ch3e.qmd
         - ch3f.qmd
     - ch4.qmd
+    - part: "Appendicis"
+      chapters:
+        - ap1.qmd
+        - ap2.qmd
+        - ap3.qmd
     - references.qmd
 
 bibliography: references.bib
