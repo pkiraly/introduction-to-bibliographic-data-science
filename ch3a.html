@@ -284,7 +284,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.</p>
 <section id="creating-directories" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="creating-directories"><span class="header-section-number">5.1</span> Creating directories</h2>
-<p>In this textbook we will work with different directories: - <code>data</code>: the data we created - <code>raw-data</code>: our original data sources downloaded from data providers’ sites - <code>plots</code>: the output of data visualization</p>
+<p>In this textbook we will work with different directories:</p>
+<ul>
+<li><code>data</code>: the data we created</li>
+<li><code>raw-data</code>: our original data sources downloaded from data providers’ sites</li>
+<li><code>plots</code>: the output of data visualization</li>
+</ul>
 <p>The first programming task is to create these directories. To create them we use the <code>os</code> Python library that provides standard operating system functions, such as <code>makedirs</code> that creates a directory.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a></span>
