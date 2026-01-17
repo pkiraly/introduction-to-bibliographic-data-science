@@ -1,3 +1,12 @@
 # Conferences {#sec-ap3}
 
 The broader context. Professional communities, conferences, journals, continuing education opportunities.
+
+* ADHO Digital Humanities
+* DARIAH Annual Conference
+* [Computational Humanities Research](https://computational-humanities-research.org/)
+* [Digital Humanities im deutschsprachigen Raum](https://digitalhumanities.de/)
+* [Digital Humanties Benelux](https://2025.dhbenelux.org/)
+* Semantic Web in Libraries
+* Theory and Practice in Digital Libraries
+* [Joint Conference on Digital Libraries](https://www.jcdl.org/)
