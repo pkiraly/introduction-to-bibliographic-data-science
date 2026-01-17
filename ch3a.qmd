@@ -2,6 +2,33 @@
 
 Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.
 
+## Creating directories
+
+In this textbook we will work with different directories:
+- `data`: the data we created
+- `raw-data`: our original data sources downloaded from data providers' sites
+- `plots`: the output of data visualization
+
+To create them we should use the `os` Python library that provides standard operating system functions.
+
+```python
+import os # <1>
+
+directories = ['data', 'raw-data', 'plots'] # <2>
+
+for directory in directories:  # <3>
+    if not os.path.exists(directory): # <4>
+        os.makedirs(directory) # <5>
+```
+1. import the `os` library
+2. create a list with three strings, the names of the directories
+3. iterate of the directories one by one. In each iteration the name of the current
+directory will be stored in the variable `directory`
+4. check if the directory does not exist. If it exists the script skips the directory and takes the next one. If it doesn't exist, it continue with the next command
+5. creating the directory (due to the test in the previous line only if it doesn't exist already)
+
+The code of this section is available at `scripts/ch3a-create-directories.py` of the repository.
+
 ## Download a file
 
 We download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided
@@ -29,3 +56,5 @@ with zipfile.ZipFile(target_file, 'r') as zip_ref: # <4>
 
 At the end of the process we will have a file `raw-data/data/natl_bibliography-2014-2023-marc.xml`,
 because the zip file contains a `data` directory. The file itself is in MARCXML format.
+
+The code of this section is available at `scripts/ch3a-download-a-file.py` of the repository.
