@@ -1,4 +1,10 @@
 # data validation {#sec-ch3b}
 
-Technical validity (XML, JSON validity check) and quality assessment.
+abstract: Technical validity (XML, JSON validity check) and quality assessment.
 
+The validity and quality of data are usually checked in two ways. Although there are schemas describing the structure of data and software that can be used to check whether a document complies with these schemas, in most cases these schemas are limited to describing only a general structure (for example, a MARC record contains control and data fields, the latter may contain indicators and subfields), i.e., they only affect the outermost layer of the data. It is therefore worth performing further checks – either using software available for the given format or using the Exploratory Data Analysis methodology. The simplest method is the so-called completeness check, which examines what data elements are found in the database and in what proportions.[^1] It is also worth examining the content of the most important data elements covered by the analyses to see how consistent they are in terms of form and content: how many different forms does the same person or geographical name appear in, or how were the dates recorded? By browsing through a frequency list of values occurring in a given data element, we can gain an understanding of the nature of the data and the harmonization tasks to be performed in the subsequent processing steps. Such a list can be coded; for example, Harald Klinke grouped the dates in the Museum of Modern Art database according to format patterns (four numbers, four numbers-four numbers, four numbers-two numbers, etc.), thus obtaining a more manageable sample list instead of many individual dates.[^2]
+
+
+[^1]: see [@kruusmaaCuratedBibliographicData2025]
+
+[^2]: [https://x.com/HxxxKxxx/status/1066805548866289664](https://x.com/HxxxKxxx/status/1066805548866289664)
