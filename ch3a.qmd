@@ -9,7 +9,7 @@ In this textbook we will work with different directories:
 - `raw-data`: our original data sources downloaded from data providers' sites
 - `plots`: the output of data visualization
 
-To create them we should use the `os` Python library that provides standard operating system functions.
+The first programming task is to create these directories. To create them we use the `os` Python library that provides standard operating system functions, such as `makedirs` that creates a directory.
 
 ```python
 import os # <1>
