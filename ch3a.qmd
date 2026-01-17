@@ -5,6 +5,7 @@ Main types of bibliographic data and data sources (library catalogs, citation da
 ## Creating directories
 
 In this textbook we will work with different directories:
+
 - `data`: the data we created
 - `raw-data`: our original data sources downloaded from data providers' sites
 - `plots`: the output of data visualization
