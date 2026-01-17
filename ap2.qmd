@@ -1,3 +1,18 @@
 # Journals {#sec-ap2}
 
-The broader context. Professional communities, conferences, journals, continuing education opportunities.
+The following journals regularly publish studies that are relevant for bibliographical data science:
+
+* [Code4Lib Journal](https://journal.code4lib.org)
+* [Computational Humanities Research](https://www.cambridge.org/core/journals/computational-humanities-research)
+* [Current Research in Digital History](https://crdh.rrchnm.org/) 
+* [Digital Humanities Quarterly](https://digitalhumanities.org/dhq/)
+* [Digital Scholarship in the Humanities](https://academic.oup.com/dsh)
+* [International Journal of Digital Humanities](https://link.springer.com/journal/42803)
+* [International Journal of Humanities and Arts Computing](https://www.euppublishing.com/loi/ijhac)
+* [Journal of Cultural Analytics](https://culturalanalytics.org/)
+* [Journal of Computing and Cultural Heritage](https://dl.acm.org/journal/jocch)
+* [Journal of Digital History](https://journalofdigitalhistory.org/en)
+* [Journal of Open Humanities Data](https://openhumanitiesdata.metajnl.com/)
+* [Open Library of Humanities Journal](https://olh.openlibhums.org/)
+* [Transformations: A DARIAH Journal](https://transformations.episciences.org/)
+* [Zeitschrift für digitale Geisteswissenschaften](https://zfdg.de/)
