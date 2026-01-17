@@ -2,3 +2,30 @@
 
 Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.
 
+## Download a file
+
+We download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided
+by the Latvian National Library's [Open Data Portal](https://dati.lnb.lv/). 
+The files are compressed with zip, so in order to use them we should extract them,
+
+```python
+import urllib.request                         # <1>
+import zipfile                                # <1>
+
+url = 'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip' # <2>
+target_dir = 'raw-data'                                                # <2>
+target_file = target_dir + '/lnb-natl_bibliography-2014-2023-marc.zip' # <2>
+
+urllib.request.urlretrieve(url, target_file)  # <3>
+
+with zipfile.ZipFile(target_file, 'r') as zip_ref: # <4>
+    zip_ref.extractall(target_dir)
+```
+
+1. Import the Python libraries: `urllib` for the download, and `zipfile` for uncompressing
+2. creating variables
+3. call the download function with two arguments: the URL of the data source and the target file in our system
+4. uncompress the zip file to our target directory
+
+At the end of the process we will have a file `raw-data/data/natl_bibliography-2014-2023-marc.xml`,
+because the zip file contains a `data` directory. The file itself is in MARCXML format.
