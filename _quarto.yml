@@ -26,7 +26,7 @@ book:
         - ch3e.qmd
         - ch3f.qmd
     - ch4.qmd
-    - part: "Appendicis"
+    - part: "Appendices"
       chapters:
         - ap1.qmd
         - ap2.qmd
