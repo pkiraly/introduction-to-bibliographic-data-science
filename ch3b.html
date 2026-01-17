@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -268,9 +288,22 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Technical validity (XML, JSON validity check) and quality assessment.</p>
+<p>abstract: Technical validity (XML, JSON validity check) and quality assessment.</p>
+<p>The validity and quality of data are usually checked in two ways. Although there are schemas describing the structure of data and software that can be used to check whether a document complies with these schemas, in most cases these schemas are limited to describing only a general structure (for example, a MARC record contains control and data fields, the latter may contain indicators and subfields), i.e., they only affect the outermost layer of the data. It is therefore worth performing further checks – either using software available for the given format or using the Exploratory Data Analysis methodology. The simplest method is the so-called completeness check, which examines what data elements are found in the database and in what proportions.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> It is also worth examining the content of the most important data elements covered by the analyses to see how consistent they are in terms of form and content: how many different forms does the same person or geographical name appear in, or how were the dates recorded? By browsing through a frequency list of values occurring in a given data element, we can gain an understanding of the nature of the data and the harmonization tasks to be performed in the subsequent processing steps. Such a list can be coded; for example, Harald Klinke grouped the dates in the Museum of Modern Art database according to format patterns (four numbers, four numbers-four numbers, four numbers-two numbers, etc.), thus obtaining a more manageable sample list instead of many individual dates.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-kruusmaaCuratedBibliographicData2025" class="csl-entry" role="listitem">
+Kruusmaa, Krister, Peeter Tinits, and Laura Nemvalts. 2025. <span>“Curated <span>Bibliographic</span> <span>Data</span>: <span>The</span> <span>Case</span> of the <span>Estonian</span> <span>National</span> <span>Bibliography</span>.”</span> <em>Journal of Open Humanities Data</em> 11 (February): 16. <a href="https://doi.org/10.5334/johd.280">https://doi.org/10.5334/johd.280</a>.
+</div>
+</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>see <span class="citation" data-cites="kruusmaaCuratedBibliographicData2025">(<a href="references.html#ref-kruusmaaCuratedBibliographicData2025" role="doc-biblioref">Kruusmaa, Tinits, and Nemvalts 2025</a>)</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://x.com/HxxxKxxx/status/1066805548866289664">https://x.com/HxxxKxxx/status/1066805548866289664</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

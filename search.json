@@ -79,7 +79,18 @@
     "href": "ch3b.html",
     "title": "6  data validation",
     "section": "",
-    "text": "Technical validity (XML, JSON validity check) and quality assessment.",
+    "text": "abstract: Technical validity (XML, JSON validity check) and quality assessment.\nThe validity and quality of data are usually checked in two ways. Although there are schemas describing the structure of data and software that can be used to check whether a document complies with these schemas, in most cases these schemas are limited to describing only a general structure (for example, a MARC record contains control and data fields, the latter may contain indicators and subfields), i.e., they only affect the outermost layer of the data. It is therefore worth performing further checks – either using software available for the given format or using the Exploratory Data Analysis methodology. The simplest method is the so-called completeness check, which examines what data elements are found in the database and in what proportions.1 It is also worth examining the content of the most important data elements covered by the analyses to see how consistent they are in terms of form and content: how many different forms does the same person or geographical name appear in, or how were the dates recorded? By browsing through a frequency list of values occurring in a given data element, we can gain an understanding of the nature of the data and the harmonization tasks to be performed in the subsequent processing steps. Such a list can be coded; for example, Harald Klinke grouped the dates in the Museum of Modern Art database according to format patterns (four numbers, four numbers-four numbers, four numbers-two numbers, etc.), thus obtaining a more manageable sample list instead of many individual dates.2",
+    "crumbs": [
+      "The data analysis workflow",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>data validation</span>"
+    ]
+  },
+  {
+    "objectID": "ch3b.html#footnotes",
+    "href": "ch3b.html#footnotes",
+    "title": "6  data validation",
+    "section": "",
+    "text": "see (Kruusmaa, Tinits, and Nemvalts 2025)↩︎\nhttps://x.com/HxxxKxxx/status/1066805548866289664↩︎",
     "crumbs": [
       "The data analysis workflow",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>data validation</span>"
@@ -177,7 +188,7 @@
     "href": "references.html",
     "title": "References",
     "section": "",
-    "text": "Heßbrüggen-Walter, Stefan. 2024. “Interdisciplinarity in the 17th\nCentury? A Co-Occurrence Analysis of Early Modern\nGerman Dissertation Titles.” Synthese 203\n(2): 67. https://doi.org/10.1007/s11229-024-04494-2.\n\n\n———. 2025. “Early Modern Dissertations\nin French Libraries: The\nEMDFL Dataset.” Journal of Open\nHumanities Data 11 (June): 36. https://doi.org/10.5334/johd.307.\n\n\nLahti, Leo, Jani Marjanen, Hege Roivainen, and Mikko Tolonen. 2019.\n“Bibliographic Data Science and the\nHistory of the Book (c. 1500–1800).”\nCataloging & Classification Quarterly 57 (1): 5–23. https://doi.org/10.1080/01639374.2018.1543747.",
+    "text": "Heßbrüggen-Walter, Stefan. 2024. “Interdisciplinarity in the 17th\nCentury? A Co-Occurrence Analysis of Early Modern\nGerman Dissertation Titles.” Synthese 203\n(2): 67. https://doi.org/10.1007/s11229-024-04494-2.\n\n\n———. 2025. “Early Modern Dissertations\nin French Libraries: The\nEMDFL Dataset.” Journal of Open\nHumanities Data 11 (June): 36. https://doi.org/10.5334/johd.307.\n\n\nKruusmaa, Krister, Peeter Tinits, and Laura Nemvalts. 2025.\n“Curated Bibliographic Data:\nThe Case of the Estonian\nNational Bibliography.” Journal of\nOpen Humanities Data 11 (February): 16. https://doi.org/10.5334/johd.280.\n\n\nLahti, Leo, Jani Marjanen, Hege Roivainen, and Mikko Tolonen. 2019.\n“Bibliographic Data Science and the\nHistory of the Book (c. 1500–1800).”\nCataloging & Classification Quarterly 57 (1): 5–23. https://doi.org/10.1080/01639374.2018.1543747.",
     "crumbs": [
       "References"
     ]
