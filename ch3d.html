@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -268,9 +288,33 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>normalization and data enrichment. The reproducible conversion into a data set suitable for quantitative humanities analysis.</p>
+<p>abstract: normalization and data enrichment. The reproducible conversion into a data set suitable for quantitative humanities analysis.</p>
+<p>Data maintained by others rarely fit in every respect to the specific analytical purpose for which we are preparing them. The data that are important to us must be harmonized, i.e., normalized (standardize, resolve contradictions, convert certain data types—such as particular text variables to numeric ones) and enriched (calculate derived data, such as page numbers, import data from external data sources). Below, we examine four such harmonization steps: the harmonization of dates, place names, persons, and concepts. The dates show a high degree of variation not only in the MoMe collection, but in almost every library catalog we find dates that differ from the format that is easy for programs to handle. For example, dates given in Roman numerals (“MDCCLXXX. [1780]”), in text form (“druk janvier 2016.”), according to the reign of a monarch (“Meiji 40”) or according to another calendar. Another problem is the handling of uncertain dates (e.g., “18–” and “18uu” in library catalogs both mean that the publication is from the 19th century). Due to the variety, the conversion is not trivial, but neither is deciding what to convert the dates to in the end. There are different approaches in certain areas (see, for example, archival standards or the practice of Europeana). As the latest proposal, the undate Python library<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> created by the DHTech community stores the following data elements: the unchanged form of the date in the source, the calendar, the accuracy of the date, the earliest and latest normalized dates, and the duration – i.e., for the sake of consistency in retrieval, the date is always a time range. For place names, gazeeters are available for identification and, if necessary, for extra data elements required for map representation or the display of language variants. Among the most important ones are CERL Thesaurus,<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Getty Thesaurus of Geographic Names,<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and Geonames,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> which can be queried via APIs. Although these are rich databases built from many sources and thoroughly checked, practice shows that in almost every bibliographic source we will find name forms that are not recognized by these services, so these can be incorporated into our own database with some non-automated manual data refinement. The same procedure can be followed for individuals, but naturally using different services: VIAF (Virtual International Authority File),<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> the CERL Thesaurus personal name database, ISNI (International Standard Name Identifier),<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Wikidata.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> It is important to note that any given database will naturally contain many more personal names than geographical names, so the hit rate is likely to be lower. The world of concepts is much more diverse than that of geographical and personal names. Although there are universal conceptual dictionaries (knowledge organization systems), there is virtually no library catalog whose records contain only the concepts of a single dictionary. Instead of specific dictionaries, we recommend using the BARTOC service (Basic Register of Thesauri, Ontologies and Classification)<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> to find the dictionary that best suits your research questions. When discussing harmonization, it is essential to mention the categories of inaccurate, incomplete, subjective, and uncertain data.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> We have seen an example of inaccurate data and its handling in the case of dates. Incomplete data is when we do not know all the details, for example, not all authors of a work are listed, or there are gaps in the provenance history of an object. We can deduce some data, but it is very difficult to describe what does not exist. Subjective data refers to provenance, i.e., who made the statement in question. Such statements are often hypothetical and may even be contradictory. Finally, uncertain data is when the truthfulness of a statement is doubtful. An important part of the theories cited above is that the past is constructed, and the interpretation of sources also depends on the interpreter’s prior knowledge. Consequently, historical information systems must necessarily allow for the coexistence of contradictory interpretations, and instead of binary (true-false) logic, uncertainties could be described using probability values.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> For example, “Alexandre Dumas” (if no other information is available) could refer to either the father or the son (both writers)—the former being more likely, the value of which can be recorded in the database and used, for example, when sorting search results.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-koeserUndateHumanisticDates2025" class="csl-entry" role="listitem">
+Koeser, Rebecca Sutton, Julia Damerow, Robert Casties, and Cole Crawford. 2025. <span>“Undate: Humanistic Dates for Computation: <span>Because</span> Reality Is Frequently Inaccurate.”</span> <em>Computational Humanities Research</em> 1: e5. <a href="https://doi.org/10.1017/chr.2025.10006">https://doi.org/10.1017/chr.2025.10006</a>.
+</div>
+<div id="ref-marianiIntroducingVISUVagueness2023" class="csl-entry" role="listitem">
+Mariani, Fabio. 2023. <span>“Introducing <span>VISU</span>: <span>Vagueness</span>, <span>Incompleteness</span>, <span>Subjectivity</span>, and <span>Uncertainty</span> in <span>Art</span> <span>Provenance</span> <span>Data</span>.”</span> In <em>Proceedings of the <span>Workshop</span> on <span>Computational</span> <span>Methods</span> in the <span>Humanities</span> 2022</em>, Vol-3602:63–84. Workshop <span>Proceedings</span>. <a href="https://ceur-ws.org/Vol-3602/paper5.pdf">https://ceur-ws.org/Vol-3602/paper5.pdf</a>.
+</div>
+</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><span class="citation" data-cites="koeserUndateHumanisticDates2025">(<a href="references.html#ref-koeserUndateHumanisticDates2025" role="doc-biblioref">Koeser et al. 2025</a>)</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://data.cerl.org/thesaurus/">https://data.cerl.org/thesaurus/</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://www.getty.edu/research/tools/vocabularies/tgn/index.html">https://www.getty.edu/research/tools/vocabularies/tgn/index.html</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://geonames.org">https://geonames.org</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://viaf.org/">https://viaf.org/</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://isni.org/">https://isni.org/</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://wikidata.org">https://wikidata.org</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><a href="https://bartoc.org">https://bartoc.org</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p><span class="citation" data-cites="marianiIntroducingVISUVagueness2023">(<a href="references.html#ref-marianiIntroducingVISUVagueness2023" role="doc-biblioref">Mariani 2023</a>)</span><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Thaller, Manfred, On vagueness and uncertainty in historical data = Ivory Tower blog, 2020. <a href="https://ivorytower.hypotheses.org/88">https://ivorytower.hypotheses.org/88</a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
