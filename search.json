@@ -46,7 +46,18 @@
     "href": "ch3a.html",
     "title": "5  data acquisition",
     "section": "",
-    "text": "5.1 Download a file\nMain types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.\nWe download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided by the Latvian National Library’s Open Data Portal. The files are compressed with zip, so in order to use them we should extract them,\nAt the end of the process we will have a file raw-data/data/natl_bibliography-2014-2023-marc.xml, because the zip file contains a data directory. The file itself is in MARCXML format.",
+    "text": "5.1 Creating directories\nMain types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.\nIn this textbook we will work with different directories: - data: the data we created - raw-data: our original data sources downloaded from data providers’ sites - plots: the output of data visualization\nTo create them we should use the os Python library that provides standard operating system functions.\nThe code of this section is available at scripts/ch3a-create-directories.py of the repository.",
+    "crumbs": [
+      "The data analysis workflow",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>data acquisition</span>"
+    ]
+  },
+  {
+    "objectID": "ch3a.html#creating-directories",
+    "href": "ch3a.html#creating-directories",
+    "title": "5  data acquisition",
+    "section": "",
+    "text": "1import os\n\n2directories = ['data', 'raw-data', 'plots']\n\n3for directory in directories:\n4    if not os.path.exists(directory):\n5        os.makedirs(directory)\n\n1\n\nimport the os library\n\n2\n\ncreate a list with three strings, the names of the directories\n\n3\n\niterate of the directories one by one. In each iteration the name of the current directory will be stored in the variable directory\n\n4\n\ncheck if the directory does not exist. If it exists the script skips the directory and takes the next one. If it doesn’t exist, it continue with the next command\n\n5\n\ncreating the directory (due to the test in the previous line only if it doesn’t exist already)",
     "crumbs": [
       "The data analysis workflow",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>data acquisition</span>"
@@ -56,8 +67,8 @@
     "objectID": "ch3a.html#download-a-file",
     "href": "ch3a.html#download-a-file",
     "title": "5  data acquisition",
-    "section": "",
-    "text": "1import urllib.request\nimport zipfile\n\n2url = 'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip'\ntarget_dir = 'raw-data'\ntarget_file = target_dir + '/lnb-natl_bibliography-2014-2023-marc.zip'\n\n3urllib.request.urlretrieve(url, target_file)\n\n4with zipfile.ZipFile(target_file, 'r') as zip_ref:\n    zip_ref.extractall(target_dir)\n\n1\n\nImport the Python libraries: urllib for the download, and zipfile for uncompressing\n\n2\n\ncreating variables\n\n3\n\ncall the download function with two arguments: the URL of the data source and the target file in our system\n\n4\n\nuncompress the zip file to our target directory",
+    "section": "5.2 Download a file",
+    "text": "5.2 Download a file\nWe download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided by the Latvian National Library’s Open Data Portal. The files are compressed with zip, so in order to use them we should extract them,\n1import urllib.request\nimport zipfile\n\n2url = 'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip'\ntarget_dir = 'raw-data'\ntarget_file = target_dir + '/lnb-natl_bibliography-2014-2023-marc.zip'\n\n3urllib.request.urlretrieve(url, target_file)\n\n4with zipfile.ZipFile(target_file, 'r') as zip_ref:\n    zip_ref.extractall(target_dir)\n\n1\n\nImport the Python libraries: urllib for the download, and zipfile for uncompressing\n\n2\n\ncreating variables\n\n3\n\ncall the download function with two arguments: the URL of the data source and the target file in our system\n\n4\n\nuncompress the zip file to our target directory\n\n\nAt the end of the process we will have a file raw-data/data/natl_bibliography-2014-2023-marc.xml, because the zip file contains a data directory. The file itself is in MARCXML format.\nThe code of this section is available at scripts/ch3a-download-a-file.py of the repository.",
     "crumbs": [
       "The data analysis workflow",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>data acquisition</span>"

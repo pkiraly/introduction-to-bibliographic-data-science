@@ -254,7 +254,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#download-a-file" id="toc-download-a-file" class="nav-link active" data-scroll-target="#download-a-file"><span class="header-section-number">5.1</span> Download a file</a></li>
+  <li><a href="#creating-directories" id="toc-creating-directories" class="nav-link active" data-scroll-target="#creating-directories"><span class="header-section-number">5.1</span> Creating directories</a></li>
+  <li><a href="#download-a-file" id="toc-download-a-file" class="nav-link" data-scroll-target="#download-a-file"><span class="header-section-number">5.2</span> Download a file</a></li>
   </ul>
 </nav>
     </div>
@@ -281,39 +282,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.</p>
-<section id="download-a-file" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="download-a-file"><span class="header-section-number">5.1</span> Download a file</h2>
-<p>We download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided by the Latvian National Library’s <a href="https://dati.lnb.lv/">Open Data Portal</a>. The files are compressed with zip, so in order to use them we should extract them,</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
-<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
-<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip'</span></span>
-<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>target_dir <span class="op">=</span> <span class="st">'raw-data'</span></span>
-<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>target_file <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/lnb-natl_bibliography-2014-2023-marc.zip'</span></span>
-<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-8" class="code-annotation-target"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>urllib.request.urlretrieve(url, target_file)</span>
-<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-10" class="code-annotation-target"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(target_file, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
-<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>    zip_ref.extractall(target_dir)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="creating-directories" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="creating-directories"><span class="header-section-number">5.1</span> Creating directories</h2>
+<p>In this textbook we will work with different directories: - <code>data</code>: the data we created - <code>raw-data</code>: our original data sources downloaded from data providers’ sites - <code>plots</code>: the output of data visualization</p>
+<p>To create them we should use the <code>os</code> Python library that provides standard operating system functions.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>directories <span class="op">=</span> [<span class="st">'data'</span>, <span class="st">'raw-data'</span>, <span class="st">'plots'</span>]</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> directory <span class="kw">in</span> directories:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> os.path.exists(directory):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-1-7" class="code-annotation-target"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>        os.makedirs(directory)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="1,2" data-code-annotation="1">Import the Python libraries: <code>urllib</code> for the download, and <code>zipfile</code> for uncompressing</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">import the <code>os</code> library</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="4,5,6" data-code-annotation="2">creating variables</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="3" data-code-annotation="2">create a list with three strings, the names of the directories</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="8" data-code-annotation="3">call the download function with two arguments: the URL of the data source and the target file in our system</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="5" data-code-annotation="3">iterate of the directories one by one. In each iteration the name of the current directory will be stored in the variable <code>directory</code></span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="10" data-code-annotation="4">uncompress the zip file to our target directory</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="6" data-code-annotation="4">check if the directory does not exist. If it exists the script skips the directory and takes the next one. If it doesn’t exist, it continue with the next command</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="7" data-code-annotation="5">creating the directory (due to the test in the previous line only if it doesn’t exist already)</span>
+</dd>
+</dl>
+<p>The code of this section is available at <code>scripts/ch3a-create-directories.py</code> of the repository.</p>
+</section>
+<section id="download-a-file" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="download-a-file"><span class="header-section-number">5.2</span> Download a file</h2>
+<p>We download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided by the Latvian National Library’s <a href="https://dati.lnb.lv/">Open Data Portal</a>. The files are compressed with zip, so in order to use them we should extract them,</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-2"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-1" class="code-annotation-target"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
+<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip'</span></span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>target_dir <span class="op">=</span> <span class="st">'raw-data'</span></span>
+<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>target_file <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/lnb-natl_bibliography-2014-2023-marc.zip'</span></span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-2-8" class="code-annotation-target"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>urllib.request.urlretrieve(url, target_file)</span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-2-10" class="code-annotation-target"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(target_file, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a>    zip_ref.extractall(target_dir)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="1,2" data-code-annotation="1">Import the Python libraries: <code>urllib</code> for the download, and <code>zipfile</code> for uncompressing</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="4,5,6" data-code-annotation="2">creating variables</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="8" data-code-annotation="3">call the download function with two arguments: the URL of the data source and the target file in our system</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="10" data-code-annotation="4">uncompress the zip file to our target directory</span>
 </dd>
 </dl>
 <p>At the end of the process we will have a file <code>raw-data/data/natl_bibliography-2014-2023-marc.xml</code>, because the zip file contains a <code>data</code> directory. The file itself is in MARCXML format.</p>
+<p>The code of this section is available at <code>scripts/ch3a-download-a-file.py</code> of the repository.</p>
 
 
 </section>
