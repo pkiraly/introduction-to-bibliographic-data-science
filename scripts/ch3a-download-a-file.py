@@ -1,9 +1,11 @@
 import urllib.request
 import zipfile
 
-urllib.request.urlretrieve(
-    "https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip",
-    "raw-data/lnb-natl_bibliography-2014-2023-marc.zip")
+url = 'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip'
+target_dir = 'raw-data'
+target_file = target_dir + '/lnb-natl_bibliography-2014-2023-marc.zip'
 
-with zipfile.ZipFile('raw-data/lnb-natl_bibliography-2014-2023-marc.zip', 'r') as zip_ref:
-    zip_ref.extractall('raw-data')
+urllib.request.urlretrieve(url, target_file)
+
+with zipfile.ZipFile(target_file, 'r') as zip_ref:
+    zip_ref.extractall(target_dir)
