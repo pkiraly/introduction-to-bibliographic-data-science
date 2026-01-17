@@ -1,6 +1,15 @@
 # data acquisition {#sec-ch3a}
 
-Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.
+abstract: Main types of bibliographic data and data sources (library catalogs, citation databases, research data repositories, historical sources). Methods of data acquisition (standards, application programming interfaces, and tools), information about data structure (metadata schemas and serialization formats), terms of use.
+
+Digital data can be retrieved in three main methods. The most convenient option is for these to be available as downloadable files (e.g., as reusable research data), however this type of data sharing is relatively rare. It is more common for data sources to be accessed through some kind of application programming interface. Various applications are available for the most common interfaces (OAI-PMH, Z39.50, SRW/SRU, SPARQL), so programming is not necessarily required, but time must be set aside to study the institution-specific settings and parameters of the interfaces. Finally, it is often the case that no previous opportunity was available. At this point, we extract the data from the HTML source of the website, assuming that the typographical formatting consistently indicates certain semantic elements17 – but in this case, it is worth consulting with the website operator to see if there are any other options not documented on the site. Whichever solution you choose, make sure that the data license allows reuse. After downloading the data, the first step is to import it. Programming libraries supporting various bibliographic formats are available; for MARC21, for example, there are ones for Java, Python, Go, JavaScript, R, PHP, and other programming languages. In this textbook we will work with Python, but the code could be adapted to other programming languages.
+
+There are four main types of data sources for library history research: 
+
+1. library catalogs (e.g., national libraries or general purpose union catalogs, as well as catalogs of specifically old books, such as the VD16, VD17 and VD18 series that register 16th, 17th, and 18th century German books, their Italian counterpart EDIT16, and the Heritage of the Printed Book database), 
+2. digital library catalogs (Europeana, Gallica, German Digital Library, Hungarian Electronic Library, HathiTrust), 
+3. citation databases and research data repositories (DataCite, Zenodo, OpenAlex, Open Citation), and finally 
+4. databases of digitized (book) historical sources (the database of the Société Typographique de Neuchâtel, the database of 18th-century Dutch auction book catalogs MEDIATE, or the no defunct Eruditio in Hungary).
 
 ## Creating directories
 
@@ -32,13 +41,16 @@ The code of this section is available at `scripts/ch3a-create-directories.py` of
 
 ## Download a file
 
-We download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided
-by the Latvian National Library's [Open Data Portal](https://dati.lnb.lv/). 
-The files are compressed with zip, so in order to use them we should extract them,
+You can find a list of downloadable library catalogues [ḣere](https://github.com/pkiraly/qa-catalogue#datasources). 
+Now download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided
+by the [Open Data Portal](https://dati.lnb.lv/) of the National Library of Latvia. 
+The files are compressed with zip, so in order to use them we should extract them, and
+because the zip file contains a `data` subdirectory, we rename that to `lnb` (after the domain name of the National Library of Latvia).
 
 ```python
 import urllib.request                         # <1>
 import zipfile                                # <1>
+import os                                     # <1>
 
 url = 'https://dati.lnb.lv/files/natl_bibliography-2014-2023-marc.zip' # <2>
 target_dir = 'raw-data'                                                # <2>
@@ -48,14 +60,17 @@ urllib.request.urlretrieve(url, target_file)  # <3>
 
 with zipfile.ZipFile(target_file, 'r') as zip_ref: # <4>
     zip_ref.extractall(target_dir)
+
+os.rename(target_dir + '/data', target_dir + '/lnb') # <5>
 ```
 
 1. Import the Python libraries: `urllib` for the download, and `zipfile` for uncompressing
 2. creating variables
 3. call the download function with two arguments: the URL of the data source and the target file in our system
 4. uncompress the zip file to our target directory
+5. rename the `data` subdirectory (comes inside the zip file) to `lnb`
 
-At the end of the process we will have a file `raw-data/data/natl_bibliography-2014-2023-marc.xml`,
-because the zip file contains a `data` directory. The file itself is in MARCXML format.
+At the end of the process we will have a file `raw-data/lnb/natl_bibliography-2014-2023-marc.xml`, a set
+of MARC21 record in MARCXML serialization format, that is MARC21 in XML. 
 
 The code of this section is available at `scripts/ch3a-download-a-file.py` of the repository.
