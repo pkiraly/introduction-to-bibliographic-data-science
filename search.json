@@ -101,7 +101,7 @@
     "href": "ch3c.html",
     "title": "7  preprocessing",
     "section": "",
-    "text": "File formats, data structures, conversion, and data loss control.",
+    "text": "abstract: File formats, data structures, conversion, and data loss control.\nDuring preprocessing, we convert the imported files into a data structure that is more suitable for processing with standard data analysis methods (in Python, the most common is Pandas, and in R, it is the Tibble “data frame”). It may happen that we do not transform all data, but only certain records (for example, only 17th-century books from a national bibliography) or certain data elements (for example, we omit library identifiers and other administrative data elements).",
     "crumbs": [
       "The data analysis workflow",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>preprocessing</span>"
