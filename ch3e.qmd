@@ -1,4 +1,11 @@
 # data analysis {#sec-ch3e}
 
-data analysis and data visualization with programming (Python, R) and specialized tools.
+abstract: data analysis and data visualization with programming (Python, R) and specialized tools.
 
+The most spectacular phase of the work process is data analysis.[^1] Here, the researcher translates his or her own research questions into the operations offered by the tools used. Two types of data are used in the analyses: on the one hand, the original or enriched data available after data harmonization (title, place of publication, language, number of pages), and on the other hand, calculated data based on their analysis (including font type and size, amount of paper used to produce the form, number of words, number of printed words per capita). Data analysis methods are not unique to bibliographic data science; they are general methods for which general and (to a lesser extent) specialized data science teaching materials in the humanities[^2] are available, as well as textbooks on quantitative history.[^3] The curriculum cannot, of course, cover every conceivable data science technique, but it should use examples to introduce the most common procedures used in the history of the discipline (the basics of statistics, time series analysis, data visualization including map representation, text analysis, network analysis).
+
+[^1]: see, among other things, the literature cited in connection with the research questions.
+
+[^2]: [@karsdorpHumanitiesDataAnalysis2021]; [@klinkeCulturalDataScience2025]; [@arnoldHumanitiesDataExploring2024]; [@batorfyAdatvizualizacioElmeletRendszer2024]; and the Programming Historian site: [https://programminghistorian.org](https://programminghistorian.org).
+
+[^3]: [@lemercierQuantitativeMethodsHumanities2019]; [@feinsteinMakingHistoryCount2008]; [@hudsonHistoryNumbersIntroduction2017].

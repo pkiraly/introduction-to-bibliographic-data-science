@@ -2,9 +2,9 @@
 
 Just as there is no teaching material specifically focused on digital book history, there are no books on this subject either. Once again, we can only recommend books on related topics.
 
-* Gavin, Michael. 2023. _Literary Mathematics: Quantitative Theory for Textual Studies._ Stanford University Press. ISBN 978-1-5036-3282-0 (Stanford Text Technologies.)
 * Arnold, Taylor, and Lauren Tilton. 2015. _Humanities Data in R: Exploring Networks, Geospatial Data, Images, and Text._ Springer International Publishing. ISBN 978-3-319-20702-5 (Quantitative Methods in the Humanities and Social Sciences)
 * Bilbro, Rebecca, Tony Ojeda, and Benjamin Bengfort. 2018. _Applied Text Analysis with Python._ 1st edition. O’Reilly Media, Inc. ISBN 978-1-4919-6303-6
+* Gavin, Michael. 2023. _Literary Mathematics: Quantitative Theory for Textual Studies._ Stanford University Press. ISBN 978-1-5036-3282-0 (Stanford Text Technologies.)
 * Gonzales, Brighid M. 2020. _Systems Librarianship: A Practical Guide for Librarians._ Bloomsbury Publishing. ISBN 979-8-8818-7951-8 (Practical Guides for Librarians)
 * Gooding, Paul, Melissa M. Terras, and Sarah Ames, eds. 2025. _Library Catalogues as Data: Research, Practice and Usage._ Facet Publishing. ISBN 978-1-78330-658-9
 * Klinke, Harald. 2025. _Cultural Data Science: An Introduction to R._ Springer Nature Switzerland. ISBN 978-3-031-88130-5. (Quantitative Methods in the Humanities and Social Sciences)
