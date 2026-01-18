@@ -5,14 +5,15 @@ Bibliographic data science is a relatively new interdisciplinary field of resear
 - What was the spatial distribution and prosopography of 17th-century German legal dissertations? [@hessbruggen-walterEarlyModernDissertations2025]
 - What degree of interdisciplinarity can be observed based on the metadata of philosophical dissertations? [@hessbruggen-walterInterdisciplinarity17thCentury2024]
 - How did the format and language of books change over time in different regions? [@lahtiBibliographicDataScience2019]
-- What are the patterns of translations from a given language, how have they changed, and which languages were super-central, central, and peripheral in a given era?6
-- What impact do publishers have on fiction?7
+- What are the patterns of translations from a given language, how have they changed, and which languages were super-central, central, and peripheral in a given era? [@heilbronSociologyTranslationBook1999]
+- What impact do publishers have on fiction? [@bourdieuConservativeRevolutionPublishing2008]
 - What were the profiles of the various book collections?
-- Is there a correlation between the genre and format of the book?8
-- How have genre proportions changed?9
-- How many early modern publications could have been destroyed without a trace?10
-- How can the reception of works be examined using bibliographic data?11
-- What is the quality of cultural heritage data, and what improvement strategies can be developed?12
-- How do cultural heritage data, data structures, and standards help (or hinder) answering the above questions? What development opportunities does the research suggest for cultural heritage data standards?13
+- Is there a correlation between the genre and format of the book? [@lahtiBibliographicDataScience2019]
+- How have genre proportions changed? [@kiralyMorJokaiAlas2025]
+- How many early modern publications could have been destroyed without a trace? [@farkasRegiMagyarorszagiKiadvanyok2025]
+- How can the reception of works be examined using bibliographic data? [@szemesVisegradiOrszagokDigitalis2025]
+- What is the quality of cultural heritage data, and what improvement strategies can be developed? [@kiralyMeasuringMetadataQuality2019]
+- How do cultural heritage data, data structures, and standards help (or hinder) answering the above questions? What development opportunities does the research suggest for cultural heritage data standards? [@kiralyEffectsOpenScience2025]
 
 Although digital humanities education has developed dynamically in recent years, computer-based analysis of bibliographic sources is unfortunately rarely featured, and similarly absent from library science and IT education. In my opinion, this gap could be remedied by a new informal vocational training program that would appeal to those who are interested in some of the above issues and who already have some knowledge in one of the relevant fields (e.g., library science, cultural history, literary sociology, information technology). The analysis of records based on library bibliographic standards would probably also be of interest in library training. The training may take the form of a summer university or a seminar/course jointly organized by several university departments. Participants in the training could be university students or practicing professionals.
+
