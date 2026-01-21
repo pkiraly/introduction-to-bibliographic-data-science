@@ -57,7 +57,7 @@ available by default in Linux and Mac machines. For Windows you can install it v
 
 1. Open command line or PowerShell and enter:
 
-```
+```PowerShell
 wsl --install -d Ubuntu
 wsl --set-default-version 2
 wsl --set-default ubuntu
@@ -65,7 +65,7 @@ wsl --set-default ubuntu
 
 2. in Windows search enter Ubuntu and click on the Ubuntu icon, or in command line/PowerShell enter
 
-```
+```PowerShell
 ubuntu
 ```
 
