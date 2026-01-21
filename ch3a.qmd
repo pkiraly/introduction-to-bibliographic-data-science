@@ -83,12 +83,14 @@ definition of the database structure (the properties of tables and columns), and
 The dump files can be imported to the database. In this section we will import the following
 database:
 
-    Simon Burrows and Mark Curran, The French Book Trade in Enlightenment Europe Database, 1769-1794
-    (https://fbtee.westernsydney.edu.au/stn/interface/, 6 May 2014)
+> Simon Burrows and Mark Curran, The French Book Trade in Enlightenment Europe Database, 
+> 1769-1794 ([https://fbtee.westernsydney.edu.au/stn/interface/](https://fbtee.westernsydney.edu.au/stn/interface/), 6 May 2014)
 
 It maps the trade of the Société Typographique de Neuchâtel, 1769-1794, and based on the almost 
 intactly survided archive of the alliance of the printers at Neuchâtel (Switzerland). The database 
-(henceforth _FBTEE_) could be imported into MySQL or its Open Source form MariaDB.
+(henceforth _FBTEE_) could be imported into MySQL or its Open Source form MariaDB. the
+database is downloadable from
+[https://fbtee.westernsydney.edu.au/main/download-database/](https://fbtee.westernsydney.edu.au/main/download-database/).
 
 As now we would like to download another file we might choose to copy the previous script, and replace the
 variables `url` and `target_file` with another one, but it would duplicate the usiness logic of the script.
@@ -97,6 +99,68 @@ that we should avoid from code repetition, or other words: the code should be re
 two (or more) specialized scripts that repeat the actual download and uncompressin part, we will create
 a function, that will be used by these scripts.
 
+First we will create a utility script that will contain functions we can use in the course. It will
+be called bdsutils (short for Bibliographic Data Science utilities). This is the 
 
+```python
+import urllib.request
+import zipfile
 
-https://fbtee.uws.edu.au/stn/database/download/STN_database.zip
+target_dir = 'raw-data'                     # <1>
+
+def download_and_unzip(url, target_file):   # <2>
+    """                                     # <3>
+    Download a zip file, and uncompress it  # <3>
+    
+    Parameters                              # <3>
+    ----------                              # <3>
+    url : str                               # <3>
+        The URL of the zip file to download # <3>
+    sound : str                             # <3>
+        The local file name                 # <3>
+    """                                     # <3>
+
+    urllib.request.urlretrieve(url, target_file)
+
+    with zipfile.ZipFile(target_file, 'r') as zip_ref:
+        zip_ref.extractall(target_dir)
+```
+
+1. the script keeps only one variable `target_dir`, that will remane the same accross calls
+2. the definition of the method
+3. the documentation of the method
+
+:::{.callout-important}
+TODO: The code should be explained more!
+:::
+
+The file is available in the repository as `scripts/bdsutils.py`.
+
+Once we have this utility script, we can create the specific one for _FBTEE_. This zip file 
+does not contain directories, only a single file _chop_leeds_ac_uk.sql_. 
+
+```python
+from bdsutils import target_dir, download_and_unzip # <1>
+import os
+
+url = 'https://fbtee.uws.edu.au/stn/database/download/STN_database.zip' # <2>
+target_file = target_dir + '/stn_database.zip'
+
+download_and_unzip(url, target_file) # <3>
+
+directory = target_dir + '/fbtee'
+if not os.path.exists(directory): # <4>
+    os.mkdir(directory)
+
+os.rename(target_dir + '/chop_leeds_ac_uk.sql', # <5>
+          directory + '/chop_leeds_ac_uk.sql')
+```
+
+1. import both the variable and the function from bdsutils (we should not add the `.py` extension). 
+   This way we should not use the prefix bdsutils for these components (such as `bdsutils.target_dir`)
+2. the definition of the _FBTEE_ specific variables
+3. usage of the method defined in bdsutils
+4. create a dedicated directory for the database if it doesn't already exist
+5. move the file to this directory
+
+The file is available in the repository as `scripts/ch3a-download-stn.py`.
