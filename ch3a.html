@@ -285,7 +285,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#creating-directories" id="toc-creating-directories" class="nav-link active" data-scroll-target="#creating-directories"><span class="header-section-number">5.1</span> Creating directories</a></li>
   <li><a href="#download-a-marcxml-file" id="toc-download-a-marcxml-file" class="nav-link" data-scroll-target="#download-a-marcxml-file"><span class="header-section-number">5.2</span> Download a MARCXML file</a></li>
-  <li><a href="#download-an-sql-file" id="toc-download-an-sql-file" class="nav-link" data-scroll-target="#download-an-sql-file"><span class="header-section-number">5.3</span> Download an SQL file</a></li>
+  <li><a href="#download-an-sql-file" id="toc-download-an-sql-file" class="nav-link" data-scroll-target="#download-an-sql-file"><span class="header-section-number">5.3</span> Download an SQL file</a>
+  <ul class="collapse">
+  <li><a href="#import-btee-to-the-database" id="toc-import-btee-to-the-database" class="nav-link" data-scroll-target="#import-btee-to-the-database"><span class="header-section-number">5.3.1</span> import BTEE to the database</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -494,9 +497,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span data-code-cell="annotated-cell-4" data-code-lines="13" data-code-annotation="5">move the file to this directory</span>
 </dd>
 </dl>
+<p>If you run it, you will have two files: - raw-data/fbtee/chop_leeds_ac_uk.sql - raw-data/stn_database.zip</p>
 <p>The file is available in the repository as <code>scripts/ch3a-download-stn.py</code>.</p>
+<section id="import-btee-to-the-database" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="import-btee-to-the-database"><span class="header-section-number">5.3.1</span> import BTEE to the database</h3>
+<p>Importing a datadump into MySQL or MariaDB is a two step process. First you should create the database itself with permissions (for security reason it is advisable to create a dedicated user as well and not to use the default database user), then you can import the data.</p>
+<p>Step 1. Prepare the database</p>
+<p>Log in to MySQL, then create the database <code>fbtee</code> and a dedicated user (replace <code>&lt;username&gt;</code> and <code>&lt;password&gt;</code> with your choosen credentials):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> fbtee;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="fu">USER</span> <span class="st">'&lt;username&gt;'</span>@<span class="st">'localhost'</span> <span class="kw">IDENTIFIED</span> <span class="kw">BY</span> <span class="st">'&lt;password&gt;'</span>;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">ALL</span> <span class="kw">PRIVILEGES</span> <span class="kw">ON</span> fbtee.<span class="op">*</span> <span class="kw">TO</span> <span class="st">'&lt;username&gt;'</span>@<span class="st">'localhost'</span> <span class="kw">WITH</span> <span class="kw">GRANT</span> <span class="kw">OPTION</span>;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FLUSH</span> <span class="kw">PRIVILEGES</span>;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note: you can choose any name for the database, this material will use <code>fbtee</code>.</p>
+<p>Step 2. Import the data dump</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee <span class="op">&lt;</span> raw-data/fbtee/chop_leeds_ac_uk.sql</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This command will ask for the password. Use the same credentials you set in Step 1. If you did not get any error message, you can check the database structure. Log in again with the dedicated credentials:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The you can check the list of tables with</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>SHOW <span class="kw">TABLES</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>or the structure of the <code>books</code> table with</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>DESCRIBE books;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
