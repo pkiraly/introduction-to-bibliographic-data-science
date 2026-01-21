@@ -17,3 +17,59 @@ Bibliographic data science is a relatively new interdisciplinary field of resear
 
 Although digital humanities education has developed dynamically in recent years, computer-based analysis of bibliographic sources is unfortunately rarely featured, and similarly absent from library science and IT education. In my opinion, this gap could be remedied by a new informal vocational training program that would appeal to those who are interested in some of the above issues and who already have some knowledge in one of the relevant fields (e.g., library science, cultural history, literary sociology, information technology). The analysis of records based on library bibliographic standards would probably also be of interest in library training. The training may take the form of a summer university or a seminar/course jointly organized by several university departments. Participants in the training could be university students or practicing professionals.
 
+## Preparation
+
+In this book we use the Python programming language. You should have a basic knowledge of the 
+language and should know how to install it on your machine. In order to separate our environment
+from already installed Python modules, we use a virtual environment. To create it run the following:
+
+```bash
+python -m venv venv
+```
+
+When you run the code in the book, you should first activate this virtual environment:
+
+```bash
+source venv/bin/activate
+```
+
+... and when you finish the session, you should deactivate it:
+
+```bash
+deactivate
+```
+
+When we talk about installing a module you should do it within this environment, then you can use the 
+standard Python module installation method:
+
+```bash
+venv/bin/pip install pandas
+```
+
+We provide a list of modules used in this book, you can install them in a single step as:
+
+```bash
+venv/bin/pip install -r requirements.txt
+```
+
+Some of the code examples run in the command line and written in bash, that is 
+available by default in Linux and Mac machines. For Windows you can install it via WLS.
+
+1. Open command line or PowerShell and enter:
+
+```
+wsl --install -d Ubuntu
+wsl --set-default-version 2
+wsl --set-default ubuntu
+```
+
+2. in Windows search enter Ubuntu and click on the Ubuntu icon, or in command line/PowerShell enter
+
+```
+ubuntu
+```
+
+When you enter this virtual Ubuntu the first time, you should give a user name (which might be the same or different as your Windows user name), and a password.
+
+You can find more details and troubleshooting in the following documentation page: 
+[WSL Installation](https://learn.microsoft.com/en-us/windows/wsl/install)

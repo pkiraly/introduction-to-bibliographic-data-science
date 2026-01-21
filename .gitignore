@@ -11,3 +11,5 @@ Exported Items.bib
 /plots/
 /data/
 /scripts/__pycache__/
+# Python virtual environment directory
+/venv/

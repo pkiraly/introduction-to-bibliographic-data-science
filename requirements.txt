@@ -1,0 +1,5 @@
+pandas==2.3.3
+pyarrow==23.0.0
+# polar=0.0.127
+polars==1.37.1
+pymarc==5.3.1
