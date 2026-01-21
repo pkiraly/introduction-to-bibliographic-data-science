@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -263,8 +298,14 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#preparation" id="toc-preparation" class="nav-link active" data-scroll-target="#preparation"><span class="header-section-number">1.1</span> Preparation</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -304,6 +345,31 @@ div.csl-indent {
 <li>How do cultural heritage data, data structures, and standards help (or hinder) answering the above questions? What development opportunities does the research suggest for cultural heritage data standards? <span class="citation" data-cites="kiralyEffectsOpenScience2025">(<a href="references.html#ref-kiralyEffectsOpenScience2025" role="doc-biblioref">Király et al. 2025</a>)</span></li>
 </ul>
 <p>Although digital humanities education has developed dynamically in recent years, computer-based analysis of bibliographic sources is unfortunately rarely featured, and similarly absent from library science and IT education. In my opinion, this gap could be remedied by a new informal vocational training program that would appeal to those who are interested in some of the above issues and who already have some knowledge in one of the relevant fields (e.g., library science, cultural history, literary sociology, information technology). The analysis of records based on library bibliographic standards would probably also be of interest in library training. The training may take the form of a summer university or a seminar/course jointly organized by several university departments. Participants in the training could be university students or practicing professionals.</p>
+<section id="preparation" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">1.1</span> Preparation</h2>
+<p>In this book we use the Python programming language. You should have a basic knowledge of the language and should know how to install it on your machine. In order to separate our environment from already installed Python modules, we use a virtual environment. To create it run the following:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv venv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When you run the code in the book, you should first activate this virtual environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> venv/bin/activate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>… and when you finish the session, you should deactivate it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deactivate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When we talk about installing a module you should do it within this environment, then you can use the standard Python module installation method:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">venv/bin/pip</span> install pandas</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We provide a list of modules used in this book, you can install them in a single step as:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">venv/bin/pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Some of the code examples run in the command line and written in bash, that is available by default in Linux and Mac machines. For Windows you can install it via WLS.</p>
+<ol type="1">
+<li>Open command line or PowerShell and enter:</li>
+</ol>
+<pre><code>wsl --install -d Ubuntu
+wsl --set-default-version 2
+wsl --set-default ubuntu</code></pre>
+<ol start="2" type="1">
+<li>in Windows search enter Ubuntu and click on the Ubuntu icon, or in command line/PowerShell enter</li>
+</ol>
+<pre><code>ubuntu</code></pre>
+<p>When you enter this virtual Ubuntu the first time, you should give a user name (which might be the same or different as your Windows user name), and a password.</p>
+<p>You can find more details and troubleshooting in the following documentation page: <a href="https://learn.microsoft.com/en-us/windows/wsl/install">WSL Installation</a></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -338,6 +404,7 @@ Lahti, Leo, Jani Marjanen, Hege Roivainen, and Mikko Tolonen. 2019. <span>“Bib
 Szemes, Botond, and Kata Dobás. 2025. <span>“A Visegrádi Országok Digitális Irodalmi Emlékezete : <span>Wikipedia</span>, <span>Wikidata</span> – a Regionális Irodalomtörténet Új Alakzatai.”</span> <em>Irodalomtörténeti Közlemények</em> 129 (2): 191–212. <a href="https://doi.org/10.56232/itk.2025.2.04">https://doi.org/10.56232/itk.2025.2.04</a>.
 </div>
 </div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
