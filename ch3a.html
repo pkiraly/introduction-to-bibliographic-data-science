@@ -517,8 +517,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The you can check the list of tables with</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>SHOW <span class="kw">TABLES</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>that returns</p>
+<pre><code>+-------------------------------------+
+| Tables_in_fbtee                     |
++-------------------------------------+
+| authors                             |
+| books                               |
+| books_authors                       |
+| books_call_numbers                  |
+| books_stn_catalogues                |
+| clients                             |
+| clients_addresses                   |
+| clients_correspondence_manuscripts  |
+| clients_correspondence_places       |
+| clients_people                      |
+| clients_professions                 |
+| keyword_assignments                 |
+| keyword_free_associations           |
+| keyword_tree_associations           |
+| keywords                            |
+| orders                              |
+| orders_agents                       |
+| orders_sent_via                     |
+| orders_sent_via_place               |
+| parisian_keywords                   |
+| parisian_system_keyword_assignments |
+| people                              |
+| people_professions                  |
+| places                              |
+| professions                         |
+| super_books                         |
+| super_books_keywords                |
+| tags                                |
+| transactions                        |
+| transactions_volumes_exchanged      |
++-------------------------------------+
+30 rows in set (0,001 sec)</code></pre>
 <p>or the structure of the <code>books</code> table with</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>DESCRIBE books;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>DESCRIBE books;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The result:</p>
+<pre><code>+---------------------------+---------------+------+-----+---------+-------+
+| Field                     | Type          | Null | Key | Default | Extra |
++---------------------------+---------------+------+-----+---------+-------+
+| book_code                 | char(9)       | NO   | PRI | NULL    |       |
+| super_book_code           | char(11)      | NO   |     | NULL    |       |
+| edition_status            | varchar(15)   | NO   |     | NULL    |       |
+| edition_type              | varchar(50)   | NO   |     | NULL    |       |
+| full_book_title           | varchar(750)  | YES  | MUL | NULL    |       |
+| short_book_titles         | varchar(1000) | YES  |     | NULL    |       |
+| translated_title          | varchar(750)  | YES  |     | NULL    |       |
+| translated_language       | varchar(50)   | YES  | MUL | NULL    |       |
+| languages                 | varchar(200)  | YES  | MUL | NULL    |       |
+| stated_publishers         | varchar(1000) | YES  | MUL | NULL    |       |
+| actual_publishers         | varchar(1000) | YES  |     | NULL    |       |
+| stated_publication_places | varchar(1000) | YES  |     | NULL    |       |
+| actual_publication_places | varchar(1000) | YES  |     | NULL    |       |
+| stated_publication_years  | varchar(1000) | YES  |     | NULL    |       |
+| actual_publication_years  | varchar(10)   | YES  |     | NULL    |       |
+| pages                     | varchar(250)  | YES  |     | NULL    |       |
+| quick_pages               | varchar(10)   | YES  |     | NULL    |       |
+| number_of_volumes         | int(11)       | YES  |     | NULL    |       |
+| section                   | varchar(10)   | YES  |     | NULL    |       |
+| edition                   | varchar(100)  | YES  |     | NULL    |       |
+| book_sheets               | varchar(200)  | YES  |     | NULL    |       |
+| notes                     | varchar(4000) | YES  |     | NULL    |       |
+| research_notes            | varchar(1000) | YES  |     | NULL    |       |
++---------------------------+---------------+------+-----+---------+-------+
+23 rows in set (0,001 sec)</code></pre>
+<p>This material is not intend to provide introduction to SQL, if you are interested, we can suggest the Library Carpentry’s <a href="https://librarycarpentry.github.io/lc-sql/">SQL lesson</a>.</p>
 
 
 </section>
