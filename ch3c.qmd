@@ -4,3 +4,38 @@ abstract: File formats, data structures, conversion, and data loss control.
 
 During preprocessing, we convert the imported files into a data structure that is more suitable for processing with standard data analysis methods (in Python, the most common is Pandas, and in R, it is the Tibble "data frame"). It may happen that we do not transform all data, but only certain records (for example, only 17th-century books from a national bibliography) or certain data elements (for example, we omit library identifiers and other administrative data elements).
 
+## Creating data frame from Parquet file
+
+[Apache Parquet](https://parquet.apache.org/) files can be read with the Pandas, but it needs an 
+extra module that understands the format. We will use [PyArrow module](https://arrow.apache.org/docs/python/index.html) (version 23.0.0) that provides a Python API of Apache Arrow. You have to install it by
+
+```bash
+pip install pyarrow
+```
+
+Reading a parquet file is very similar to reading CSV:
+
+```python
+import pandas as pd
+
+parquet_file = 'raw-data/lnb/natl_bibliography-2014-2023-marc.parquet'
+df = pd.read_parquet(parquet_file, engine='auto')
+```
+
+The result is a normal data frame, all functionalities work, such as counting the number of columns and rows:
+
+```python
+print(df.shape)
+```
+
+the list of columns:
+
+```python
+print(df.columns)
+```
+
+displaying the first rows:
+
+```python
+print(df.head())
+```
