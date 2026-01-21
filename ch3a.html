@@ -284,7 +284,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#creating-directories" id="toc-creating-directories" class="nav-link active" data-scroll-target="#creating-directories"><span class="header-section-number">5.1</span> Creating directories</a></li>
-  <li><a href="#download-a-file" id="toc-download-a-file" class="nav-link" data-scroll-target="#download-a-file"><span class="header-section-number">5.2</span> Download a file</a></li>
+  <li><a href="#download-a-marcxml-file" id="toc-download-a-marcxml-file" class="nav-link" data-scroll-target="#download-a-marcxml-file"><span class="header-section-number">5.2</span> Download a MARCXML file</a></li>
+  <li><a href="#download-an-sql-file" id="toc-download-an-sql-file" class="nav-link" data-scroll-target="#download-an-sql-file"><span class="header-section-number">5.3</span> Download an SQL file</a></li>
   </ul>
 </nav>
     </div>
@@ -359,8 +360,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dl>
 <p>The code of this section is available at <code>scripts/ch3a-create-directories.py</code> of the repository.</p>
 </section>
-<section id="download-a-file" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="download-a-file"><span class="header-section-number">5.2</span> Download a file</h2>
+<section id="download-a-marcxml-file" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="download-a-marcxml-file"><span class="header-section-number">5.2</span> Download a MARCXML file</h2>
 <p>You can find a list of downloadable library catalogues <a href="https://github.com/pkiraly/qa-catalogue#datasources">ḣere</a>. Now download a relatively small file with MARC records of the Latvian National Bibliography (2014-2023) provided by the <a href="https://dati.lnb.lv/">Open Data Portal</a> of the National Library of Latvia. The files are compressed with zip, so in order to use them we should extract them, and because the zip file contains a <code>data</code> subdirectory, we rename that to <code>lnb</code> (after the domain name of the National Library of Latvia).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-2"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-1" class="code-annotation-target"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
 <span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
@@ -400,6 +401,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dl>
 <p>At the end of the process we will have a file <code>raw-data/lnb/natl_bibliography-2014-2023-marc.xml</code>, a set of MARC21 record in MARCXML serialization format, that is MARC21 in XML.</p>
 <p>The code of this section is available at <code>scripts/ch3a-download-a-file.py</code> of the repository.</p>
+</section>
+<section id="download-an-sql-file" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="download-an-sql-file"><span class="header-section-number">5.3</span> Download an SQL file</h2>
+<p>Some bibliographic data sources are available as a relational database. These databases are distributed as so called <code>SQL dump</code>, a non binary text based file, that contains both the definition of the database structure (the properties of tables and columns), and the values. The dump files can be imported to the database. In this section we will import the following database:</p>
+<pre><code>Simon Burrows and Mark Curran, The French Book Trade in Enlightenment Europe Database, 1769-1794
+(https://fbtee.westernsydney.edu.au/stn/interface/, 6 May 2014)</code></pre>
+<p>It maps the trade of the Société Typographique de Neuchâtel, 1769-1794, and based on the almost intactly survided archive of the alliance of the printers at Neuchâtel (Switzerland). The database (henceforth <em>FBTEE</em>) could be imported into MySQL or its Open Source form MariaDB.</p>
+<p>As now we would like to download another file we might choose to copy the previous script, and replace the variables <code>url</code> and <code>target_file</code> with another one, but it would duplicate the usiness logic of the script. In software development there is a principle <em>Don’t Repeat Yourself</em> abbreviated as <em>DRY</em>. It suggest that we should avoid from code repetition, or other words: the code should be reusable, Instead of writing two (or more) specialized scripts that repeat the actual download and uncompressin part, we will create a function, that will be used by these scripts.</p>
+<p>https://fbtee.uws.edu.au/stn/database/download/STN_database.zip</p>
 
 
 </section>
