@@ -163,4 +163,56 @@ os.rename(target_dir + '/chop_leeds_ac_uk.sql', # <5>
 4. create a dedicated directory for the database if it doesn't already exist
 5. move the file to this directory
 
+If you run it, you will have two files:
+- raw-data/fbtee/chop_leeds_ac_uk.sql
+- raw-data/stn_database.zip
+
 The file is available in the repository as `scripts/ch3a-download-stn.py`.
+
+### import BTEE to the database
+
+Importing a datadump into MySQL or MariaDB is a two step process. First you should create the database 
+itself with permissions (for security reason it is advisable to create a dedicated user as well and 
+not to use the default database user), then you can import the data.
+
+Step 1. Prepare the database
+
+Log in to MySQL, then create the database `fbtee` and a dedicated user (replace `<username>` and `<password>`
+with your choosen credentials):
+
+```SQL
+CREATE DATABASE fbtee;
+
+CREATE USER '<username>'@'localhost' IDENTIFIED BY '<password>';
+GRANT ALL PRIVILEGES ON fbtee.* TO '<username>'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+quit
+```
+
+Note: you can choose any name for the database, this material will use `fbtee`.
+
+Step 2. Import the data dump
+
+```bash
+mysql -u <username> -p fbtee < raw-data/fbtee/chop_leeds_ac_uk.sql
+```
+
+This command will ask for the password. Use the same credentials you set in Step 1. If you did not 
+get any error message, you can check the database structure. Log in again with the
+dedicated credentials:
+
+```bash
+mysql -u <username> -p fbtee
+```
+
+The you can check the list of tables with
+
+```SQL
+SHOW TABLES;
+```
+
+or the structure of the `books` table with
+
+```SQL
+DESCRIBE books;
+```
