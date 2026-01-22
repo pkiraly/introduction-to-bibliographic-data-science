@@ -101,60 +101,143 @@ The pagination is implemented by a distinct XML element called `resumptionToken`
 client should use in the next call. Its value can change from call to call, so the client always
 have to extract is. In the above links you can find more detailed information and examples.
 
-There are different implementations of a OAI-PMH clients in Python, we use [Mathias Loesch](https://github.com/mloesch)'s [Sickle](https://github.com/mloesch/sickle) module (version 0.7.0).
+There are different implementations of a OAI-PMH clients in Python, we use 
+[Mathias Loesch](https://github.com/mloesch)'s [Sickle](https://github.com/mloesch/sickle) 
+module (version 0.7.0) to retrieve the Estonian National Bibliography from the 
+[DataLab](https://digilab.rara.ee/en/), the data sharing platform of the Estonian National Library.
+At the time of writing it returns somewhat almost 410 000 MARCXML records. We save them
+into local files each containing 100 000 records.
+As OAI-PMH is based on XML technology we use [lxml](https://lxml.de/) 
+module (version 6.0.0), a lightweight XML and HTML processing toolbox.
 
 ```python
 import io
 import sys
+import os
 from lxml import etree
 from sickle import Sickle
 
-if len(sys.argv) == 1:
+if len(sys.argv) == 1:                                  # <1>
     print('Please give a directory name')
     exit()
-dir = sys.argv[1]
+dir = sys.argv[1]                                       # <2>
+if not os.path.exists(dir):
+    os.mkdir(dir)
 print('saving to %s' % (dir))
 
-namespaces = {
+namespaces = {                                          # <3>
     'oai': 'http://www.openarchives.org/OAI/2.0/',
     'marc21': 'http://www.loc.gov/MARC21/slim'
 }
 
-def write_output(output, i, dir):
-    """Writes MARC records to file"""
-    file_name = "%s/%06d.xml" % (dir, i)
+header = '<?xml version="1.0" encoding="utf8"?>' + "\n" \ # <4>
+       + '<collection>' + "\n"
+footer = '</collection>'
+
+def write_output(xmlrecords, file_counter, dir_name):           # <5>
+    """
+    Writes MARC records to file
+    Parameters                              
+    ----------
+    xmlrecords : list
+        A list of string contains the individual MARCXML records
+    file_counter : int
+        A file name counter
+    dir_name : int
+        The name of the output directory
+    """
+    file_name = "%s/%06d.xml" % (dir_name, counter)
     print(file_name)
     with io.open(file_name, 'w', encoding='utf8') as f:
         f.write(header)
-        f.write("\n".join(output) + "\n")
+        f.write("\n".join(xmlrecords) + "\n")
         f.write(footer)
 
-sickle = Sickle('https://data.digar.ee/repox/OAIHandler', max_retries=4)
+sickle = Sickle('https://data.digar.ee/repox/OAIHandler', max_retries=4) # <6>
 
-header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<collection>' + "\n"
-footer = '</collection>'
+xmlrecords = []                                                  # <7>
+file_counter = 0
+record_counter = 0
 
-output = []
-i = 0
-record_count = 0
-it = sickle.ListRecords(metadataPrefix='marc21xml', set='erb')
-for record in it:
-    tree = etree.ElementTree(record.xml)
-    token = tree.xpath('/resumptionToken', namespaces=namespaces)
+it = sickle.ListRecords(metadataPrefix='marc21xml', set='erb')  # <8>
+for content in it:                                              # <9>
+    tree = etree.ElementTree(content)                           # <10>      
 
-    recs = tree.xpath('/oai:record[*]/oai:metadata/marc21:record', namespaces=namespaces)
-    for rec in recs:
-        core = etree.tostring(rec, encoding='utf8', method='xml').decode("utf-8")
-        output.append(core.replace("<?xml version='1.0' encoding='utf8'?>\n", ''))
-        record_count += 1
-    if len(output) >= 100000:
-        write_output(output, i, dir)
-        output = []
-        i = i + 1
+    records = tree.xpath(
+                  '/oai:record[*]/oai:metadata/marc21:record',  # <11>
+                  namespaces=namespaces)
+    for record in records:                                      # <12>
+        xmlrecord = etree\                                      # <13>
+              .tostring(record, encoding='utf8', method='xml')\ # <14>
+              .decode("utf-8")\                                 # <15>
+              .replace("<?xml version='1.0' encoding='utf8'?>\n", '') # <16>
+        xmlrecords.append(xmlrecord)                            # <17>
+        record_counter += 1                                     # <18>
 
-write_output(output, i, dir)
-print('saved %d records to %d files' % (record_count, i))
+    if len(xmlrecords) >= 100000:                               # <19>
+        write_output(xmlrecords, file_counter, dir)             # <20>
+        xmlrecords = []                                         # <21>
+        file_counter += 1
+
+if len(xmlrecords) > 0:                                        # <22>
+    write_output(xmlrecords, file_counter, dir)
+print('saved %d records to %d files' % (record_counter, file_counter)) # <23>
 ```
+
+1. When we run Python `sys.argv` list contains the arguments we passed to the interpreter. 
+   The `len()` function returns the number of elements in a collection, so it gives here
+   the number of arguments. The first argument is the name of the currect script, so if the
+   number here is zero it means that the script itself does not have any argument. We should
+   pass at least one argument: the name of the directory where the script will store the
+   records - if we don't provide it, the script will send us a message and stops running
+   (with the `exit()` function).
+2. If we provide an argument it will be stored as the name of the output directory. Then 
+   it creates the directory if it not already exists, and notify us.
+3. `namespaces` variable registers the XML namespaces the process needs - otherwise the
+   XPath expresssions would not work.
+4. `header` and `footer` needs at the beginning and end of the output XML files. The XML 
+   files are hierarchical: their main content is a list of MARC records, and their parent
+   element will be the `<collection>`.
+5. `write_output()` function creates the output files in the specified directory. It 
+   prints the XML header, join together and prints the XML records, and finally prints the
+   XML footer.
+6. The Sickle harvester is initialized with the endpoint of the OAI-PMH service and an extra
+   argument to specify how many times it can retry to fetch a single URL. It is needed because
+   sometimes there are communication problems between the server and the client (due to
+   problems on either side or in the network). 
+7. Initialisation of the necessary variables: the collector of the individual records,
+   the output file counter and the record counter.
+8. Start the harvest using the `ListRecords` verb. It returns an iterator, so we should
+   not take care of pagination with individual HTTP calls and resumptionToken mentioned above,
+   it is handled automatically by the Sickle module. We use two arguments: we set the 
+   metadata schema as MARCXML and the set as `erb` which stands for the Estonian National Bibliography.
+   These values can be extracted from a preliminary investigation of the supported values
+   returned by the `ListMetadataFormats` and `ListSets` verbs.
+9. In the following the script iterates over the individual XML responses of the calls.
+10. The raw XML content is transormed to an [XML element tree](https://docs.python.org/3/library/xml.etree.elementtree.html)
+    that is an internal data structure with an API.
+11. Selection of the individual records with an XPath expression. For the expression
+    we should provide the XML namespace. In OAI-PMH the individual records (`<oai:record>`)
+    have two parts: a header, that contains record identifier and other metadata (such as the
+    set it belongs to, the date of last modification) and the actual record (`<oai:metadata>`).
+    This later is the container of the MARCXML record (`<marc21:record>`). If you would like to
+    apply this script to another OAI-PMH server, please check the namespaces it uses. The 
+    abbreviations are not important, you can name them as you like (however to keep them as in
+    the source, i.e. the XML response of the service helps in debugging the problems, if there are),
+    but you should always use the URLs used by the service.
+12. Iterate over the indifidual records that `xpath()` returned.
+13. Transformation of the above mentioned tree structure of the record to XML via a sequence of steps:
+14. create the XML string...
+15. convert to UTF-8 encoding...
+16. remove the [XML declaration](https://www.w3.org/TR/REC-xml/#dt-xmldecl) - we do not need it for
+    each records.
+17. add the record into the record collection
+18. increase the record counter by one
+19. if the record collection contains more than 100 000 records...
+20. the records should write to a file...
+21. then empty the collection, and increase file counter by one
+22. after the iteration if the record collection is not empty write it to a file
+23. finally notify the user about the number of records ingested and files written 
 
 
 ## Download an SQL file
