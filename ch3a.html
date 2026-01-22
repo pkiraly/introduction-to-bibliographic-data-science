@@ -285,9 +285,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#creating-directories" id="toc-creating-directories" class="nav-link active" data-scroll-target="#creating-directories"><span class="header-section-number">5.1</span> Creating directories</a></li>
   <li><a href="#download-a-marcxml-file" id="toc-download-a-marcxml-file" class="nav-link" data-scroll-target="#download-a-marcxml-file"><span class="header-section-number">5.2</span> Download a MARCXML file</a></li>
-  <li><a href="#download-an-sql-file" id="toc-download-an-sql-file" class="nav-link" data-scroll-target="#download-an-sql-file"><span class="header-section-number">5.3</span> Download an SQL file</a>
+  <li><a href="#apis-to-retrieve-records" id="toc-apis-to-retrieve-records" class="nav-link" data-scroll-target="#apis-to-retrieve-records"><span class="header-section-number">5.3</span> APIs to retrieve records</a>
   <ul class="collapse">
-  <li><a href="#import-btee-to-the-database" id="toc-import-btee-to-the-database" class="nav-link" data-scroll-target="#import-btee-to-the-database"><span class="header-section-number">5.3.1</span> import BTEE to the database</a></li>
+  <li><a href="#oai-pmh" id="toc-oai-pmh" class="nav-link" data-scroll-target="#oai-pmh"><span class="header-section-number">5.3.1</span> OAI-PMH</a></li>
+  </ul></li>
+  <li><a href="#download-an-sql-file" id="toc-download-an-sql-file" class="nav-link" data-scroll-target="#download-an-sql-file"><span class="header-section-number">5.4</span> Download an SQL file</a>
+  <ul class="collapse">
+  <li><a href="#import-btee-to-the-database" id="toc-import-btee-to-the-database" class="nav-link" data-scroll-target="#import-btee-to-the-database"><span class="header-section-number">5.4.1</span> import BTEE to the database</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -405,8 +409,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>At the end of the process we will have a file <code>raw-data/lnb/natl_bibliography-2014-2023-marc.xml</code>, a set of MARC21 record in MARCXML serialization format, that is MARC21 in XML.</p>
 <p>The code of this section is available at <code>scripts/ch3a-download-a-file.py</code> of the repository.</p>
 </section>
-<section id="download-an-sql-file" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="download-an-sql-file"><span class="header-section-number">5.3</span> Download an SQL file</h2>
+<section id="apis-to-retrieve-records" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="apis-to-retrieve-records"><span class="header-section-number">5.3</span> APIs to retrieve records</h2>
+<section id="oai-pmh" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="oai-pmh"><span class="header-section-number">5.3.1</span> OAI-PMH</h3>
+<blockquote class="blockquote">
+<p>The Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH) is a low-barrier mechanism for repository interoperability. Data Providers are repositories that expose structured metadata via OAI-PMH. Service Providers then make OAI-PMH service requests to harvest that metadata. OAI-PMH is a set of six verbs or services that are invoked within HTTP. From <a href="https://www.openarchives.org/pmh/">https://www.openarchives.org/pmh/</a></p>
+</blockquote>
+<p>The protocol provides 6 ‘verbs’ or endpoints to retreive information:</p>
+<ul>
+<li><a href="https://www.openarchives.org/OAI/openarchivesprotocol.html#GetRecord">GetRecord</a>: to retrieve an individual metadata record</li>
+<li><a href="https://www.openarchives.org/OAI/openarchivesprotocol.html#Identify">Identify</a>: information about a repository</li>
+<li><a href="https://www.openarchives.org/OAI/openarchivesprotocol.html#ListIdentifiers">ListIdentifiers</a>: to harvest record identifiers</li>
+<li><a href="https://www.openarchives.org/OAI/openarchivesprotocol.html#ListMetadataFormats">ListMetadataFormats</a>: to retrieve the metadata formats available from a repository. These formats are alternative XML representations of the same content, but it also happens that a library provides different content via different formats. In the <code>ListIdentifiers</code> and <code>ListRecords</code> verbs it is used as the <code>metadataPrefix</code> parameter. At least one format, the Dublin Core is mandatory.</li>
+<li><a href="https://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">ListRecords</a>: to harvest records</li>
+<li><a href="https://www.openarchives.org/OAI/openarchivesprotocol.html#ListSets">ListSets</a>: to retrieve the set structure of a repository. Sets are optional collections within a repository, e.g.&nbsp;there might be individual sets according to the physical collections of a library.</li>
+</ul>
+<p>The response of these verbs is always XML. For the List* verbs the maintainer of the service sets a pager size, so you do not retrieve all records at once only limeted number (e.g.&nbsp;100). The pagination is implemented by a distinct XML element called <code>resumptionToken</code>, which the client should use in the next call. Its value can change from call to call, so the client always have to extract is. In the above links you can find more detailed information and examples.</p>
+<p>There are different implementations of a OAI-PMH clients in Python, we use <a href="https://github.com/mloesch">Mathias Loesch</a>’s <a href="https://github.com/mloesch/sickle">Sickle</a> module (version 0.7.0).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lxml <span class="im">import</span> etree</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sickle <span class="im">import</span> Sickle</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(sys.argv) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Please give a directory name'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    exit()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span> <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'saving to </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (<span class="bu">dir</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>namespaces <span class="op">=</span> {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'oai'</span>: <span class="st">'http://www.openarchives.org/OAI/2.0/'</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'marc21'</span>: <span class="st">'http://www.loc.gov/MARC21/slim'</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_output(output, i, <span class="bu">dir</span>):</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Writes MARC records to file"""</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    file_name <span class="op">=</span> <span class="st">"</span><span class="sc">%s</span><span class="st">/</span><span class="sc">%06d</span><span class="st">.xml"</span> <span class="op">%</span> (<span class="bu">dir</span>, i)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(file_name)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> io.<span class="bu">open</span>(file_name, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf8'</span>) <span class="im">as</span> f:</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        f.write(header)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        f.write(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(output) <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        f.write(footer)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>sickle <span class="op">=</span> Sickle(<span class="st">'https://data.digar.ee/repox/OAIHandler'</span>, max_retries<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>header <span class="op">=</span> <span class="st">'&lt;?xml version="1.0" encoding="utf8"?&gt;'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">'&lt;collection&gt;'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>footer <span class="op">=</span> <span class="st">'&lt;/collection&gt;'</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> []</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>record_count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> sickle.ListRecords(metadataPrefix<span class="op">=</span><span class="st">'marc21xml'</span>, <span class="bu">set</span><span class="op">=</span><span class="st">'erb'</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> it:</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">=</span> etree.ElementTree(record.xml)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    token <span class="op">=</span> tree.xpath(<span class="st">'/resumptionToken'</span>, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    recs <span class="op">=</span> tree.xpath(<span class="st">'/oai:record[*]/oai:metadata/marc21:record'</span>, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rec <span class="kw">in</span> recs:</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        core <span class="op">=</span> etree.tostring(rec, encoding<span class="op">=</span><span class="st">'utf8'</span>, method<span class="op">=</span><span class="st">'xml'</span>).decode(<span class="st">"utf-8"</span>)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        output.append(core.replace(<span class="st">"&lt;?xml version='1.0' encoding='utf8'?&gt;</span><span class="ch">\n</span><span class="st">"</span>, <span class="st">''</span>))</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        record_count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(output) <span class="op">&gt;=</span> <span class="dv">100000</span>:</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        write_output(output, i, <span class="bu">dir</span>)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> []</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>write_output(output, i, <span class="bu">dir</span>)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'saved </span><span class="sc">%d</span><span class="st"> records to </span><span class="sc">%d</span><span class="st"> files'</span> <span class="op">%</span> (record_count, i))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="download-an-sql-file" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="download-an-sql-file"><span class="header-section-number">5.4</span> Download an SQL file</h2>
 <p>Some bibliographic data sources are available as a relational database. These databases are distributed as so called <code>SQL dump</code>, a non binary text based file, that contains both the definition of the database structure (the properties of tables and columns), and the values. The dump files can be imported to the database. In this section we will import the following database:</p>
 <blockquote class="blockquote">
 <p>Simon Burrows and Mark Curran, The French Book Trade in Enlightenment Europe Database, 1769-1794 (<a href="https://fbtee.westernsydney.edu.au/stn/interface/">https://fbtee.westernsydney.edu.au/stn/interface/</a>, 6 May 2014)</p>
@@ -414,39 +488,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It maps the trade of the Société Typographique de Neuchâtel, 1769-1794, and based on the almost intactly survided archive of the alliance of the printers at Neuchâtel (Switzerland). The database (henceforth <em>FBTEE</em>) could be imported into MySQL or its Open Source form MariaDB. the database is downloadable from <a href="https://fbtee.westernsydney.edu.au/main/download-database/">https://fbtee.westernsydney.edu.au/main/download-database/</a>.</p>
 <p>As now we would like to download another file we might choose to copy the previous script, and replace the variables <code>url</code> and <code>target_file</code> with another one, but it would duplicate the usiness logic of the script. In software development there is a principle <em>Don’t Repeat Yourself</em> abbreviated as <em>DRY</em>. It suggest that we should avoid from code repetition, or other words: the code should be reusable, Instead of writing two (or more) specialized scripts that repeat the actual download and uncompressin part, we will create a function, that will be used by these scripts.</p>
 <p>First we will create a utility script that will contain functions we can use in the course. It will be called bdsutils (short for Bibliographic Data Science utilities). This is the</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
-<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
-<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-3-4" class="code-annotation-target"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>target_dir <span class="op">=</span> <span class="st">'raw-data'</span></span>
-<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-3-6" class="code-annotation-target"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download_and_unzip(url, target_file):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-3-7" class="code-annotation-target"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Download a zip file, and uncompress it</span></span>
-<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
-<span id="annotated-cell-3-10"><a href="#annotated-cell-3-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
-<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
-<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12" aria-hidden="true" tabindex="-1"></a><span class="co">    url : str</span></span>
-<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13" aria-hidden="true" tabindex="-1"></a><span class="co">        The URL of the zip file to download</span></span>
-<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14" aria-hidden="true" tabindex="-1"></a><span class="co">    sound : str</span></span>
-<span id="annotated-cell-3-15"><a href="#annotated-cell-3-15" aria-hidden="true" tabindex="-1"></a><span class="co">        The local file name</span></span>
-<span id="annotated-cell-3-16"><a href="#annotated-cell-3-16" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="annotated-cell-3-17"><a href="#annotated-cell-3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-3-18"><a href="#annotated-cell-3-18" aria-hidden="true" tabindex="-1"></a>    urllib.request.urlretrieve(url, target_file)</span>
-<span id="annotated-cell-3-19"><a href="#annotated-cell-3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-3-20"><a href="#annotated-cell-3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> zipfile.ZipFile(target_file, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
-<span id="annotated-cell-3-21"><a href="#annotated-cell-3-21" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(target_dir)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
+<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
+<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-4-4" class="code-annotation-target"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>target_dir <span class="op">=</span> <span class="st">'raw-data'</span></span>
+<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-4-6" class="code-annotation-target"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download_and_unzip(url, target_file):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-4-7" class="code-annotation-target"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Download a zip file, and uncompress it</span></span>
+<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="annotated-cell-4-11"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="annotated-cell-4-12"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a><span class="co">    url : str</span></span>
+<span id="annotated-cell-4-13"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a><span class="co">        The URL of the zip file to download</span></span>
+<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a><span class="co">    sound : str</span></span>
+<span id="annotated-cell-4-15"><a href="#annotated-cell-4-15" aria-hidden="true" tabindex="-1"></a><span class="co">        The local file name</span></span>
+<span id="annotated-cell-4-16"><a href="#annotated-cell-4-16" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="annotated-cell-4-17"><a href="#annotated-cell-4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-4-18"><a href="#annotated-cell-4-18" aria-hidden="true" tabindex="-1"></a>    urllib.request.urlretrieve(url, target_file)</span>
+<span id="annotated-cell-4-19"><a href="#annotated-cell-4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-4-20"><a href="#annotated-cell-4-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> zipfile.ZipFile(target_file, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
+<span id="annotated-cell-4-21"><a href="#annotated-cell-4-21" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(target_dir)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="4" data-code-annotation="1">the script keeps only one variable <code>target_dir</code>, that will remane the same accross calls</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="4" data-code-annotation="1">the script keeps only one variable <code>target_dir</code>, that will remane the same accross calls</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="6" data-code-annotation="2">the definition of the method</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="6" data-code-annotation="2">the definition of the method</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="7,8,10,11,12,13,14,15,16" data-code-annotation="3">the documentation of the method</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="7,8,10,11,12,13,14,15,16" data-code-annotation="3">the documentation of the method</span>
 </dd>
 </dl>
 <div class="callout callout-style-simple callout-important">
@@ -461,62 +535,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The file is available in the repository as <code>scripts/bdsutils.py</code>.</p>
 <p>Once we have this utility script, we can create the specific one for <em>FBTEE</em>. This zip file does not contain directories, only a single file <em>chop_leeds_ac_uk.sql</em>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-4-1" class="code-annotation-target"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bdsutils <span class="im">import</span> target_dir, download_and_unzip</span>
-<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-4-4" class="code-annotation-target"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://fbtee.uws.edu.au/stn/database/download/STN_database.zip'</span></span>
-<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>target_file <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/stn_database.zip'</span></span>
-<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-4-7" class="code-annotation-target"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>download_and_unzip(url, target_file)</span>
-<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a>directory <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/fbtee'</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-4-10" class="code-annotation-target"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(directory):</span>
-<span id="annotated-cell-4-11"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a>    os.mkdir(directory)</span>
-<span id="annotated-cell-4-12"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-4-13" class="code-annotation-target"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a>os.rename(target_dir <span class="op">+</span> <span class="st">'/chop_leeds_ac_uk.sql'</span>,</span>
-<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a>          directory <span class="op">+</span> <span class="st">'/chop_leeds_ac_uk.sql'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-5"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bdsutils <span class="im">import</span> target_dir, download_and_unzip</span>
+<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-5-4" class="code-annotation-target"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://fbtee.uws.edu.au/stn/database/download/STN_database.zip'</span></span>
+<span id="annotated-cell-5-5"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>target_file <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/stn_database.zip'</span></span>
+<span id="annotated-cell-5-6"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-5-7" class="code-annotation-target"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a>download_and_unzip(url, target_file)</span>
+<span id="annotated-cell-5-8"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-5-9"><a href="#annotated-cell-5-9" aria-hidden="true" tabindex="-1"></a>directory <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/fbtee'</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-5-10" class="code-annotation-target"><a href="#annotated-cell-5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(directory):</span>
+<span id="annotated-cell-5-11"><a href="#annotated-cell-5-11" aria-hidden="true" tabindex="-1"></a>    os.mkdir(directory)</span>
+<span id="annotated-cell-5-12"><a href="#annotated-cell-5-12" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-5-13" class="code-annotation-target"><a href="#annotated-cell-5-13" aria-hidden="true" tabindex="-1"></a>os.rename(target_dir <span class="op">+</span> <span class="st">'/chop_leeds_ac_uk.sql'</span>,</span>
+<span id="annotated-cell-5-14"><a href="#annotated-cell-5-14" aria-hidden="true" tabindex="-1"></a>          directory <span class="op">+</span> <span class="st">'/chop_leeds_ac_uk.sql'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="1" data-code-annotation="1">import both the variable and the function from bdsutils (we should not add the <code>.py</code> extension). This way we should not use the prefix bdsutils for these components (such as <code>bdsutils.target_dir</code>)</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="1" data-code-annotation="1">import both the variable and the function from bdsutils (we should not add the <code>.py</code> extension). This way we should not use the prefix bdsutils for these components (such as <code>bdsutils.target_dir</code>)</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="4" data-code-annotation="2">the definition of the <em>FBTEE</em> specific variables</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="4" data-code-annotation="2">the definition of the <em>FBTEE</em> specific variables</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="7" data-code-annotation="3">usage of the method defined in bdsutils</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="7" data-code-annotation="3">usage of the method defined in bdsutils</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="10" data-code-annotation="4">create a dedicated directory for the database if it doesn’t already exist</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="10" data-code-annotation="4">create a dedicated directory for the database if it doesn’t already exist</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="13" data-code-annotation="5">move the file to this directory</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="13" data-code-annotation="5">move the file to this directory</span>
 </dd>
 </dl>
 <p>If you run it, you will have two files: - raw-data/fbtee/chop_leeds_ac_uk.sql - raw-data/stn_database.zip</p>
 <p>The file is available in the repository as <code>scripts/ch3a-download-stn.py</code>.</p>
-<section id="import-btee-to-the-database" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="import-btee-to-the-database"><span class="header-section-number">5.3.1</span> import BTEE to the database</h3>
+<section id="import-btee-to-the-database" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="import-btee-to-the-database"><span class="header-section-number">5.4.1</span> import BTEE to the database</h3>
 <p>Importing a datadump into MySQL or MariaDB is a two step process. First you should create the database itself with permissions (for security reason it is advisable to create a dedicated user as well and not to use the default database user), then you can import the data.</p>
 <p>Step 1. Prepare the database</p>
 <p>Log in to MySQL, then create the database <code>fbtee</code> and a dedicated user (replace <code>&lt;username&gt;</code> and <code>&lt;password&gt;</code> with your choosen credentials):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> fbtee;</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="fu">USER</span> <span class="st">'&lt;username&gt;'</span>@<span class="st">'localhost'</span> <span class="kw">IDENTIFIED</span> <span class="kw">BY</span> <span class="st">'&lt;password&gt;'</span>;</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">ALL</span> <span class="kw">PRIVILEGES</span> <span class="kw">ON</span> fbtee.<span class="op">*</span> <span class="kw">TO</span> <span class="st">'&lt;username&gt;'</span>@<span class="st">'localhost'</span> <span class="kw">WITH</span> <span class="kw">GRANT</span> <span class="kw">OPTION</span>;</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FLUSH</span> <span class="kw">PRIVILEGES</span>;</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> fbtee;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="fu">USER</span> <span class="st">'&lt;username&gt;'</span>@<span class="st">'localhost'</span> <span class="kw">IDENTIFIED</span> <span class="kw">BY</span> <span class="st">'&lt;password&gt;'</span>;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">ALL</span> <span class="kw">PRIVILEGES</span> <span class="kw">ON</span> fbtee.<span class="op">*</span> <span class="kw">TO</span> <span class="st">'&lt;username&gt;'</span>@<span class="st">'localhost'</span> <span class="kw">WITH</span> <span class="kw">GRANT</span> <span class="kw">OPTION</span>;</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FLUSH</span> <span class="kw">PRIVILEGES</span>;</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Note: you can choose any name for the database, this material will use <code>fbtee</code>.</p>
 <p>Step 2. Import the data dump</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee <span class="op">&lt;</span> raw-data/fbtee/chop_leeds_ac_uk.sql</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee <span class="op">&lt;</span> raw-data/fbtee/chop_leeds_ac_uk.sql</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This command will ask for the password. Use the same credentials you set in Step 1. If you did not get any error message, you can check the database structure. Log in again with the dedicated credentials:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The you can check the list of tables with</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>SHOW <span class="kw">TABLES</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>SHOW <span class="kw">TABLES</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>that returns</p>
 <pre><code>+-------------------------------------+
 | Tables_in_fbtee                     |
@@ -554,7 +628,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 +-------------------------------------+
 30 rows in set (0,001 sec)</code></pre>
 <p>or the structure of the <code>books</code> table with</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>DESCRIBE books;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>DESCRIBE books;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The result:</p>
 <pre><code>+---------------------------+---------------+------+-----+---------+-------+
 | Field                     | Type          | Null | Key | Default | Extra |
