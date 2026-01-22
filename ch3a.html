@@ -426,57 +426,172 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://www.openarchives.org/OAI/openarchivesprotocol.html#ListSets">ListSets</a>: to retrieve the set structure of a repository. Sets are optional collections within a repository, e.g.&nbsp;there might be individual sets according to the physical collections of a library.</li>
 </ul>
 <p>The response of these verbs is always XML. For the List* verbs the maintainer of the service sets a pager size, so you do not retrieve all records at once only limeted number (e.g.&nbsp;100). The pagination is implemented by a distinct XML element called <code>resumptionToken</code>, which the client should use in the next call. Its value can change from call to call, so the client always have to extract is. In the above links you can find more detailed information and examples.</p>
-<p>There are different implementations of a OAI-PMH clients in Python, we use <a href="https://github.com/mloesch">Mathias Loesch</a>’s <a href="https://github.com/mloesch/sickle">Sickle</a> module (version 0.7.0).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lxml <span class="im">import</span> etree</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sickle <span class="im">import</span> Sickle</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(sys.argv) <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Please give a directory name'</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    exit()</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span> <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'saving to </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (<span class="bu">dir</span>))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>namespaces <span class="op">=</span> {</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'oai'</span>: <span class="st">'http://www.openarchives.org/OAI/2.0/'</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'marc21'</span>: <span class="st">'http://www.loc.gov/MARC21/slim'</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_output(output, i, <span class="bu">dir</span>):</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Writes MARC records to file"""</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    file_name <span class="op">=</span> <span class="st">"</span><span class="sc">%s</span><span class="st">/</span><span class="sc">%06d</span><span class="st">.xml"</span> <span class="op">%</span> (<span class="bu">dir</span>, i)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(file_name)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> io.<span class="bu">open</span>(file_name, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf8'</span>) <span class="im">as</span> f:</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        f.write(header)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        f.write(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(output) <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        f.write(footer)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>sickle <span class="op">=</span> Sickle(<span class="st">'https://data.digar.ee/repox/OAIHandler'</span>, max_retries<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>header <span class="op">=</span> <span class="st">'&lt;?xml version="1.0" encoding="utf8"?&gt;'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">'&lt;collection&gt;'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>footer <span class="op">=</span> <span class="st">'&lt;/collection&gt;'</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> []</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>record_count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> sickle.ListRecords(metadataPrefix<span class="op">=</span><span class="st">'marc21xml'</span>, <span class="bu">set</span><span class="op">=</span><span class="st">'erb'</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> it:</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">=</span> etree.ElementTree(record.xml)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    token <span class="op">=</span> tree.xpath(<span class="st">'/resumptionToken'</span>, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    recs <span class="op">=</span> tree.xpath(<span class="st">'/oai:record[*]/oai:metadata/marc21:record'</span>, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rec <span class="kw">in</span> recs:</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        core <span class="op">=</span> etree.tostring(rec, encoding<span class="op">=</span><span class="st">'utf8'</span>, method<span class="op">=</span><span class="st">'xml'</span>).decode(<span class="st">"utf-8"</span>)</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        output.append(core.replace(<span class="st">"&lt;?xml version='1.0' encoding='utf8'?&gt;</span><span class="ch">\n</span><span class="st">"</span>, <span class="st">''</span>))</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        record_count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(output) <span class="op">&gt;=</span> <span class="dv">100000</span>:</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        write_output(output, i, <span class="bu">dir</span>)</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> []</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>write_output(output, i, <span class="bu">dir</span>)</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'saved </span><span class="sc">%d</span><span class="st"> records to </span><span class="sc">%d</span><span class="st"> files'</span> <span class="op">%</span> (record_count, i))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There are different implementations of a OAI-PMH clients in Python, we use <a href="https://github.com/mloesch">Mathias Loesch</a>’s <a href="https://github.com/mloesch/sickle">Sickle</a> module (version 0.7.0) to retrieve the Estonian National Bibliography from the <a href="https://digilab.rara.ee/en/">DataLab</a>, the data sharing platform of the Estonian National Library. At the time of writing it returns somewhat almost 410 000 MARCXML records. We save them into local files each containing 100 000 records. As OAI-PMH is based on XML technology we use <a href="https://lxml.de/">lxml</a> module (version 6.0.0), a lightweight XML and HTML processing toolbox.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lxml <span class="im">import</span> etree</span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sickle <span class="im">import</span> Sickle</span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-3-7" class="code-annotation-target"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(sys.argv) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Please give a directory name'</span>)</span>
+<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9" aria-hidden="true" tabindex="-1"></a>    exit()</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-3-10" class="code-annotation-target"><a href="#annotated-cell-3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span> <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
+<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(<span class="bu">dir</span>):</span>
+<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12" aria-hidden="true" tabindex="-1"></a>    os.mkdir(<span class="bu">dir</span>)</span>
+<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'saving to </span><span class="sc">%s</span><span class="st">'</span> <span class="op">%</span> (<span class="bu">dir</span>))</span>
+<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-3-15" class="code-annotation-target"><a href="#annotated-cell-3-15" aria-hidden="true" tabindex="-1"></a>namespaces <span class="op">=</span> {</span>
+<span id="annotated-cell-3-16"><a href="#annotated-cell-3-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'oai'</span>: <span class="st">'http://www.openarchives.org/OAI/2.0/'</span>,</span>
+<span id="annotated-cell-3-17"><a href="#annotated-cell-3-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'marc21'</span>: <span class="st">'http://www.loc.gov/MARC21/slim'</span></span>
+<span id="annotated-cell-3-18"><a href="#annotated-cell-3-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-3-19"><a href="#annotated-cell-3-19" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-3-20" class="code-annotation-target"><a href="#annotated-cell-3-20" aria-hidden="true" tabindex="-1"></a>header <span class="op">=</span> <span class="st">'&lt;?xml version="1.0" encoding="utf8"?&gt;'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">\</span></span>
+<span id="annotated-cell-3-21"><a href="#annotated-cell-3-21" aria-hidden="true" tabindex="-1"></a>       <span class="op">+</span> <span class="st">'&lt;collection&gt;'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="annotated-cell-3-22"><a href="#annotated-cell-3-22" aria-hidden="true" tabindex="-1"></a>footer <span class="op">=</span> <span class="st">'&lt;/collection&gt;'</span></span>
+<span id="annotated-cell-3-23"><a href="#annotated-cell-3-23" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-3-24" class="code-annotation-target"><a href="#annotated-cell-3-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_output(xmlrecords, file_counter, dir_name):</span>
+<span id="annotated-cell-3-25"><a href="#annotated-cell-3-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="annotated-cell-3-26"><a href="#annotated-cell-3-26" aria-hidden="true" tabindex="-1"></a><span class="co">    Writes MARC records to file</span></span>
+<span id="annotated-cell-3-27"><a href="#annotated-cell-3-27" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters                              </span></span>
+<span id="annotated-cell-3-28"><a href="#annotated-cell-3-28" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="annotated-cell-3-29"><a href="#annotated-cell-3-29" aria-hidden="true" tabindex="-1"></a><span class="co">    xmlrecords : list</span></span>
+<span id="annotated-cell-3-30"><a href="#annotated-cell-3-30" aria-hidden="true" tabindex="-1"></a><span class="co">        A list of string contains the individual MARCXML records</span></span>
+<span id="annotated-cell-3-31"><a href="#annotated-cell-3-31" aria-hidden="true" tabindex="-1"></a><span class="co">    file_counter : int</span></span>
+<span id="annotated-cell-3-32"><a href="#annotated-cell-3-32" aria-hidden="true" tabindex="-1"></a><span class="co">        A file name counter</span></span>
+<span id="annotated-cell-3-33"><a href="#annotated-cell-3-33" aria-hidden="true" tabindex="-1"></a><span class="co">    dir_name : int</span></span>
+<span id="annotated-cell-3-34"><a href="#annotated-cell-3-34" aria-hidden="true" tabindex="-1"></a><span class="co">        The name of the output directory</span></span>
+<span id="annotated-cell-3-35"><a href="#annotated-cell-3-35" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="annotated-cell-3-36"><a href="#annotated-cell-3-36" aria-hidden="true" tabindex="-1"></a>    file_name <span class="op">=</span> <span class="st">"</span><span class="sc">%s</span><span class="st">/</span><span class="sc">%06d</span><span class="st">.xml"</span> <span class="op">%</span> (dir_name, counter)</span>
+<span id="annotated-cell-3-37"><a href="#annotated-cell-3-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(file_name)</span>
+<span id="annotated-cell-3-38"><a href="#annotated-cell-3-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> io.<span class="bu">open</span>(file_name, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf8'</span>) <span class="im">as</span> f:</span>
+<span id="annotated-cell-3-39"><a href="#annotated-cell-3-39" aria-hidden="true" tabindex="-1"></a>        f.write(header)</span>
+<span id="annotated-cell-3-40"><a href="#annotated-cell-3-40" aria-hidden="true" tabindex="-1"></a>        f.write(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(xmlrecords) <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="annotated-cell-3-41"><a href="#annotated-cell-3-41" aria-hidden="true" tabindex="-1"></a>        f.write(footer)</span>
+<span id="annotated-cell-3-42"><a href="#annotated-cell-3-42" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-3-43" class="code-annotation-target"><a href="#annotated-cell-3-43" aria-hidden="true" tabindex="-1"></a>sickle <span class="op">=</span> Sickle(<span class="st">'https://data.digar.ee/repox/OAIHandler'</span>, max_retries<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="annotated-cell-3-44"><a href="#annotated-cell-3-44" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-3-45" class="code-annotation-target"><a href="#annotated-cell-3-45" aria-hidden="true" tabindex="-1"></a>xmlrecords <span class="op">=</span> []</span>
+<span id="annotated-cell-3-46"><a href="#annotated-cell-3-46" aria-hidden="true" tabindex="-1"></a>file_counter <span class="op">=</span> <span class="dv">0</span></span>
+<span id="annotated-cell-3-47"><a href="#annotated-cell-3-47" aria-hidden="true" tabindex="-1"></a>record_counter <span class="op">=</span> <span class="dv">0</span></span>
+<span id="annotated-cell-3-48"><a href="#annotated-cell-3-48" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-3-49" class="code-annotation-target"><a href="#annotated-cell-3-49" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> sickle.ListRecords(metadataPrefix<span class="op">=</span><span class="st">'marc21xml'</span>, <span class="bu">set</span><span class="op">=</span><span class="st">'erb'</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-3-50" class="code-annotation-target"><a href="#annotated-cell-3-50" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> content <span class="kw">in</span> it:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-3-51" class="code-annotation-target"><a href="#annotated-cell-3-51" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">=</span> etree.ElementTree(content)</span>
+<span id="annotated-cell-3-52"><a href="#annotated-cell-3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-53"><a href="#annotated-cell-3-53" aria-hidden="true" tabindex="-1"></a>    records <span class="op">=</span> tree.xpath(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-3-54" class="code-annotation-target"><a href="#annotated-cell-3-54" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'/oai:record[*]/oai:metadata/marc21:record'</span>,</span>
+<span id="annotated-cell-3-55"><a href="#annotated-cell-3-55" aria-hidden="true" tabindex="-1"></a>                  namespaces<span class="op">=</span>namespaces)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="12" onclick="event.preventDefault();">12</a><span id="annotated-cell-3-56" class="code-annotation-target"><a href="#annotated-cell-3-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> record <span class="kw">in</span> records:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="13" onclick="event.preventDefault();">13</a><span id="annotated-cell-3-57" class="code-annotation-target"><a href="#annotated-cell-3-57" aria-hidden="true" tabindex="-1"></a>        xmlrecord <span class="op">=</span> etree<span class="op">\</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="14" onclick="event.preventDefault();">14</a><span id="annotated-cell-3-58" class="code-annotation-target"><a href="#annotated-cell-3-58" aria-hidden="true" tabindex="-1"></a>              .tostring(record, encoding<span class="op">=</span><span class="st">'utf8'</span>, method<span class="op">=</span><span class="st">'xml'</span>)<span class="op">\</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="15" onclick="event.preventDefault();">15</a><span id="annotated-cell-3-59" class="code-annotation-target"><a href="#annotated-cell-3-59" aria-hidden="true" tabindex="-1"></a>              .decode(<span class="st">"utf-8"</span>)<span class="op">\</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="16" onclick="event.preventDefault();">16</a><span id="annotated-cell-3-60" class="code-annotation-target"><a href="#annotated-cell-3-60" aria-hidden="true" tabindex="-1"></a>              .replace(<span class="st">"&lt;?xml version='1.0' encoding='utf8'?&gt;</span><span class="ch">\n</span><span class="st">"</span>, <span class="st">''</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="17" onclick="event.preventDefault();">17</a><span id="annotated-cell-3-61" class="code-annotation-target"><a href="#annotated-cell-3-61" aria-hidden="true" tabindex="-1"></a>        xmlrecords.append(xmlrecord)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="18" onclick="event.preventDefault();">18</a><span id="annotated-cell-3-62" class="code-annotation-target"><a href="#annotated-cell-3-62" aria-hidden="true" tabindex="-1"></a>        record_counter <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="annotated-cell-3-63"><a href="#annotated-cell-3-63" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="19" onclick="event.preventDefault();">19</a><span id="annotated-cell-3-64" class="code-annotation-target"><a href="#annotated-cell-3-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(xmlrecords) <span class="op">&gt;=</span> <span class="dv">100000</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="20" onclick="event.preventDefault();">20</a><span id="annotated-cell-3-65" class="code-annotation-target"><a href="#annotated-cell-3-65" aria-hidden="true" tabindex="-1"></a>        write_output(xmlrecords, file_counter, <span class="bu">dir</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="21" onclick="event.preventDefault();">21</a><span id="annotated-cell-3-66" class="code-annotation-target"><a href="#annotated-cell-3-66" aria-hidden="true" tabindex="-1"></a>        xmlrecords <span class="op">=</span> []</span>
+<span id="annotated-cell-3-67"><a href="#annotated-cell-3-67" aria-hidden="true" tabindex="-1"></a>        file_counter <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="annotated-cell-3-68"><a href="#annotated-cell-3-68" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="22" onclick="event.preventDefault();">22</a><span id="annotated-cell-3-69" class="code-annotation-target"><a href="#annotated-cell-3-69" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(xmlrecords) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="annotated-cell-3-70"><a href="#annotated-cell-3-70" aria-hidden="true" tabindex="-1"></a>    write_output(xmlrecords, file_counter, <span class="bu">dir</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="23" onclick="event.preventDefault();">23</a><span id="annotated-cell-3-71" class="code-annotation-target"><a href="#annotated-cell-3-71" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'saved </span><span class="sc">%d</span><span class="st"> records to </span><span class="sc">%d</span><span class="st"> files'</span> <span class="op">%</span> (record_counter, file_counter))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="7" data-code-annotation="1">When we run Python <code>sys.argv</code> list contains the arguments we passed to the interpreter. The <code>len()</code> function returns the number of elements in a collection, so it gives here the number of arguments. The first argument is the name of the currect script, so if the number here is zero it means that the script itself does not have any argument. We should pass at least one argument: the name of the directory where the script will store the records - if we don’t provide it, the script will send us a message and stops running (with the <code>exit()</code> function).</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="10" data-code-annotation="2">If we provide an argument it will be stored as the name of the output directory. Then it creates the directory if it not already exists, and notify us.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="15" data-code-annotation="3"><code>namespaces</code> variable registers the XML namespaces the process needs - otherwise the XPath expresssions would not work.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="20" data-code-annotation="4"><code>header</code> and <code>footer</code> needs at the beginning and end of the output XML files. The XML files are hierarchical: their main content is a list of MARC records, and their parent element will be the <code>&lt;collection&gt;</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="24" data-code-annotation="5"><code>write_output()</code> function creates the output files in the specified directory. It prints the XML header, join together and prints the XML records, and finally prints the XML footer.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="43" data-code-annotation="6">The Sickle harvester is initialized with the endpoint of the OAI-PMH service and an extra argument to specify how many times it can retry to fetch a single URL. It is needed because sometimes there are communication problems between the server and the client (due to problems on either side or in the network).</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="45" data-code-annotation="7">Initialisation of the necessary variables: the collector of the individual records, the output file counter and the record counter.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="49" data-code-annotation="8">Start the harvest using the <code>ListRecords</code> verb. It returns an iterator, so we should not take care of pagination with individual HTTP calls and resumptionToken mentioned above, it is handled automatically by the Sickle module. We use two arguments: we set the metadata schema as MARCXML and the set as <code>erb</code> which stands for the Estonian National Bibliography. These values can be extracted from a preliminary investigation of the supported values returned by the <code>ListMetadataFormats</code> and <code>ListSets</code> verbs.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="50" data-code-annotation="9">In the following the script iterates over the individual XML responses of the calls.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="10">10</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="51" data-code-annotation="10">The raw XML content is transormed to an <a href="https://docs.python.org/3/library/xml.etree.elementtree.html">XML element tree</a> that is an internal data structure with an API.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="11">11</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="54" data-code-annotation="11">Selection of the individual records with an XPath expression. For the expression we should provide the XML namespace. In OAI-PMH the individual records (<code>&lt;oai:record&gt;</code>) have two parts: a header, that contains record identifier and other metadata (such as the set it belongs to, the date of last modification) and the actual record (<code>&lt;oai:metadata&gt;</code>). This later is the container of the MARCXML record (<code>&lt;marc21:record&gt;</code>). If you would like to apply this script to another OAI-PMH server, please check the namespaces it uses. The abbreviations are not important, you can name them as you like (however to keep them as in the source, i.e.&nbsp;the XML response of the service helps in debugging the problems, if there are), but you should always use the URLs used by the service.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="12">12</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="56" data-code-annotation="12">Iterate over the indifidual records that <code>xpath()</code> returned.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="13">13</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="57" data-code-annotation="13">Transformation of the above mentioned tree structure of the record to XML via a sequence of steps:</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="14">14</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="58" data-code-annotation="14">create the XML string…</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="15">15</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="59" data-code-annotation="15">convert to UTF-8 encoding…</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="16">16</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="60" data-code-annotation="16">remove the <a href="https://www.w3.org/TR/REC-xml/#dt-xmldecl">XML declaration</a> - we do not need it for each records.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="17">17</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="61" data-code-annotation="17">add the record into the record collection</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="18">18</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="62" data-code-annotation="18">increase the record counter by one</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="19">19</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="64" data-code-annotation="19">if the record collection contains more than 100 000 records…</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="20">20</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="65" data-code-annotation="20">the records should write to a file…</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="21">21</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="66" data-code-annotation="21">then empty the collection, and increase file counter by one</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="22">22</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="69" data-code-annotation="22">after the iteration if the record collection is not empty write it to a file</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="23">23</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="71" data-code-annotation="23">finally notify the user about the number of records ingested and files written</span>
+</dd>
+</dl>
 </section>
 </section>
 <section id="download-an-sql-file" class="level2" data-number="5.4">
@@ -578,19 +693,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Importing a datadump into MySQL or MariaDB is a two step process. First you should create the database itself with permissions (for security reason it is advisable to create a dedicated user as well and not to use the default database user), then you can import the data.</p>
 <p>Step 1. Prepare the database</p>
 <p>Log in to MySQL, then create the database <code>fbtee</code> and a dedicated user (replace <code>&lt;username&gt;</code> and <code>&lt;password&gt;</code> with your choosen credentials):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> fbtee;</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="fu">USER</span> <span class="st">'&lt;username&gt;'</span>@<span class="st">'localhost'</span> <span class="kw">IDENTIFIED</span> <span class="kw">BY</span> <span class="st">'&lt;password&gt;'</span>;</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">ALL</span> <span class="kw">PRIVILEGES</span> <span class="kw">ON</span> fbtee.<span class="op">*</span> <span class="kw">TO</span> <span class="st">'&lt;username&gt;'</span>@<span class="st">'localhost'</span> <span class="kw">WITH</span> <span class="kw">GRANT</span> <span class="kw">OPTION</span>;</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FLUSH</span> <span class="kw">PRIVILEGES</span>;</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> fbtee;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="fu">USER</span> <span class="st">'&lt;username&gt;'</span>@<span class="st">'localhost'</span> <span class="kw">IDENTIFIED</span> <span class="kw">BY</span> <span class="st">'&lt;password&gt;'</span>;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">ALL</span> <span class="kw">PRIVILEGES</span> <span class="kw">ON</span> fbtee.<span class="op">*</span> <span class="kw">TO</span> <span class="st">'&lt;username&gt;'</span>@<span class="st">'localhost'</span> <span class="kw">WITH</span> <span class="kw">GRANT</span> <span class="kw">OPTION</span>;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FLUSH</span> <span class="kw">PRIVILEGES</span>;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Note: you can choose any name for the database, this material will use <code>fbtee</code>.</p>
 <p>Step 2. Import the data dump</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee <span class="op">&lt;</span> raw-data/fbtee/chop_leeds_ac_uk.sql</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee <span class="op">&lt;</span> raw-data/fbtee/chop_leeds_ac_uk.sql</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This command will ask for the password. Use the same credentials you set in Step 1. If you did not get any error message, you can check the database structure. Log in again with the dedicated credentials:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> <span class="op">&lt;</span>username<span class="op">&gt;</span> -p fbtee</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The you can check the list of tables with</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>SHOW <span class="kw">TABLES</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>SHOW <span class="kw">TABLES</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>that returns</p>
 <pre><code>+-------------------------------------+
 | Tables_in_fbtee                     |
@@ -628,7 +743,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 +-------------------------------------+
 30 rows in set (0,001 sec)</code></pre>
 <p>or the structure of the <code>books</code> table with</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>DESCRIBE books;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>DESCRIBE books;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The result:</p>
 <pre><code>+---------------------------+---------------+------+-----+---------+-------+
 | Field                     | Type          | Null | Key | Default | Extra |
