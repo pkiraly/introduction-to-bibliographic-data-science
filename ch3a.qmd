@@ -75,6 +75,88 @@ of MARC21 record in MARCXML serialization format, that is MARC21 in XML.
 
 The code of this section is available at `scripts/ch3a-download-a-file.py` of the repository.
 
+## APIs to retrieve records
+
+### OAI-PMH
+
+> The Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH) is a 
+> low-barrier mechanism for repository interoperability. Data Providers are repositories 
+> that expose structured metadata via OAI-PMH. Service Providers then make OAI-PMH 
+> service requests to harvest that metadata. OAI-PMH is a set of six verbs or services 
+> that are invoked within HTTP.
+> From [https://www.openarchives.org/pmh/](https://www.openarchives.org/pmh/)
+
+The protocol provides 6 'verbs' or endpoints to retreive information:
+
+* [GetRecord](https://www.openarchives.org/OAI/openarchivesprotocol.html#GetRecord): to retrieve an individual metadata record
+* [Identify](https://www.openarchives.org/OAI/openarchivesprotocol.html#Identify): information about a repository
+* [ListIdentifiers](https://www.openarchives.org/OAI/openarchivesprotocol.html#ListIdentifiers): to harvest record identifiers
+* [ListMetadataFormats](https://www.openarchives.org/OAI/openarchivesprotocol.html#ListMetadataFormats): to retrieve the metadata formats available from a repository. These formats are alternative XML representations of the same content, but it also happens that a library provides different content via different formats. In the `ListIdentifiers` and `ListRecords` verbs it is used as the `metadataPrefix` parameter. At least one format, the Dublin Core is mandatory. 
+* [ListRecords](https://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords): to harvest records
+* [ListSets](https://www.openarchives.org/OAI/openarchivesprotocol.html#ListSets): to retrieve the set structure of a repository. Sets are optional collections within a repository, e.g. there might be individual sets according to the physical collections of a library. 
+
+The response of these verbs is always XML. For the List* verbs the maintainer of the service 
+sets a pager size, so you do not retrieve all records at once only limeted number (e.g. 100).
+The pagination is implemented by a distinct XML element called `resumptionToken`, which the
+client should use in the next call. Its value can change from call to call, so the client always
+have to extract is. In the above links you can find more detailed information and examples.
+
+There are different implementations of a OAI-PMH clients in Python, we use [Mathias Loesch](https://github.com/mloesch)'s [Sickle](https://github.com/mloesch/sickle) module (version 0.7.0).
+
+```python
+import io
+import sys
+from lxml import etree
+from sickle import Sickle
+
+if len(sys.argv) == 1:
+    print('Please give a directory name')
+    exit()
+dir = sys.argv[1]
+print('saving to %s' % (dir))
+
+namespaces = {
+    'oai': 'http://www.openarchives.org/OAI/2.0/',
+    'marc21': 'http://www.loc.gov/MARC21/slim'
+}
+
+def write_output(output, i, dir):
+    """Writes MARC records to file"""
+    file_name = "%s/%06d.xml" % (dir, i)
+    print(file_name)
+    with io.open(file_name, 'w', encoding='utf8') as f:
+        f.write(header)
+        f.write("\n".join(output) + "\n")
+        f.write(footer)
+
+sickle = Sickle('https://data.digar.ee/repox/OAIHandler', max_retries=4)
+
+header = '<?xml version="1.0" encoding="utf8"?>' + "\n" + '<collection>' + "\n"
+footer = '</collection>'
+
+output = []
+i = 0
+record_count = 0
+it = sickle.ListRecords(metadataPrefix='marc21xml', set='erb')
+for record in it:
+    tree = etree.ElementTree(record.xml)
+    token = tree.xpath('/resumptionToken', namespaces=namespaces)
+
+    recs = tree.xpath('/oai:record[*]/oai:metadata/marc21:record', namespaces=namespaces)
+    for rec in recs:
+        core = etree.tostring(rec, encoding='utf8', method='xml').decode("utf-8")
+        output.append(core.replace("<?xml version='1.0' encoding='utf8'?>\n", ''))
+        record_count += 1
+    if len(output) >= 100000:
+        write_output(output, i, dir)
+        output = []
+        i = i + 1
+
+write_output(output, i, dir)
+print('saved %d records to %d files' % (record_count, i))
+```
+
+
 ## Download an SQL file
 
 Some bibliographic data sources are available as a relational database. These databases are

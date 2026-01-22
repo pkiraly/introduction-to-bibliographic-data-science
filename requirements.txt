@@ -3,3 +3,4 @@ pyarrow==23.0.0
 # polar=0.0.127
 polars==1.37.1
 pymarc==5.3.1
+sickle==0.7.0
