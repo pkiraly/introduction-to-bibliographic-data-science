@@ -299,6 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#import-btee-to-the-database" id="toc-import-btee-to-the-database" class="nav-link" data-scroll-target="#import-btee-to-the-database"><span class="header-section-number">5.4.1</span> import BTEE to the database</a></li>
   </ul></li>
+  <li><a href="#web-scraping" id="toc-web-scraping" class="nav-link" data-scroll-target="#web-scraping"><span class="header-section-number">5.5</span> Web scraping</a></li>
   </ul>
 </nav>
     </div>
@@ -780,9 +781,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 +---------------------------+---------------+------+-----+---------+-------+
 23 rows in set (0,001 sec)</code></pre>
 <p>This material is not intend to provide introduction to SQL, if you are interested, we can suggest the Library Carpentry’s <a href="https://librarycarpentry.github.io/lc-sql/">SQL lesson</a>.</p>
-
-
 </section>
+</section>
+<section id="web-scraping" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="web-scraping"><span class="header-section-number">5.5</span> Web scraping</h2>
+<p>Often times it happens that an interesting bibliographic data source does not provide any download or programmable access option. We have two options here. The first is to contact the data provider and ask help to access the data. If we can not find contact information, or we do not receive any asnwer to our question, the second option is to extract data from the public web site, called <em>screen scraping</em> or <a href="https://en.wikipedia.org/wiki/Web_scraping">web scraping</a>. In this section the method will be demonstrated on UNESCO’s Index Translationum database (IT).</p>
+<p>IT collected bibliographical records describing translated books in any genre. These records came from national libraries between 1978 and roughly 2009 (IT never announced the cease of data collection, but practically records after this year are quire rare). Before 1978 IT had been published in printed volumes, however I am not aware of digitised versions. Another important problem is that the IT website is not always available.</p>
+<p>The database does not provide browsing functionality, so one should start with a query, such as looking for translations of an author, or translations from a particular language (specifying the <em>source language</em>). The search queries (expressed as URLs) look like these:</p>
+<ul>
+<li>for authors: <code>https://www.unesco.org/xtrans/bsresult.aspx?a=[author]</code>, where <code>[author]</code> should contain the URL encoded name of the author in family name, first name format (e.g.&nbsp;William Shakespeare should be encoded as Shakespeare,%20William)</li>
+<li>for source language: <code>https://www.unesco.org/xtrans/bsresult.aspx?sl=[language code]&amp;tie=a</code>, where the <code>[language code]</code> should be substituted with a concrete language code, such as <code>hun</code> for Hungarian</li>
+</ul>
+<p>You can play at the user interface to find the good initial query term, then you can start with the code (note: the URL encoding is done by the web form, but if you do it programmatically you have to take care with your programming language).</p>
+<p>A note on terminology: in translation study the language from which the work has been written is called the <em>source language</em>, and the translation is written in the <em>target language</em>. Sometimes the translator does not work from the source language, but from another translation, the language of which is called the <em>intermediate language</em>.</p>
+<p>A note on code: every HTML code in this section is a bit formatted by adding spaces and line breaks in order to make it easier to understand. For the original format please check IT’s HTML source.</p>
+<p>The result is a HTML page that you have to parse and extract data. The first thing we extract now is pagination. You receive only 10 results for a single query. The next set can be accessed by clicking on the right arrow icon representing the link to the next page. Fortunately IT applies the class attribute of the HTML element to inject some semantics into the page, and we will utilize this feature. Here is the next link’s HTML structure:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> class</span><span class="op">=</span><span class="st">”next”</span><span class="dt">&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">”bsresult.aspx?lg</span><span class="er">=</span><span class="st">0</span><span class="dv">&amp;amp;</span><span class="st">a</span><span class="er">=</span><span class="st">Shakespeare,</span><span class="ot"> William</span><span class="er">&amp;</span><span class="ot">amp</span><span class="er">;</span><span class="ot">fr</span><span class="op">=</span><span class="st">10”</span><span class="dt">&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> border</span><span class="op">=</span><span class="st">”0”</span><span class="ot"> src</span><span class="op">=</span><span class="st">”Images/cy_r_arr.gif”</span><span class="ot"> alt</span><span class="op">=</span><span class="st">”prev”</span><span class="dt">&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>class=”next”</code> part is unique in the page, however on the last page it is empty, since there are no more hits. Thus we should parse it in two steps: first get the content of the <code>&lt;td&gt;</code> element, then we should find inside the <code>&lt;a&gt;</code> element’s <code>href</code> attribute. Since it contains a relative link, in order to fetch it, we should add <code>https://www.unesco.org/xtrans/</code> to the beginning. We can continue the iteration until the td element becomes empty.</p>
+<p>The next thing is to parse the content, the individual bibliographical descriptions. The results are displayed in a table structure, where the table has the following structure:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">table</span><span class="ot"> class</span><span class="op">=</span><span class="st">”restable”</span><span class="dt">&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> class</span><span class="op">=</span><span class="st">”res1”</span><span class="dt">&gt;</span>1/4380<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> class</span><span class="op">=</span><span class="st">”res2”</span><span class="dt">&gt;</span>[bibliographical description]<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> class</span><span class="op">=</span><span class="st">”res1”</span><span class="dt">&gt;</span>2/4380<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> class</span><span class="op">=</span><span class="st">”res2”</span><span class="dt">&gt;</span>[bibliographical description]<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">table</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>so we should find the table with <code>class=”restable”</code>, then inside it we should process the bibliographical descriptions, which always take place in a cell (<code>&lt;td&gt;</code> element) with <code>class=”res2”</code>.</p>
+<p>Thanks to the unknown software designers and developers behind IT, all elements of the bibliographical description are in a semantically identifiable <code>&lt;span&gt;</code> element. Here is an example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> class</span><span class="op">=</span><span class="st">”res2”</span><span class="dt">&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_auth_name”</span><span class="dt">&gt;</span>Shakespeare<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_auth_firstname”</span><span class="dt">&gt;</span>William<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>:</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_target_title”</span><span class="dt">&gt;</span>König Lear: Tragödie<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  [<span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_target_lang”</span><span class="dt">&gt;</span>German<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  / <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_transl_name”</span><span class="dt">&gt;</span>Baudissin<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_transl_firstname”</span><span class="dt">&gt;</span>Wolf Heinrich<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  / <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_pub”</span><span class="dt">&gt;&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”place”</span><span class="dt">&gt;</span>Stuttgart<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>:</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”publisher”</span><span class="dt">&gt;</span>Reclam<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  [<span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_country”</span><span class="dt">&gt;</span>Germany<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>]<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_year”</span><span class="dt">&gt;</span>1979<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>.</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_pagination”</span><span class="dt">&gt;</span>112 p.<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_orig_title”</span><span class="dt">&gt;</span>King Lear<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  [<span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">”sn_orig_lang”</span><span class="dt">&gt;</span>English<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>]</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The IT records come with the following vocabulary:</p>
+<ul>
+<li><em>place</em>: publication place</li>
+<li><em>publisher</em>: publisher</li>
+<li><em>sn_auth_name</em>: author’s family name</li>
+<li><em>sn_auth_firstname</em>: author’s first name</li>
+<li><em>sn_target_title</em>: the title in the target language</li>
+<li><em>sn_target_lang</em>: the target language</li>
+<li><em>sn_country</em>: country of the publication place</li>
+<li><em>sn_year</em>: publication year</li>
+<li><em>sn_pagination</em>: pagination</li>
+<li><em>sn_orig_lang</em>: original (or source) langue</li>
+<li><em>sn_transl_name</em>: translator’s family name</li>
+<li><em>sn_transl_firstname</em>: translator’s first name</li>
+<li><em>sn_orig_title</em>: title in source languge</li>
+<li><em>sn_editionstat</em>: edition statement</li>
+<li>_sn_interm_titl_e: title in intermediate language</li>
+<li><em>sn_interm_lang</em>: intermediate language</li>
+<li><em>sn_isbn</em>: ISBN</li>
+<li><em>sn_auth_quality</em>: quality indicator for the author</li>
+<li><em>sn_transl_quality</em>: quality indicator for the translator</li>
+</ul>
+<p>Of course not all data elements are available in every record. IT collected bibliographical records from national libraries, and the quality of them vary a lot. There are character encoding problems, and sometimes falsely tagged data elements.</p>
+
+
 </section>
 
 </main> <!-- /main -->
