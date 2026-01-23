@@ -455,4 +455,136 @@ The result:
 ```
 
 This material is not intend to provide introduction to SQL, if you are interested, we 
-can suggest the Library Carpentry's [SQL lesson](https://librarycarpentry.github.io/lc-sql/). 
+can suggest the Library Carpentry's [SQL lesson](https://librarycarpentry.github.io/lc-sql/).
+
+## Web scraping
+
+Often times it happens that an interesting bibliographic data source does not provide any 
+download or programmable access option. We have two options here. The first is to contact
+the data provider and ask help to access the data. If we can not find contact information,
+or we do not receive any asnwer to our question, the second option is to extract data from
+the public web site, called _screen scraping_ or 
+[web scraping](https://en.wikipedia.org/wiki/Web_scraping). 
+In this section the method will be demonstrated on UNESCO’s Index Translationum database (IT).
+
+IT collected bibliographical records describing translated books in any genre. These records
+came from national libraries between 1978 and roughly 2009 (IT never announced the cease of
+data collection, but practically records after this year are quire rare). Before 1978 IT had
+been published in printed volumes, however I am not aware of digitised versions. 
+Another important problem is that the IT website is not always available. 
+
+The database does not 
+provide browsing functionality, so one should start with a query, such as looking for 
+translations of an author, or translations from a particular language (specifying the _source language_).
+The search queries (expressed as URLs) look like these:
+
+* for authors: `https://www.unesco.org/xtrans/bsresult.aspx?a=[author]`, where `[author]` 
+  should contain the URL encoded name of the author in family name, first name format
+  (e.g. William Shakespeare should be encoded as Shakespeare,%20William)
+* for source language: `https://www.unesco.org/xtrans/bsresult.aspx?sl=[language code]&tie=a`,
+  where the `[language code]` should be substituted with a concrete language code, such as `hun`
+  for Hungarian 
+
+You can play at the user interface to find the good initial query term, then you can start
+with the code (note: the URL encoding is done by the web form, but if you do it 
+programmatically you have to take care with your programming language).
+
+A note on terminology: in translation study the language from which the work has been
+written is called the _source language_, and the translation is written in the _target language_.
+Sometimes the translator does not work from the source language, but from another
+translation, the language of which is called the _intermediate language_.
+
+A note on code: every HTML code in this section is a bit formatted by adding spaces and
+line breaks in order to make it easier to understand. For the original format please
+check IT’s HTML source.
+
+The result is a HTML page that you have to parse and extract data. The first thing we
+extract now is pagination. You receive only 10 results for a single query. The next
+set can be accessed by clicking on the right arrow icon representing the link to the
+next page. Fortunately IT applies the class attribute of the HTML element to inject
+some semantics into the page, and we will utilize this feature. Here is the next
+link’s HTML structure:
+
+```html
+<td class=”next”>
+  <a href=”bsresult.aspx?lg=0&amp;a=Shakespeare, William&amp;fr=10”>
+    <img border=”0” src=”Images/cy_r_arr.gif” alt=”prev”>
+  </a>
+</td>
+```
+
+The `class=”next”` part is unique in the page, however on the last page it is empty,
+since there are no more hits. Thus we should parse it in two steps: first get the
+content of the `<td>` element, then we should find inside the `<a>` element’s 
+`href` attribute. Since it contains a relative link, in order to fetch it, we should add
+`https://www.unesco.org/xtrans/` to the beginning. We can continue the iteration until
+the td element becomes empty.
+
+The next thing is to parse the content, the individual bibliographical descriptions.
+The results are displayed in a table structure, where the table has the following structure:
+
+```html
+<table class=”restable”>
+  <tr>
+    <td class=”res1”>1/4380</td>
+    <td class=”res2”>[bibliographical description]</td>
+  </tr>
+  <tr>
+    <td class=”res1”>2/4380</td>
+    <td class=”res2”>[bibliographical description]</td>
+  </tr>
+  ...
+</table>
+```
+
+so we should find the table with `class=”restable”`, then inside it we should process the
+bibliographical descriptions, which always take place in a cell (`<td>` element) with `class=”res2”`.
+
+Thanks to the unknown software designers and developers behind IT, all elements of the
+bibliographical description are in a semantically identifiable `<span>` element.
+Here is an example:
+
+```html
+<td class=”res2”>
+  <span class=”sn_auth_name”>Shakespeare</span>,
+  <span class=”sn_auth_firstname”>William</span>:
+  <span class=”sn_target_title”>König Lear: Tragödie</span>
+  [<span class=”sn_target_lang”>German</span>]
+  / <span class=”sn_transl_name”>Baudissin</span>,
+  <span class=”sn_transl_firstname”>Wolf Heinrich</span>
+  / <span class=”sn_pub”><span class=”place”>Stuttgart</span>:
+  <span class=”publisher”>Reclam</span>
+  [<span class=”sn_country”>Germany</span>]</span>,
+  <span class=”sn_year”>1979</span>.
+  <span class=”sn_pagination”>112 p.</span>
+  <span class=”sn_orig_title”>King Lear</span>
+  [<span class=”sn_orig_lang”>English</span>]
+</td>
+```
+
+The IT records come with the following vocabulary:
+
+* _place_: publication place
+* _publisher_: publisher
+* _sn_auth_name_: author’s family name
+* _sn_auth_firstname_: author’s first name
+* _sn_target_title_: the title in the target language
+* _sn_target_lang_: the target language
+* _sn_country_: country of the publication place
+* _sn_year_: publication year
+* _sn_pagination_: pagination
+* _sn_orig_lang_: original (or source) langue
+* _sn_transl_name_: translator’s family name
+* _sn_transl_firstname_: translator’s first name
+* _sn_orig_title_: title in source languge
+* _sn_editionstat_: edition statement
+* _sn_interm_titl_e: title in intermediate language
+* _sn_interm_lang_: intermediate language
+* _sn_isbn_: ISBN
+* _sn_auth_quality_: quality indicator for the author
+* _sn_transl_quality_: quality indicator for the translator
+
+Of course not all data elements are available in every record. IT collected
+bibliographical records from national libraries, and the quality of them
+vary a lot. There are character encoding problems, and sometimes falsely
+tagged data elements.

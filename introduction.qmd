@@ -73,3 +73,10 @@ When you enter this virtual Ubuntu the first time, you should give a user name (
 
 You can find more details and troubleshooting in the following documentation page: 
 [WSL Installation](https://learn.microsoft.com/en-us/windows/wsl/install)
+
+## A note on code
+
+The code (Python, HTML, XML etc.) in this book is a bit formatted by adding spaces and
+line breaks in order to make it easier to understand. These changes neither affect the
+original intention of the code, nor the processing workflow.
+For the original format please check source code of the examples.
