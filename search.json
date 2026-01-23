@@ -227,83 +227,6 @@
     ]
   },
   {
-    "objectID": "ap1.html",
-    "href": "ap1.html",
-    "title": "12  Books",
-    "section": "",
-    "text": "Just as there is no teaching material specifically focused on digital book history, there are no books on this subject either. Once again, we can only recommend books on related topics.\n\nArnold, Taylor, and Lauren Tilton. 2015. Humanities Data in R: Exploring Networks, Geospatial Data, Images, and Text. Springer International Publishing. ISBN 978-3-319-20702-5 (Quantitative Methods in the Humanities and Social Sciences)\nBilbro, Rebecca, Tony Ojeda, and Benjamin Bengfort. 2018. Applied Text Analysis with Python. 1st edition. O’Reilly Media, Inc. ISBN 978-1-4919-6303-6\nGavin, Michael. 2023. Literary Mathematics: Quantitative Theory for Textual Studies. Stanford University Press. ISBN 978-1-5036-3282-0 (Stanford Text Technologies.)\nGonzales, Brighid M. 2020. Systems Librarianship: A Practical Guide for Librarians. Bloomsbury Publishing. ISBN 979-8-8818-7951-8 (Practical Guides for Librarians)\nGooding, Paul, Melissa M. Terras, and Sarah Ames, eds. 2025. Library Catalogues as Data: Research, Practice and Usage. Facet Publishing. ISBN 978-1-78330-658-9\nKlinke, Harald. 2025. Cultural Data Science: An Introduction to R. Springer Nature Switzerland. ISBN 978-3-031-88130-5. (Quantitative Methods in the Humanities and Social Sciences)\nManovich, Lev. 2020. Cultural Analytics. The MIT Press. ISBN 978-0-262-03710-5\nKarsdorp, Folgert, Mike Kestemont, and Allen Riddell. 2021. Humanities Data Analysis: Case Studies with Python. Princeton University Press. ISBN 978-0-691-17236-1\nCrymble, Adam. 2021. Technology and the Historian: Transformations in the Digital Age. University of Illinois Press. ISBN 978-0-252-08569-7 (Topics in the Digital Humanities)\nJockers, Matthew L., and Rosamond Thalken. 2020. Text Analysis with R: For Students of Literature. Springer International Publishing. ISBN 978-3-030-39643-5 (Quantitative Methods in the Humanities and Social Sciences)\nNelson, Catherine. 2024. Software Engineering for Data Scientists: From Notebooks to Scalable Systems. O’Reilly. ISBN 978-1-0981-3620-8",
-    "crumbs": [
-      "Appendices",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Books</span>"
-    ]
-  },
-  {
-    "objectID": "ap2.html",
-    "href": "ap2.html",
-    "title": "13  Journals",
-    "section": "",
-    "text": "The following journals regularly publish studies that are relevant for bibliographical data science:\n\nCode4Lib Journal\nComputational Humanities Research\nCurrent Research in Digital History\nDigital Humanities Quarterly\nDigital Scholarship in the Humanities\nInternational Journal of Digital Humanities\nInternational Journal of Humanities and Arts Computing\nJournal of Cultural Analytics\nJournal of Computing and Cultural Heritage\nJournal of Digital History\nJournal of Open Humanities Data\nOpen Library of Humanities Journal\nTransformations: A DARIAH Journal\nZeitschrift für digitale Geisteswissenschaften",
-    "crumbs": [
-      "Appendices",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Journals</span>"
-    ]
-  },
-  {
-    "objectID": "ap3.html",
-    "href": "ap3.html",
-    "title": "14  Conferences",
-    "section": "",
-    "text": "ADHO Digital Humanities\nDARIAH Annual Conference\nComputational Humanities Research\nDigital Humanities im deutschsprachigen Raum\nDigital Humanties Benelux\nSemantic Web in Libraries\nTheory and Practice in Digital Libraries\nJoint Conference on Digital Libraries",
-    "crumbs": [
-      "Appendices",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Conferences</span>"
-    ]
-  },
-  {
-    "objectID": "ap4.html",
-    "href": "ap4.html",
-    "title": "15  Data sources",
-    "section": "",
-    "text": "15.1 United States of America",
-    "crumbs": [
-      "Appendices",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data sources</span>"
-    ]
-  },
-  {
-    "objectID": "ap4.html#united-states-of-america",
-    "href": "ap4.html#united-states-of-america",
-    "title": "15  Data sources",
-    "section": "",
-    "text": "Library of Congress — https://www.loc.gov/cds/products/marcDist.php. MARC21 (UTF-8 and MARC8 encoding), MARCXML formats, open access. Alternative access point: https://www.loc.gov/collections/selected-datasets/?fa=contributor:library+of+congress.+cataloging+distribution+service.\nHarvard University Library — https://library.harvard.edu/open-metadata. MARC21 format, CC0. Institution specific features are documented here\nColumbia University Library — https://library.columbia.edu/bts/clio-data.html. 10M records, MARC21 and MARCXML format, CC0.\nUniversity of Michigan Library — https://www.lib.umich.edu/open-access-bibliographic-records. 1,3M records, MARC21 and MARCXML formats, CC0.\nUniversity of Pennsylvania Libraries — https://www.library.upenn.edu/collections/digital-projects/open-data-penn-libraries. Two datasets are available:\n\nCatalog records created by Penn Libraries 572K records, MARCXML format, CC0,\nCatalog records derived from other sources, 6.5M records, MARCXML format, Open Data Commons ODC-BY, use in accordance with the OCLC community norms.\n\nYale University — https://guides.library.yale.edu/c.php?g=923429. Three datasets are available:\n\nYale-originated records: 1.47M records, MARC21 format, CC0\nWorldCat-derived records: 6.16M records, MARC21 format, ODC-BY\nOther records (MARC21), independent of Yale and WorldCat, where sharing is permitted. 404K records, MARC21 format.\n\nNational Library of Medicine (NLM) catalogue records — https://www.nlm.nih.gov/databases/download/catalog.html. 4.2 million records, NLMXML, MARCXML and MARC21 formats. NLM Terms and Conditions",
-    "crumbs": [
-      "Appendices",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data sources</span>"
-    ]
-  },
-  {
-    "objectID": "ap4.html#germany",
-    "href": "ap4.html#germany",
-    "title": "15  Data sources",
-    "section": "15.2 Germany",
-    "text": "15.2 Germany\n\nDeutsche Nationalbibliothek — https://www.dnb.de/DE/Professionell/Metadatendienste/Datenbezug/Gesamtabzuege/gesamtabzuege_node.html (note: the records are provided in utf-8 decomposed). 23.9M records, MARC21 and MARCXML format, CC0.\nBibliotheksverbundes Bayern — https://www.bib-bvb.de/web/b3kat/open-data. 27M records, MARCXML format, CC0.\nLeibniz-Informationszentrum Technik und Naturwissenschaften Universitätsbibliothek (TIB) — https://www.tib.eu/de/forschung-entwicklung/entwicklung/open-data. (no download link, use OAI-PMH instead) Dublin Core, MARC21, MARCXML, CC0.\nK10plus-Verbunddatenbank (K10plus union catalogue of Bibliotheksservice-Zentrum Baden Würtemberg (BSZ) and Gemensamer Bibliotheksverbund (GBV)) — https://swblod.bsz-bw.de/od/. 87M records, MARCXML format, CC0.",
-    "crumbs": [
-      "Appendices",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data sources</span>"
-    ]
-  },
-  {
-    "objectID": "ap4.html#others",
-    "href": "ap4.html#others",
-    "title": "15  Data sources",
-    "section": "15.3 Others",
-    "text": "15.3 Others\n\nUniversiteitsbibliotheek Gent — https://lib.ugent.be/info/exports. Weekly data dump in Aleph Sequential format. It contains some Aleph fields above the standard MARC21 fields. ODC ODbL.\nToronto Public Library — https://opendata.tplcs.ca/. 2.5 million MARC21 records, Open Data Policy\nRépertoire International des Sources Musicales — https://opac.rism.info/index.php?id=8&id=8&L=1. 800K records, MARCXML, RDF/XML, CC-BY.\nETH-Bibliothek (Swiss Federal Institute of Technology in Zurich) — http://www.library.ethz.ch/ms/Open-Data-an-der-ETH-Bibliothek/Downloads. 2.5M records, MARCXML format.\nBritish library — http://www.bl.uk/bibliographic/datafree.html#m21z3950 (no download link, use z39.50 instead after asking for permission). MARC21, usage will be strictly for non-commercial purposes.\nTalis — https://archive.org/details/talis_openlibrary_contribution. 5.5 million MARC21 records contributed by Talis to Open Library under the ODC PDDL.\nOxford Medicine Online (the catalogue of medicine books published by Oxford University Press) — https://oxfordmedicine.com/page/67/. 1790 MARC21 records.\nFennica — the Finnish National Bibliography provided by the Finnish National Library — http://data.nationallibrary.fi/download/. 1 million records, MARCXML, CC0.\nBiblioteka Narodawa (Polish National Library) — https://data.bn.org.pl/databases. 6.5 million MARC21 records.\nMagyar Nemzeti Múzeum (Hungarian National Library) — https://mnm.hu/hu/kozponti-konyvtar/nyilt-bibliografiai-adatok, 67K records, MARC21, HUNMARC, BIBFRAME, CC0\nUniversity of Amsterdam Library — https://uba.uva.nl/en/support/open-data/data-sets-and-publication-channels/data-sets-and-publication-channels.html, 2.7 million records, MARCXML, PDDL/ODC-BY. Note: the record for books are not downloadable, only other document types. One should request them via the website.\nPortugal National Library — https://opendata.bnportugal.gov.pt/downloads.htm. 1.13 million UNIMARC records in MARCXML, RDF XML, JSON, TURTLE and CSV formats. CC0\nNational Library of Latvia National bibliography (2017–2020) — https://dati.lnb.lv/. 11K MARCXML records.\nOpen datasets of the Czech National Library — https://www.en.nkp.cz/about-us/professional-activities/open-data CC0\n\nCzech National Bibliography — https://aleph.nkp.cz/data/cnb.xml.gz\nNational Authority File — https://aleph.nkp.cz/data/aut.xml.gz\nOnline Catalogue of the National Library of the Czech Republic — https://aleph.nkp.cz/data/nkc.xml.gz\nUnion Catalogue of the Czech Republic — https://aleph.nkp.cz/data/skc.xml.gz\nArticles from Czech Newspapers, Periodicals and Proceedings — https://aleph.nkp.cz/data/anl.xml.gz\nOnline Catalogue of the Slavonic Library — https://aleph.nkp.cz/data/slk.xml.gz\n\nEstonian National Bibliography — as downloadable TSV or MARC21 via OAI-PMH https://digilab.rara.ee/en/datasets/estonian-national-bibliography/ CC0\nA bibliographic dataset of the Danish Royal Library (Det Kgl. Bibliotek) including Danish monographs from approx. 1600-1900. — https://loar.kb.dk/handle/1902/49107 849K records, MARCXML, PDM 1.0\n\nThanks, Johann Rolschewski, Phú, and Hugh Paterson III for their help in collecting this list! Do you know some more data sources? Please let me know.\nThere are two more datasource worth mention, however they do not provide MARC records, but derivatives:\n\nLinked Open British National Bibliography 3.2M book records in N-Triplets and RDF/XML format, CC0 license\nLinked data of Bibliothèque nationale de France. N3, NT and RDF/XML formats, Licence Ouverte/Open Licence",
-    "crumbs": [
-      "Appendices",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data sources</span>"
-    ]
-  },
-  {
     "objectID": "references.html",
     "href": "references.html",
     "title": "References",
@@ -311,6 +234,83 @@
     "text": "Arnold, Taylor, and Lauren Tilton. 2024. Humanities\nData in R: Exploring\nNetworks, Geospatial Data,\nImages, and Text. 2nd ed. 2024.\nQuantitative Methods in the Humanities and\nSocial Sciences. Cham: Springer International\nPublishing. https://doi.org/10.1007/978-3-031-62566-4.\n\n\nBátorfy, Attila. 2024. Adatvizualizáció. Elmélet, rendszer, módszer.\nBevezetés az adatok grafikus ábrázolásának elméletébe és gyakorlatába. Budapest: ELTE Eötvös Kiadó.\n\n\nBourdieu, Pierre. 2008. “A Conservative Revolution in\nPublishing.” Translation Studies 1 (2): 123–53. https://doi.org/10.1080/14781700802113465.\n\n\nFarkas, Farkas Gábor, János Káldos, and Péter Király. 2025. “A\nRégi Magyarországi Kiadványok „Sötét Anyaga”.” Magyar\nKönyvszemle 141 (2): 226–66. https://doi.org/10.17167/mksz.2025.2.226-266.\n\n\nFeinstein, Charles H., and Mark Thomas. 2008. Making History Count:\nA Primer in Quantitative Methods for Historians. Transferred to\ndigital printing (with corrections). Cambridge New York Melbourne Madrid\nCape Town Singapore São Paulo: Cambridge University Press.\n\n\nHeilbron, Johan. 1999. “Towards a Sociology of\nTranslation: Book Translations as\na Cultural World-System.”\nEuropean Journal of Social Theory 2 (4): 429–44. https://doi.org/10.1177/136843199002004002.\n\n\nHeßbrüggen-Walter, Stefan. 2024. “Interdisciplinarity in the 17th\nCentury? A Co-Occurrence Analysis of Early Modern\nGerman Dissertation Titles.” Synthese 203\n(2): 67. https://doi.org/10.1007/s11229-024-04494-2.\n\n\n———. 2025. “Early Modern Dissertations\nin French Libraries: The\nEMDFL Dataset.” Journal of Open\nHumanities Data 11 (June): 36. https://doi.org/10.5334/johd.307.\n\n\nHudson, Pat, and Mina Ishizu. 2017. History by Numbers: An\nIntroduction to Quantitative Approaches. Second edition. London\nOxford New York New Delhi Sydney: Bloomsbury Academic.\n\n\nKarsdorp, Folgert, Mike Kestemont, and Allen Riddell. 2021.\nHumanities Data Analysis: Case Studies with\nPython. Princeton Oxford: Princeton University Press.\n\n\nKirály, Péter. 2019. “Measuring Metadata\nQuality.” Doctoral dissertation, Göttingen:\nUniversity of Göttingen. https://doi.org/10.13140/RG.2.2.33177.77920.\n\n\nKirály, Péter, and András Kiséry. 2025. “‘Mór\nJókai, Alas’: The Most Successful\nHungarian Writer. A Quantitative\nAnalysis.” Patterns of Translation. https://translationpatterns.substack.com/p/mor-jokai-alas-the-most-successful.\n\n\nKirály, Péter, Tomasz Umerle, Vojtěch Malínek, Elżbieta Herden, Beata\nKoper, Giovanni Colavizza, Rindert Jagersma, et al. 2025. “Effects\nof Open Science and the Digital\nTransformation on the Bibliographical\nData Landscape.” In Library\nCatalogues as Data, edited by Paul\nGooding, Melissa Terras, and Sarah Ames, 1st ed., 19–44. Facet. https://doi.org/10.29085/9781783306602.004.\n\n\nKlinke, Harald. 2025. Cultural Data Science: An Introduction to\nR. Quantitative Methods in the Humanities and Social\nSciences. Cham: Springer Nature Switzerland. https://doi.org/10.1007/978-3-031-88130-5.\n\n\nKoeser, Rebecca Sutton, Julia Damerow, Robert Casties, and Cole\nCrawford. 2025. “Undate: Humanistic Dates for Computation:\nBecause Reality Is Frequently Inaccurate.”\nComputational Humanities Research 1: e5. https://doi.org/10.1017/chr.2025.10006.\n\n\nKruusmaa, Krister, Peeter Tinits, and Laura Nemvalts. 2025.\n“Curated Bibliographic Data:\nThe Case of the Estonian\nNational Bibliography.” Journal of\nOpen Humanities Data 11 (February): 16. https://doi.org/10.5334/johd.280.\n\n\nLahti, Leo, Jani Marjanen, Hege Roivainen, and Mikko Tolonen. 2019.\n“Bibliographic Data Science and the\nHistory of the Book (c. 1500–1800).”\nCataloging & Classification Quarterly 57 (1): 5–23. https://doi.org/10.1080/01639374.2018.1543747.\n\n\nLemercier, Claire, and Claire Zalc. 2019. Quantitative Methods in\nthe Humanities: An Introduction. Translated by Arthur Goldhammer.\nCharlottesville: University of Virginia Press.\n\n\nMariani, Fabio. 2023. “Introducing VISU:\nVagueness, Incompleteness,\nSubjectivity, and Uncertainty in\nArt Provenance Data.” In\nProceedings of the Workshop on\nComputational Methods in the\nHumanities 2022, Vol-3602:63–84. Workshop\nProceedings. https://ceur-ws.org/Vol-3602/paper5.pdf.\n\n\nSzemes, Botond, and Kata Dobás. 2025. “A Visegrádi Országok\nDigitális Irodalmi Emlékezete : Wikipedia,\nWikidata – a Regionális Irodalomtörténet Új\nAlakzatai.” Irodalomtörténeti Közlemények 129 (2):\n191–212. https://doi.org/10.56232/itk.2025.2.04.",
     "crumbs": [
       "References"
+    ]
+  },
+  {
+    "objectID": "ap1.html",
+    "href": "ap1.html",
+    "title": "Appendix A — Books",
+    "section": "",
+    "text": "Just as there is no teaching material specifically focused on digital book history, there are no books on this subject either. Once again, we can only recommend books on related topics.\n\nArnold, Taylor, and Lauren Tilton. 2015. Humanities Data in R: Exploring Networks, Geospatial Data, Images, and Text. Springer International Publishing. ISBN 978-3-319-20702-5 (Quantitative Methods in the Humanities and Social Sciences)\nBilbro, Rebecca, Tony Ojeda, and Benjamin Bengfort. 2018. Applied Text Analysis with Python. 1st edition. O’Reilly Media, Inc. ISBN 978-1-4919-6303-6\nGavin, Michael. 2023. Literary Mathematics: Quantitative Theory for Textual Studies. Stanford University Press. ISBN 978-1-5036-3282-0 (Stanford Text Technologies.)\nGonzales, Brighid M. 2020. Systems Librarianship: A Practical Guide for Librarians. Bloomsbury Publishing. ISBN 979-8-8818-7951-8 (Practical Guides for Librarians)\nGooding, Paul, Melissa M. Terras, and Sarah Ames, eds. 2025. Library Catalogues as Data: Research, Practice and Usage. Facet Publishing. ISBN 978-1-78330-658-9\nKlinke, Harald. 2025. Cultural Data Science: An Introduction to R. Springer Nature Switzerland. ISBN 978-3-031-88130-5. (Quantitative Methods in the Humanities and Social Sciences)\nManovich, Lev. 2020. Cultural Analytics. The MIT Press. ISBN 978-0-262-03710-5\nKarsdorp, Folgert, Mike Kestemont, and Allen Riddell. 2021. Humanities Data Analysis: Case Studies with Python. Princeton University Press. ISBN 978-0-691-17236-1\nCrymble, Adam. 2021. Technology and the Historian: Transformations in the Digital Age. University of Illinois Press. ISBN 978-0-252-08569-7 (Topics in the Digital Humanities)\nJockers, Matthew L., and Rosamond Thalken. 2020. Text Analysis with R: For Students of Literature. Springer International Publishing. ISBN 978-3-030-39643-5 (Quantitative Methods in the Humanities and Social Sciences)\nNelson, Catherine. 2024. Software Engineering for Data Scientists: From Notebooks to Scalable Systems. O’Reilly. ISBN 978-1-0981-3620-8",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Books</span>"
+    ]
+  },
+  {
+    "objectID": "ap2.html",
+    "href": "ap2.html",
+    "title": "Appendix B — Journals",
+    "section": "",
+    "text": "The following journals regularly publish studies that are relevant for bibliographical data science:\n\nCode4Lib Journal\nComputational Humanities Research\nCurrent Research in Digital History\nDigital Humanities Quarterly\nDigital Scholarship in the Humanities\nInternational Journal of Digital Humanities\nInternational Journal of Humanities and Arts Computing\nJournal of Cultural Analytics\nJournal of Computing and Cultural Heritage\nJournal of Digital History\nJournal of Open Humanities Data\nOpen Library of Humanities Journal\nTransformations: A DARIAH Journal\nZeitschrift für digitale Geisteswissenschaften",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Journals</span>"
+    ]
+  },
+  {
+    "objectID": "ap3.html",
+    "href": "ap3.html",
+    "title": "Appendix C — Conferences",
+    "section": "",
+    "text": "ADHO Digital Humanities\nDARIAH Annual Conference\nComputational Humanities Research\nDigital Humanities im deutschsprachigen Raum\nDigital Humanties Benelux\nSemantic Web in Libraries\nTheory and Practice in Digital Libraries\nJoint Conference on Digital Libraries",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Conferences</span>"
+    ]
+  },
+  {
+    "objectID": "ap4.html",
+    "href": "ap4.html",
+    "title": "Appendix D — Data sources",
+    "section": "",
+    "text": "D.1 United States of America",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>D</span>  <span class='chapter-title'>Data sources</span>"
+    ]
+  },
+  {
+    "objectID": "ap4.html#united-states-of-america",
+    "href": "ap4.html#united-states-of-america",
+    "title": "Appendix D — Data sources",
+    "section": "",
+    "text": "Library of Congress — https://www.loc.gov/cds/products/marcDist.php. MARC21 (UTF-8 and MARC8 encoding), MARCXML formats, open access. Alternative access point: https://www.loc.gov/collections/selected-datasets/?fa=contributor:library+of+congress.+cataloging+distribution+service.\nHarvard University Library — https://library.harvard.edu/open-metadata. MARC21 format, CC0. Institution specific features are documented here\nColumbia University Library — https://library.columbia.edu/bts/clio-data.html. 10M records, MARC21 and MARCXML format, CC0.\nUniversity of Michigan Library — https://www.lib.umich.edu/open-access-bibliographic-records. 1,3M records, MARC21 and MARCXML formats, CC0.\nUniversity of Pennsylvania Libraries — https://www.library.upenn.edu/collections/digital-projects/open-data-penn-libraries. Two datasets are available:\n\nCatalog records created by Penn Libraries 572K records, MARCXML format, CC0,\nCatalog records derived from other sources, 6.5M records, MARCXML format, Open Data Commons ODC-BY, use in accordance with the OCLC community norms.\n\nYale University — https://guides.library.yale.edu/c.php?g=923429. Three datasets are available:\n\nYale-originated records: 1.47M records, MARC21 format, CC0\nWorldCat-derived records: 6.16M records, MARC21 format, ODC-BY\nOther records (MARC21), independent of Yale and WorldCat, where sharing is permitted. 404K records, MARC21 format.\n\nNational Library of Medicine (NLM) catalogue records — https://www.nlm.nih.gov/databases/download/catalog.html. 4.2 million records, NLMXML, MARCXML and MARC21 formats. NLM Terms and Conditions",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>D</span>  <span class='chapter-title'>Data sources</span>"
+    ]
+  },
+  {
+    "objectID": "ap4.html#germany",
+    "href": "ap4.html#germany",
+    "title": "Appendix D — Data sources",
+    "section": "D.2 Germany",
+    "text": "D.2 Germany\n\nDeutsche Nationalbibliothek — https://www.dnb.de/DE/Professionell/Metadatendienste/Datenbezug/Gesamtabzuege/gesamtabzuege_node.html (note: the records are provided in utf-8 decomposed). 23.9M records, MARC21 and MARCXML format, CC0.\nBibliotheksverbundes Bayern — https://www.bib-bvb.de/web/b3kat/open-data. 27M records, MARCXML format, CC0.\nLeibniz-Informationszentrum Technik und Naturwissenschaften Universitätsbibliothek (TIB) — https://www.tib.eu/de/forschung-entwicklung/entwicklung/open-data. (no download link, use OAI-PMH instead) Dublin Core, MARC21, MARCXML, CC0.\nK10plus-Verbunddatenbank (K10plus union catalogue of Bibliotheksservice-Zentrum Baden Würtemberg (BSZ) and Gemensamer Bibliotheksverbund (GBV)) — https://swblod.bsz-bw.de/od/. 87M records, MARCXML format, CC0.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>D</span>  <span class='chapter-title'>Data sources</span>"
+    ]
+  },
+  {
+    "objectID": "ap4.html#others",
+    "href": "ap4.html#others",
+    "title": "Appendix D — Data sources",
+    "section": "D.3 Others",
+    "text": "D.3 Others\n\nUniversiteitsbibliotheek Gent — https://lib.ugent.be/info/exports. Weekly data dump in Aleph Sequential format. It contains some Aleph fields above the standard MARC21 fields. ODC ODbL.\nToronto Public Library — https://opendata.tplcs.ca/. 2.5 million MARC21 records, Open Data Policy\nRépertoire International des Sources Musicales — https://opac.rism.info/index.php?id=8&id=8&L=1. 800K records, MARCXML, RDF/XML, CC-BY.\nETH-Bibliothek (Swiss Federal Institute of Technology in Zurich) — http://www.library.ethz.ch/ms/Open-Data-an-der-ETH-Bibliothek/Downloads. 2.5M records, MARCXML format.\nBritish library — http://www.bl.uk/bibliographic/datafree.html#m21z3950 (no download link, use z39.50 instead after asking for permission). MARC21, usage will be strictly for non-commercial purposes.\nTalis — https://archive.org/details/talis_openlibrary_contribution. 5.5 million MARC21 records contributed by Talis to Open Library under the ODC PDDL.\nOxford Medicine Online (the catalogue of medicine books published by Oxford University Press) — https://oxfordmedicine.com/page/67/. 1790 MARC21 records.\nFennica — the Finnish National Bibliography provided by the Finnish National Library — http://data.nationallibrary.fi/download/. 1 million records, MARCXML, CC0.\nBiblioteka Narodawa (Polish National Library) — https://data.bn.org.pl/databases. 6.5 million MARC21 records.\nMagyar Nemzeti Múzeum (Hungarian National Library) — https://mnm.hu/hu/kozponti-konyvtar/nyilt-bibliografiai-adatok, 67K records, MARC21, HUNMARC, BIBFRAME, CC0\nUniversity of Amsterdam Library — https://uba.uva.nl/en/support/open-data/data-sets-and-publication-channels/data-sets-and-publication-channels.html, 2.7 million records, MARCXML, PDDL/ODC-BY. Note: the record for books are not downloadable, only other document types. One should request them via the website.\nPortugal National Library — https://opendata.bnportugal.gov.pt/downloads.htm. 1.13 million UNIMARC records in MARCXML, RDF XML, JSON, TURTLE and CSV formats. CC0\nNational Library of Latvia National bibliography (2017–2020) — https://dati.lnb.lv/. 11K MARCXML records.\nOpen datasets of the Czech National Library — https://www.en.nkp.cz/about-us/professional-activities/open-data CC0\n\nCzech National Bibliography — https://aleph.nkp.cz/data/cnb.xml.gz\nNational Authority File — https://aleph.nkp.cz/data/aut.xml.gz\nOnline Catalogue of the National Library of the Czech Republic — https://aleph.nkp.cz/data/nkc.xml.gz\nUnion Catalogue of the Czech Republic — https://aleph.nkp.cz/data/skc.xml.gz\nArticles from Czech Newspapers, Periodicals and Proceedings — https://aleph.nkp.cz/data/anl.xml.gz\nOnline Catalogue of the Slavonic Library — https://aleph.nkp.cz/data/slk.xml.gz\n\nEstonian National Bibliography — as downloadable TSV or MARC21 via OAI-PMH https://digilab.rara.ee/en/datasets/estonian-national-bibliography/ CC0\nA bibliographic dataset of the Danish Royal Library (Det Kgl. Bibliotek) including Danish monographs from approx. 1600-1900. — https://loar.kb.dk/handle/1902/49107 849K records, MARCXML, PDM 1.0\n\nThanks, Johann Rolschewski, Phú, and Hugh Paterson III for their help in collecting this list! Do you know some more data sources? Please let me know.\nThere are two more datasource worth mention, however they do not provide MARC records, but derivatives:\n\nLinked Open British National Bibliography 3.2M book records in N-Triplets and RDF/XML format, CC0 license\nLinked data of Bibliothèque nationale de France. N3, NT and RDF/XML formats, Licence Ouverte/Open Licence",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>D</span>  <span class='chapter-title'>Data sources</span>"
     ]
   }
 ]
