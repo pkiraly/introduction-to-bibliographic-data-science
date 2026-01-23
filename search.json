@@ -260,6 +260,50 @@
     ]
   },
   {
+    "objectID": "ap4.html",
+    "href": "ap4.html",
+    "title": "15  Data sources",
+    "section": "",
+    "text": "15.1 United States of America",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data sources</span>"
+    ]
+  },
+  {
+    "objectID": "ap4.html#united-states-of-america",
+    "href": "ap4.html#united-states-of-america",
+    "title": "15  Data sources",
+    "section": "",
+    "text": "Library of Congress — https://www.loc.gov/cds/products/marcDist.php. MARC21 (UTF-8 and MARC8 encoding), MARCXML formats, open access. Alternative access point: https://www.loc.gov/collections/selected-datasets/?fa=contributor:library+of+congress.+cataloging+distribution+service.\nHarvard University Library — https://library.harvard.edu/open-metadata. MARC21 format, CC0. Institution specific features are documented here\nColumbia University Library — https://library.columbia.edu/bts/clio-data.html. 10M records, MARC21 and MARCXML format, CC0.\nUniversity of Michigan Library — https://www.lib.umich.edu/open-access-bibliographic-records. 1,3M records, MARC21 and MARCXML formats, CC0.\nUniversity of Pennsylvania Libraries — https://www.library.upenn.edu/collections/digital-projects/open-data-penn-libraries. Two datasets are available:\n\nCatalog records created by Penn Libraries 572K records, MARCXML format, CC0,\nCatalog records derived from other sources, 6.5M records, MARCXML format, Open Data Commons ODC-BY, use in accordance with the OCLC community norms.\n\nYale University — https://guides.library.yale.edu/c.php?g=923429. Three datasets are available:\n\nYale-originated records: 1.47M records, MARC21 format, CC0\nWorldCat-derived records: 6.16M records, MARC21 format, ODC-BY\nOther records (MARC21), independent of Yale and WorldCat, where sharing is permitted. 404K records, MARC21 format.\n\nNational Library of Medicine (NLM) catalogue records — https://www.nlm.nih.gov/databases/download/catalog.html. 4.2 million records, NLMXML, MARCXML and MARC21 formats. NLM Terms and Conditions",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data sources</span>"
+    ]
+  },
+  {
+    "objectID": "ap4.html#germany",
+    "href": "ap4.html#germany",
+    "title": "15  Data sources",
+    "section": "15.2 Germany",
+    "text": "15.2 Germany\n\nDeutsche Nationalbibliothek — https://www.dnb.de/DE/Professionell/Metadatendienste/Datenbezug/Gesamtabzuege/gesamtabzuege_node.html (note: the records are provided in utf-8 decomposed). 23.9M records, MARC21 and MARCXML format, CC0.\nBibliotheksverbundes Bayern — https://www.bib-bvb.de/web/b3kat/open-data. 27M records, MARCXML format, CC0.\nLeibniz-Informationszentrum Technik und Naturwissenschaften Universitätsbibliothek (TIB) — https://www.tib.eu/de/forschung-entwicklung/entwicklung/open-data. (no download link, use OAI-PMH instead) Dublin Core, MARC21, MARCXML, CC0.\nK10plus-Verbunddatenbank (K10plus union catalogue of Bibliotheksservice-Zentrum Baden Würtemberg (BSZ) and Gemensamer Bibliotheksverbund (GBV)) — https://swblod.bsz-bw.de/od/. 87M records, MARCXML format, CC0.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data sources</span>"
+    ]
+  },
+  {
+    "objectID": "ap4.html#others",
+    "href": "ap4.html#others",
+    "title": "15  Data sources",
+    "section": "15.3 Others",
+    "text": "15.3 Others\n\nUniversiteitsbibliotheek Gent — https://lib.ugent.be/info/exports. Weekly data dump in Aleph Sequential format. It contains some Aleph fields above the standard MARC21 fields. ODC ODbL.\nToronto Public Library — https://opendata.tplcs.ca/. 2.5 million MARC21 records, Open Data Policy\nRépertoire International des Sources Musicales — https://opac.rism.info/index.php?id=8&id=8&L=1. 800K records, MARCXML, RDF/XML, CC-BY.\nETH-Bibliothek (Swiss Federal Institute of Technology in Zurich) — http://www.library.ethz.ch/ms/Open-Data-an-der-ETH-Bibliothek/Downloads. 2.5M records, MARCXML format.\nBritish library — http://www.bl.uk/bibliographic/datafree.html#m21z3950 (no download link, use z39.50 instead after asking for permission). MARC21, usage will be strictly for non-commercial purposes.\nTalis — https://archive.org/details/talis_openlibrary_contribution. 5.5 million MARC21 records contributed by Talis to Open Library under the ODC PDDL.\nOxford Medicine Online (the catalogue of medicine books published by Oxford University Press) — https://oxfordmedicine.com/page/67/. 1790 MARC21 records.\nFennica — the Finnish National Bibliography provided by the Finnish National Library — http://data.nationallibrary.fi/download/. 1 million records, MARCXML, CC0.\nBiblioteka Narodawa (Polish National Library) — https://data.bn.org.pl/databases. 6.5 million MARC21 records.\nMagyar Nemzeti Múzeum (Hungarian National Library) — https://mnm.hu/hu/kozponti-konyvtar/nyilt-bibliografiai-adatok, 67K records, MARC21, HUNMARC, BIBFRAME, CC0\nUniversity of Amsterdam Library — https://uba.uva.nl/en/support/open-data/data-sets-and-publication-channels/data-sets-and-publication-channels.html, 2.7 million records, MARCXML, PDDL/ODC-BY. Note: the record for books are not downloadable, only other document types. One should request them via the website.\nPortugal National Library — https://opendata.bnportugal.gov.pt/downloads.htm. 1.13 million UNIMARC records in MARCXML, RDF XML, JSON, TURTLE and CSV formats. CC0\nNational Library of Latvia National bibliography (2017–2020) — https://dati.lnb.lv/. 11K MARCXML records.\nOpen datasets of the Czech National Library — https://www.en.nkp.cz/about-us/professional-activities/open-data CC0\n\nCzech National Bibliography — https://aleph.nkp.cz/data/cnb.xml.gz\nNational Authority File — https://aleph.nkp.cz/data/aut.xml.gz\nOnline Catalogue of the National Library of the Czech Republic — https://aleph.nkp.cz/data/nkc.xml.gz\nUnion Catalogue of the Czech Republic — https://aleph.nkp.cz/data/skc.xml.gz\nArticles from Czech Newspapers, Periodicals and Proceedings — https://aleph.nkp.cz/data/anl.xml.gz\nOnline Catalogue of the Slavonic Library — https://aleph.nkp.cz/data/slk.xml.gz\n\nEstonian National Bibliography — as downloadable TSV or MARC21 via OAI-PMH https://digilab.rara.ee/en/datasets/estonian-national-bibliography/ CC0\nA bibliographic dataset of the Danish Royal Library (Det Kgl. Bibliotek) including Danish monographs from approx. 1600-1900. — https://loar.kb.dk/handle/1902/49107 849K records, MARCXML, PDM 1.0\n\nThanks, Johann Rolschewski, Phú, and Hugh Paterson III for their help in collecting this list! Do you know some more data sources? Please let me know.\nThere are two more datasource worth mention, however they do not provide MARC records, but derivatives:\n\nLinked Open British National Bibliography 3.2M book records in N-Triplets and RDF/XML format, CC0 license\nLinked data of Bibliothèque nationale de France. N3, NT and RDF/XML formats, Licence Ouverte/Open Licence",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Data sources</span>"
+    ]
+  },
+  {
     "objectID": "references.html",
     "href": "references.html",
     "title": "References",
