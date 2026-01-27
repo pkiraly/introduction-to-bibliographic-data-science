@@ -854,6 +854,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><em>sn_transl_quality</em>: quality indicator for the translator</li>
 </ul>
 <p>Of course not all data elements are available in every record. IT collected bibliographical records from national libraries, and the quality of them vary a lot. There are character encoding problems, and sometimes falsely tagged data elements.</p>
+<p>There are a number of technical possibilities to parse HTML. Since IT’s HTML pages are seemingly transformed from a database with strict rules, one can apply regular expressions, which is a risky approach in lots of other cases. There are more advanced HTML parser libraries however such as <em>BeautifulSoap</em>. Here is the <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">documentation</a>, and Programming Historian also has a tutorial:</p>
+<blockquote class="blockquote">
+<p>Jeri Wieringa, “Intro to Beautiful Soup,” Programming Historian 1 (2012), <a href="https://doi.org/10.46430/phen0008">https://doi.org/10.46430/phen0008</a></p>
+</blockquote>
+<p>which unfortunately a ‘retired’ lesson, since the HTML page on which the author demonstrates the strength of the library is no longer available, but still a good introduction, and one can apply the methods on IT.</p>
 
 
 </section>
