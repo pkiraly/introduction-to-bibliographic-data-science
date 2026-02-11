@@ -1048,21 +1048,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-24-2" class="code-annotation-target"><a href="#annotated-cell-24-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> record_counter, authors, translators</span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-24-3" class="code-annotation-target"><a href="#annotated-cell-24-3" aria-hidden="true" tabindex="-1"></a>    items <span class="op">=</span> doc.findall(<span class="st">'body/table[@class="restable"]/tr/td[@class="res2"]'</span>, {})</span>
 <span id="annotated-cell-24-4"><a href="#annotated-cell-24-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> items:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-24-5" class="code-annotation-target"><a href="#annotated-cell-24-5" aria-hidden="true" tabindex="-1"></a>        record_counter <span class="op">+=</span> <span class="dv">1</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-24-6" class="code-annotation-target"><a href="#annotated-cell-24-6" aria-hidden="true" tabindex="-1"></a>        record <span class="op">=</span> {<span class="st">'id'</span>: record_counter}</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-24-7" class="code-annotation-target"><a href="#annotated-cell-24-7" aria-hidden="true" tabindex="-1"></a>        spans <span class="op">=</span> item.findall(<span class="st">'span'</span>)</span>
-<span id="annotated-cell-24-8"><a href="#annotated-cell-24-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> span <span class="kw">in</span> spans:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-24-9" class="code-annotation-target"><a href="#annotated-cell-24-9" aria-hidden="true" tabindex="-1"></a>            key <span class="op">=</span> span.get(<span class="st">'class'</span>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-24-10" class="code-annotation-target"><a href="#annotated-cell-24-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> key <span class="op">==</span> <span class="st">'sn_pub'</span>:</span>
-<span id="annotated-cell-24-11"><a href="#annotated-cell-24-11" aria-hidden="true" tabindex="-1"></a>                subs <span class="op">=</span> span.findall(<span class="st">'span'</span>)</span>
-<span id="annotated-cell-24-12"><a href="#annotated-cell-24-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> sub <span class="kw">in</span> subs:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-24-13" class="code-annotation-target"><a href="#annotated-cell-24-13" aria-hidden="true" tabindex="-1"></a>                    extract_key_value(record, sub)</span>
-<span id="annotated-cell-24-14"><a href="#annotated-cell-24-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="annotated-cell-24-15"><a href="#annotated-cell-24-15" aria-hidden="true" tabindex="-1"></a>                extract_key_value(record, span)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-24-16" class="code-annotation-target"><a href="#annotated-cell-24-16" aria-hidden="true" tabindex="-1"></a>        record, record_authors, record_translators <span class="op">=</span> normalize_record(record)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-24-17" class="code-annotation-target"><a href="#annotated-cell-24-17" aria-hidden="true" tabindex="-1"></a>        records.append(record)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-24-18" class="code-annotation-target"><a href="#annotated-cell-24-18" aria-hidden="true" tabindex="-1"></a>        authors <span class="op">+=</span> record_authors</span>
-<span id="annotated-cell-24-19"><a href="#annotated-cell-24-19" aria-hidden="true" tabindex="-1"></a>        translators <span class="op">+=</span> record_translators</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-24-5" class="code-annotation-target"><a href="#annotated-cell-24-5" aria-hidden="true" tabindex="-1"></a>        record <span class="op">=</span> {<span class="st">'id'</span>: record_counter}</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-24-6" class="code-annotation-target"><a href="#annotated-cell-24-6" aria-hidden="true" tabindex="-1"></a>        spans <span class="op">=</span> item.findall(<span class="st">'span'</span>)</span>
+<span id="annotated-cell-24-7"><a href="#annotated-cell-24-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> span <span class="kw">in</span> spans:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-24-8" class="code-annotation-target"><a href="#annotated-cell-24-8" aria-hidden="true" tabindex="-1"></a>            key <span class="op">=</span> span.get(<span class="st">'class'</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-24-9" class="code-annotation-target"><a href="#annotated-cell-24-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> key <span class="op">==</span> <span class="st">'sn_pub'</span>:</span>
+<span id="annotated-cell-24-10"><a href="#annotated-cell-24-10" aria-hidden="true" tabindex="-1"></a>                subs <span class="op">=</span> span.findall(<span class="st">'span'</span>)</span>
+<span id="annotated-cell-24-11"><a href="#annotated-cell-24-11" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> sub <span class="kw">in</span> subs:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-24-12" class="code-annotation-target"><a href="#annotated-cell-24-12" aria-hidden="true" tabindex="-1"></a>                    extract_key_value(record, sub)</span>
+<span id="annotated-cell-24-13"><a href="#annotated-cell-24-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-24-14" class="code-annotation-target"><a href="#annotated-cell-24-14" aria-hidden="true" tabindex="-1"></a>                extract_key_value(record, span)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-24-15" class="code-annotation-target"><a href="#annotated-cell-24-15" aria-hidden="true" tabindex="-1"></a>        record, record_authors, record_translators <span class="op">=</span> normalize_record(record)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-24-16" class="code-annotation-target"><a href="#annotated-cell-24-16" aria-hidden="true" tabindex="-1"></a>        records.append(record)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-24-17" class="code-annotation-target"><a href="#annotated-cell-24-17" aria-hidden="true" tabindex="-1"></a>        authors <span class="op">+=</span> record_authors</span>
+<span id="annotated-cell-24-18"><a href="#annotated-cell-24-18" aria-hidden="true" tabindex="-1"></a>        translators <span class="op">+=</span> record_translators</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="12" onclick="event.preventDefault();">12</a><span id="annotated-cell-24-19" class="code-annotation-target"><a href="#annotated-cell-24-19" aria-hidden="true" tabindex="-1"></a>        record_counter <span class="op">+=</span> <span class="dv">1</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-24" data-target-annotation="1">1</dt>
 <dd>
@@ -1074,39 +1074,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dd>
 <dt data-target-cell="annotated-cell-24" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="5" data-code-annotation="3">increases the record counter by one</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="5" data-code-annotation="3">creates a dictionary for the record structure, initially only with the identifier</span>
 </dd>
 <dt data-target-cell="annotated-cell-24" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="6" data-code-annotation="4">creates a dictionary for the record structure, initially only with the identifier</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="6" data-code-annotation="4">all the important data elements are in <code>&lt;span&gt;</code> elements, so we have to find extract them (inside the current cell), and iterate over them</span>
 </dd>
 <dt data-target-cell="annotated-cell-24" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="7" data-code-annotation="5">all the important data elements are in <code>&lt;span&gt;</code> elements, so we have to find extract them (inside the current cell), and iterate over them</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="8" data-code-annotation="5">the semantic information is found in the class attribute, so we should save it</span>
 </dd>
 <dt data-target-cell="annotated-cell-24" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="9" data-code-annotation="6">the semantic information is found in the class attribute, so we should save it</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="9" data-code-annotation="6">however there is a special span: <code>sn_pub</code> is a container of other spans, and we have to run a second iteration to extract its children</span>
 </dd>
 <dt data-target-cell="annotated-cell-24" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="10" data-code-annotation="7">however there is a special span: <code>sn_pub</code> is a container of other spans, and we have to run a second iteration to extract its children</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="12" data-code-annotation="7">and 8. at the end we call the extract_key_value() method with the record structure and the current (non complex) span element. It extracts the value and stores it in the record</span>
 </dd>
 <dt data-target-cell="annotated-cell-24" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="13,15" data-code-annotation="8">at the end we call the extract_key_value() method with the record structure and the current (non complex) span element. It extracts the value and stores it in the record</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="14" data-code-annotation="8">ditto</span>
 </dd>
 <dt data-target-cell="annotated-cell-24" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="16" data-code-annotation="9">after processing all spans we should normalize the record with the normalize_record() method. It returns the normalized method, the list of authors, authors and translators</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="15" data-code-annotation="9">after processing all spans we should normalize the record with the normalize_record() method. It returns the normalized method, the list of authors, authors and translators</span>
 </dd>
 <dt data-target-cell="annotated-cell-24" data-target-annotation="10">10</dt>
 <dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="17" data-code-annotation="10">as record is a single dictionary it can be appended easily to the list of records</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="16" data-code-annotation="10">as record is a single dictionary it can be appended easily to the list of records</span>
 </dd>
 <dt data-target-cell="annotated-cell-24" data-target-annotation="11">11</dt>
 <dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="18" data-code-annotation="11">however as authors and translators are list of dictionaries, append() can not be used here, we should concatenate the lists</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="17" data-code-annotation="11">however as authors and translators are list of dictionaries, append() can not be used here, we should concatenate the lists</span>
+</dd>
+<dt data-target-cell="annotated-cell-24" data-target-annotation="12">12</dt>
+<dd>
+<span data-code-cell="annotated-cell-24" data-code-lines="19" data-code-annotation="12">increases the record counter by one</span>
 </dd>
 </dl>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-25"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-25-1"><a href="#annotated-cell-25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_key_value(record, span):</span>
@@ -1293,18 +1297,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-29-8" class="code-annotation-target"><a href="#annotated-cell-29-8" aria-hidden="true" tabindex="-1"></a>    output_writer.writeheader()</span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-29-9" class="code-annotation-target"><a href="#annotated-cell-29-9" aria-hidden="true" tabindex="-1"></a>    output_writer.writerows(records)</span>
 <span id="annotated-cell-29-10"><a href="#annotated-cell-29-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-29-11"><a href="#annotated-cell-29-11" aria-hidden="true" tabindex="-1"></a>column_names<span class="op">=</span>[<span class="st">'rid'</span>, <span class="st">'last'</span>, <span class="st">'first'</span>]</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-29-12" class="code-annotation-target"><a href="#annotated-cell-29-12" aria-hidden="true" tabindex="-1"></a>output_file <span class="op">=</span> os.path.join(output_dir, <span class="st">'authors.csv'</span>)</span>
-<span id="annotated-cell-29-13"><a href="#annotated-cell-29-13" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(output_file, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> csv_file:</span>
-<span id="annotated-cell-29-14"><a href="#annotated-cell-29-14" aria-hidden="true" tabindex="-1"></a>    output_writer <span class="op">=</span> csv.DictWriter(csv_file, fieldnames<span class="op">=</span>column_names)</span>
-<span id="annotated-cell-29-15"><a href="#annotated-cell-29-15" aria-hidden="true" tabindex="-1"></a>    output_writer.writeheader()</span>
-<span id="annotated-cell-29-16"><a href="#annotated-cell-29-16" aria-hidden="true" tabindex="-1"></a>    output_writer.writerows(authors)</span>
-<span id="annotated-cell-29-17"><a href="#annotated-cell-29-17" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-29-18" class="code-annotation-target"><a href="#annotated-cell-29-18" aria-hidden="true" tabindex="-1"></a>output_file <span class="op">=</span> os.path.join(output_dir, <span class="st">'translators.csv'</span>)</span>
-<span id="annotated-cell-29-19"><a href="#annotated-cell-29-19" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(output_file, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> csv_file:</span>
-<span id="annotated-cell-29-20"><a href="#annotated-cell-29-20" aria-hidden="true" tabindex="-1"></a>    output_writer <span class="op">=</span> csv.DictWriter(csv_file, fieldnames<span class="op">=</span>column_names)</span>
-<span id="annotated-cell-29-21"><a href="#annotated-cell-29-21" aria-hidden="true" tabindex="-1"></a>    output_writer.writeheader()</span>
-<span id="annotated-cell-29-22"><a href="#annotated-cell-29-22" aria-hidden="true" tabindex="-1"></a>    output_writer.writerows(translators)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-29-11" class="code-annotation-target"><a href="#annotated-cell-29-11" aria-hidden="true" tabindex="-1"></a>column_names<span class="op">=</span>[<span class="st">'rid'</span>, <span class="st">'last'</span>, <span class="st">'first'</span>]</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-29-12" class="code-annotation-target"><a href="#annotated-cell-29-12" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> {<span class="st">'authors.csv'</span>: authors, <span class="st">'translators.csv'</span>: translators}</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-29-13" class="code-annotation-target"><a href="#annotated-cell-29-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file_name, data <span class="kw">in</span> names.items():</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-29-14" class="code-annotation-target"><a href="#annotated-cell-29-14" aria-hidden="true" tabindex="-1"></a>    output_file <span class="op">=</span> os.path.join(output_dir, file_name)</span>
+<span id="annotated-cell-29-15"><a href="#annotated-cell-29-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(output_file, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> csv_file:</span>
+<span id="annotated-cell-29-16"><a href="#annotated-cell-29-16" aria-hidden="true" tabindex="-1"></a>        output_writer <span class="op">=</span> csv.DictWriter(csv_file, fieldnames<span class="op">=</span>column_names)</span>
+<span id="annotated-cell-29-17"><a href="#annotated-cell-29-17" aria-hidden="true" tabindex="-1"></a>        output_writer.writeheader()</span>
+<span id="annotated-cell-29-18"><a href="#annotated-cell-29-18" aria-hidden="true" tabindex="-1"></a>        output_writer.writerows(data)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
 <dd>
@@ -1328,13 +1328,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dd>
 <dt data-target-cell="annotated-cell-29" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="12" data-code-annotation="6">repeats the same process for authors and translators, but here we give a fixed field name list, and not extract it from the HTML.</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="11" data-code-annotation="6">repeats the same process for authors and translators, but here we give a fixed field name list, and not extract it from the HTML.</span>
 </dd>
 <dt data-target-cell="annotated-cell-29" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="18" data-code-annotation="7">ditto</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="12" data-code-annotation="7">creates a dictionary for enabling the iteration. Its keys will be used as file names and the values are the name lists.</span>
+</dd>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-29" data-code-lines="13" data-code-annotation="8">items() on a dictionary iterates over its key-value pairs – we can name them anyhow.</span>
+</dd>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-29" data-code-lines="14" data-code-annotation="9">the rest is very similar to the first CSV writing process.</span>
 </dd>
 </dl>
+<p>The full script is available in the repository as scripts/ch3a-web-scraping.py. The Intra-Belgian literary translations since 1970 (<a href="https://www.kbr.be/en/projects/beltrans/">BELTRANS</a>) project of <a href="https://kbr.be">KBR</a> (the Belgian National Library) provides a more elaborated approach to the same problem in their <a href="https://github.com/kbrbe/beltrans-data-integration/tree/main/data-sources/unesco">Github repository</a> – thanks to Sven Lieber for the pointer.</p>
 
 
 </section>
