@@ -759,40 +759,41 @@ ef extract_translations(doc):
     global record_counter, authors, translators                                   # <1>
     items = doc.findall('body/table[@class="restable"]/tr/td[@class="res2"]', {}) # <2>
     for item in items:
-        record_counter += 1                                                       # <3>
-        record = {'id': record_counter}                                           # <4>
-        spans = item.findall('span')                                              # <5>
+        record = {'id': record_counter}                                           # <3>
+        spans = item.findall('span')                                              # <4>
         for span in spans:
-            key = span.get('class')                                               # <6>
-            if key == 'sn_pub':                                                   # <7>
+            key = span.get('class')                                               # <5>
+            if key == 'sn_pub':                                                   # <6>
                 subs = span.findall('span')
                 for sub in subs:
-                    extract_key_value(record, sub)                                # <8>
+                    extract_key_value(record, sub)                                # <7>
             else:
                 extract_key_value(record, span)                                   # <8>
         record, record_authors, record_translators = normalize_record(record)     # <9>
         records.append(record)                                                    # <10>
         authors += record_authors                                                 # <11>
         translators += record_translators
+        record_counter += 1                                                       # <12>
 ```
 1. the method uses some global variables, we make it possible with the
    `global` keyword
 2. extracts individual table cells with an XPath expression (explained above). For each
    HTML snippet...
-3. increases the record counter by one
-4. creates a  dictionary for the record structure, initially only with the identifier
-5. all the important data elements are in `<span>` elements, so we have to find extract them
+3. creates a  dictionary for the record structure, initially only with the identifier
+4. all the important data elements are in `<span>` elements, so we have to find extract them
    (inside the current cell), and iterate over them
-6. the semantic information is found in the class attribute, so we should save it
-7. however there is a special span: `sn_pub` is a container of other spans, and we
+5. the semantic information is found in the class attribute, so we should save it
+6. however there is a special span: `sn_pub` is a container of other spans, and we
    have to run a second iteration to extract its children
-8. at the end we call the extract_key_value() method with the record structure and the
+7. and 8. at the end we call the extract_key_value() method with the record structure and the
    current (non complex) span element. It extracts the value and stores it in the record
+8. ditto
 9. after processing all spans we should normalize the record with the normalize_record()
    method. It returns the normalized method, the list of authors, authors and translators
 10. as record is a single dictionary it can be appended easily to the list of records
 11. however as authors and translators are list of dictionaries, append() can not be used here,
     we should concatenate the lists
+12. increases the record counter by one
 
 ```Python
 def extract_key_value(record, span):
@@ -924,18 +925,14 @@ with open(output_file, 'w', encoding='utf-8') as csv_file:
     output_writer.writeheader()                                                   # <4>
     output_writer.writerows(records)                                              # <5>
 
-column_names=['rid', 'last', 'first']
-output_file = os.path.join(output_dir, 'authors.csv')                             # <6>
-with open(output_file, 'w', encoding='utf-8') as csv_file:
-    output_writer = csv.DictWriter(csv_file, fieldnames=column_names)
-    output_writer.writeheader()
-    output_writer.writerows(authors)
-
-output_file = os.path.join(output_dir, 'translators.csv')                         # <7>
-with open(output_file, 'w', encoding='utf-8') as csv_file:
-    output_writer = csv.DictWriter(csv_file, fieldnames=column_names)
-    output_writer.writeheader()
-    output_writer.writerows(translators)
+column_names=['rid', 'last', 'first']                                             # <6>
+names = {'authors.csv': authors, 'translators.csv': translators}                  # <7>
+for file_name, data in names.items():                                             # <8>
+    output_file = os.path.join(output_dir, file_name)                             # <9>
+    with open(output_file, 'w', encoding='utf-8') as csv_file:
+        output_writer = csv.DictWriter(csv_file, fieldnames=column_names)
+        output_writer.writeheader()
+        output_writer.writerows(data)
 ```
 1. opens a CSV file raw-data/it/it.csv using the safe os.path.join function
 2. the column names are 'id' and the names we extracted from the class attributes
@@ -951,4 +948,15 @@ with open(output_file, 'w', encoding='utf-8') as csv_file:
 5. writes out the individual records
 6. repeats the same process for authors and translators, but here we give a
    fixed field name list, and not extract it from the HTML.
-7. ditto
+7. creates a dictionary for enabling the iteration. Its keys will be used as file 
+   names and the values are the name lists.
+8. items() on a dictionary iterates over its key-value pairs -- we can name them
+   anyhow.
+9. the rest is very similar to the first CSV writing process.
+
+The full script is available in the repository as scripts/ch3a-web-scraping.py. The 
+Intra-Belgian literary translations since 1970 ([BELTRANS](https://www.kbr.be/en/projects/beltrans/)) 
+project of [KBR](https://kbr.be) (the Belgian National Library) provides a more elaborated approach
+to the same problem in their 
+[Github repository](https://github.com/kbrbe/beltrans-data-integration/tree/main/data-sources/unesco) 
+-- thanks to Sven Lieber for the pointer.

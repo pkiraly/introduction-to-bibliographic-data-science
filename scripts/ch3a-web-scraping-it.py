@@ -4,6 +4,7 @@ import os
 import re
 import urllib.parse
 import csv
+from bdsutils import create_dir
 from collections import Counter
 
 base_url = 'https://www.unesco.org/xtrans/bsresult.aspx'
@@ -50,7 +51,6 @@ def extract_translations(doc):
     global record_counter, authors, translators
     items = doc.findall('body/table[@class="restable"]/tr/td[@class="res2"]', {})
     for item in items:
-        record_counter += 1
         record = {'id': record_counter}
         spans = item.findall('span')
         for span in spans:
@@ -65,6 +65,7 @@ def extract_translations(doc):
         records.append(record)
         authors += author
         translators += translator
+        record_counter += 1
 
 def extract_key_value(record, span):
     key = re.sub(r'^sn_', '', span.get('class'))
@@ -128,12 +129,16 @@ with open(os.path.join(output_dir, 'it.csv'), 'w', encoding='utf-8') as csv_file
     output_writer.writeheader()
     output_writer.writerows(records)
 
-with open(os.path.join(output_dir, 'authors.csv'), 'w', encoding='utf-8') as csv_file:
-    output_writer = csv.DictWriter(csv_file, fieldnames=['rid', 'last', 'first'])
-    output_writer.writeheader()
-    output_writer.writerows(authors)
+column_names=['rid', 'last', 'first']
+names = {'authors.csv': authors, 'translators.csv': translators}
+for file_name, data in names.items():
+    output_file = os.path.join(output_dir, file_name)
+    with open(output_file, 'w', encoding='utf-8') as csv_file:
+        output_writer = csv.DictWriter(csv_file, fieldnames=column_names)
+        output_writer.writeheader()
+        output_writer.writerows(data)
 
-with open(os.path.join(output_dir, 'translators.csv'), 'w', encoding='utf-8') as csv_file:
-    output_writer = csv.DictWriter(csv_file, fieldnames=['rid', 'last', 'first'])
-    output_writer.writeheader()
-    output_writer.writerows(translators)
+# with open(os.path.join(output_dir, 'translators.csv'), 'w', encoding='utf-8') as csv_file:
+#     output_writer = csv.DictWriter(csv_file, fieldnames=['rid', 'last', 'first'])
+#     output_writer.writeheader()
+#     output_writer.writerows(translators)
