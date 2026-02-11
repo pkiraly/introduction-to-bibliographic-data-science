@@ -1,6 +1,5 @@
 import requests
 import lxml.html
-import lxml.etree as etree
 import os
 import re
 import urllib.parse
@@ -12,10 +11,6 @@ it_params = {
     'a': 'Bourdieu, Pierre',
     'fr': 0
 }
-
-cache_dir = 'cache'
-if not os.path.exists(cache_dir):
-    os.makedirs(cache_dir)
 
 def request_page(it_params):
     cache_file = os.path.join(cache_dir, f'results_{it_params['fr']}.html')
@@ -34,11 +29,10 @@ def request_page(it_params):
             process_page(content)
 
 def process_page(content):
-    # print(content)
     doc = lxml.html.fromstring(content)
     extract_translations(doc)
     from_param = extract_next_link(doc)
-    if from_param != '':
+    if from_param != None:
         it_params['fr'] = from_param
         request_page(it_params)
 
@@ -50,12 +44,14 @@ def extract_next_link(doc):
         parameters = urllib.parse.parse_qs(parsed_link.query)
         if 'fr' in parameters and len(parameters['fr']) == 1:
             return parameters['fr'][0]
-    return ''
+    return None
 
 def extract_translations(doc):
+    global record_counter, authors, translators
     items = doc.findall('body/table[@class="restable"]/tr/td[@class="res2"]', {})
     for item in items:
-        record = {}
+        record_counter += 1
+        record = {'id': record_counter}
         spans = item.findall('span')
         for span in spans:
             key = span.get('class')
@@ -65,25 +61,79 @@ def extract_translations(doc):
                     extract_key_value(record, sub)
             else:
                 extract_key_value(record, span)
+        record, author, translator = normalize_record(record)
         records.append(record)
+        authors += author
+        translators += translator
 
 def extract_key_value(record, span):
     key = re.sub(r'^sn_', '', span.get('class'))
-    field_names.update([key])
+    if key not in ['auth_name', 'auth_firstname', 'transl_name', 'transl_firstname']:
+        field_names.update([key])
     if key not in record:
         record[key] = []
     record[key].append(span.text)
 
-records = []
-field_names = Counter({})
-request_page(it_params)
-print(field_names)
-field_names.keys()
+def normalize_record(record):
+    for key, value in record.items():
+        if key not in ['id', 'auth_name', 'auth_firstname', 'transl_name', 'transl_firstname']:
+            record[key] = ', '.join(value)
 
-output_dir = 'raw-data/it'
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
-with open(output_dir + '/it.csv', 'w', encoding='utf-8') as csv_file:
-    output_writer = csv.DictWriter(csv_file, fieldnames=field_names.keys())
+    authors = extract_names(record, 'auth_name', 'auth_firstname')
+    translators = extract_names(record, 'transl_name', 'transl_firstname')
+
+    for key, value in record.items():
+        if isinstance(value, list) and len(value) > 1:
+            multivalue_keys.update([key])
+
+    return record, authors, translators
+
+def extract_names(record, namekey, firstnamekey):
+    name_records = []
+    i = -1
+    if namekey in record:
+        firstnames = record.get(firstnamekey, [])
+        for name in record.get(namekey):
+            name_record = {'rid': record['id'], 'last': name, 'first': None}
+            if name != 'et al.':
+                i += 1
+                if (len(firstnames) > i):
+                    name_record['first'] = firstnames[i]
+            name_records.append(name_record)
+        del record[namekey]
+        if len(firstnames) > 0:
+            del record[firstnamekey]
+    
+    return name_records
+
+cache_dir = 'cache'
+if not os.path.exists(cache_dir):
+    os.makedirs(cache_dir)
+
+record_counter = 1
+records = []
+authors = []
+translators = []
+field_names = Counter({})
+multivalue_keys = Counter()
+
+request_page(it_params)
+
+output_dir = os.path.join('raw-data', 'it')
+create_dir(output_dir)
+
+with open(os.path.join(output_dir, 'it.csv'), 'w', encoding='utf-8') as csv_file:
+    column_names = ['id'] + list(field_names.keys())
+    output_writer = csv.DictWriter(csv_file, fieldnames=column_names)
     output_writer.writeheader()
     output_writer.writerows(records)
+
+with open(os.path.join(output_dir, 'authors.csv'), 'w', encoding='utf-8') as csv_file:
+    output_writer = csv.DictWriter(csv_file, fieldnames=['rid', 'last', 'first'])
+    output_writer.writeheader()
+    output_writer.writerows(authors)
+
+with open(os.path.join(output_dir, 'translators.csv'), 'w', encoding='utf-8') as csv_file:
+    output_writer = csv.DictWriter(csv_file, fieldnames=['rid', 'last', 'first'])
+    output_writer.writeheader()
+    output_writer.writerows(translators)

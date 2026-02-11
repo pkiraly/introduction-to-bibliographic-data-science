@@ -30,12 +30,12 @@ for directory in directories:  # <3>
     if not os.path.exists(directory): # <4>
         os.makedirs(directory) # <5>
 ```
-1. import the `os` library
-2. create a list with three strings, the names of the directories
-3. iterate of the directories one by one. In each iteration the name of the current
+1. imports the `os` library
+2. creates a list with three strings, the names of the directories
+3. iterates the directories one by one. In each iteration the name of the current
 directory will be stored in the variable `directory`
-4. check if the directory does not exist. If it exists the script skips the directory and takes the next one. If it doesn't exist, it continue with the next command
-5. creating the directory (due to the test in the previous line only if it doesn't exist already)
+4. checks if the directory does not exist. If it exists the script skips the directory and takes the next one. If it doesn't exist, it continue with the next command
+5. creates the directory (due to the test in the previous line only if it doesn't exist already)
 
 The code of this section is available at `scripts/ch3a-create-directories.py` of the repository.
 
@@ -63,12 +63,11 @@ with zipfile.ZipFile(target_file, 'r') as zip_ref: # <4>
 
 os.rename(target_dir + '/data', target_dir + '/lnb') # <5>
 ```
-
-1. Import the Python libraries: `urllib` for the download, and `zipfile` for uncompressing
-2. creating variables
-3. call the download function with two arguments: the URL of the data source and the target file in our system
-4. uncompress the zip file to our target directory
-5. rename the `data` subdirectory (comes inside the zip file) to `lnb`
+1. Imports the Python libraries: `urllib` for the download, and `zipfile` for uncompressing
+2. creats variables
+3. calls the download function with two arguments: the URL of the data source and the target file in our system
+4. uncompresses the zip file to our target directory
+5. renames the `data` subdirectory (comes inside the zip file) to `lnb`
 
 At the end of the process we will have a file `raw-data/lnb/natl_bibliography-2014-2023-marc.xml`, a set
 of MARC21 record in MARCXML serialization format, that is MARC21 in XML. 
@@ -86,7 +85,7 @@ The code of this section is available at `scripts/ch3a-download-a-file.py` of th
 > that are invoked within HTTP.
 > From [https://www.openarchives.org/pmh/](https://www.openarchives.org/pmh/)
 
-The protocol provides 6 'verbs' or endpoints to retreive information:
+The protocol provides 6 'verbs' or endpoints to retrieve information:
 
 * [GetRecord](https://www.openarchives.org/OAI/openarchivesprotocol.html#GetRecord): to retrieve an individual metadata record
 * [Identify](https://www.openarchives.org/OAI/openarchivesprotocol.html#Identify): information about a repository
@@ -96,18 +95,18 @@ The protocol provides 6 'verbs' or endpoints to retreive information:
 * [ListSets](https://www.openarchives.org/OAI/openarchivesprotocol.html#ListSets): to retrieve the set structure of a repository. Sets are optional collections within a repository, e.g. there might be individual sets according to the physical collections of a library. 
 
 The response of these verbs is always XML. For the List* verbs the maintainer of the service 
-sets a pager size, so you do not retrieve all records at once only limeted number (e.g. 100).
+sets a pager size, so you do not retrieve all records at once, only limited number (e.g. 100).
 The pagination is implemented by a distinct XML element called `resumptionToken`, which the
 client should use in the next call. Its value can change from call to call, so the client always
 have to extract is. In the above links you can find more detailed information and examples.
 
-There are different implementations of a OAI-PMH clients in Python, we use 
+There are different implementations of OAI-PMH clients in Python, we use 
 [Mathias Loesch](https://github.com/mloesch)'s [Sickle](https://github.com/mloesch/sickle) 
 module (version 0.7.0) to retrieve the Estonian National Bibliography from the 
 [DataLab](https://digilab.rara.ee/en/), the data sharing platform of the Estonian National Library.
-At the time of writing it returns somewhat almost 410 000 MARCXML records. We save them
+At the time of writing it returns almost 410 000 MARCXML records. We save them
 into local files each containing 100 000 records.
-As OAI-PMH is based on XML technology we use [lxml](https://lxml.de/) 
+As OAI-PMH is based on XML technology we use the [lxml](https://lxml.de/) 
 module (version 6.0.0), a lightweight XML and HTML processing toolbox.
 
 ```python
@@ -184,17 +183,17 @@ if len(xmlrecords) > 0:                                        # <22>
 print('saved %d records to %d files' % (record_counter, file_counter)) # <23>
 ```
 
-1. When we run Python `sys.argv` list contains the arguments we passed to the interpreter. 
+1. When we run Python, the `sys.argv` list contains the arguments we passed to the interpreter. 
    The `len()` function returns the number of elements in a collection, so it gives here
-   the number of arguments. The first argument is the name of the currect script, so if the
+   the number of arguments. The first argument is the name of the current script, so if the
    number here is zero it means that the script itself does not have any argument. We should
    pass at least one argument: the name of the directory where the script will store the
-   records - if we don't provide it, the script will send us a message and stops running
+   records -- if we don't provide it, the script will send us a message and stop running
    (with the `exit()` function).
 2. If we provide an argument it will be stored as the name of the output directory. Then 
-   it creates the directory if it not already exists, and notify us.
+   it creates the directory if it does not already exist, and notify us.
 3. `namespaces` variable registers the XML namespaces the process needs - otherwise the
-   XPath expresssions would not work.
+   XPath expressions would not work.
 4. `header` and `footer` needs at the beginning and end of the output XML files. The XML 
    files are hierarchical: their main content is a list of MARC records, and their parent
    element will be the `<collection>`.
@@ -214,7 +213,7 @@ print('saved %d records to %d files' % (record_counter, file_counter)) # <23>
    These values can be extracted from a preliminary investigation of the supported values
    returned by the `ListMetadataFormats` and `ListSets` verbs.
 9. In the following the script iterates over the individual XML responses of the calls.
-10. The raw XML content is transormed to an [XML element tree](https://docs.python.org/3/library/xml.etree.elementtree.html)
+10. The raw XML content is transformed to an [XML element tree](https://docs.python.org/3/library/xml.etree.elementtree.html)
     that is an internal data structure with an API.
 11. Selection of the individual records with an XPath expression. For the expression
     we should provide the XML namespace. In OAI-PMH the individual records (`<oai:record>`)
@@ -225,16 +224,16 @@ print('saved %d records to %d files' % (record_counter, file_counter)) # <23>
     abbreviations are not important, you can name them as you like (however to keep them as in
     the source, i.e. the XML response of the service helps in debugging the problems, if there are),
     but you should always use the URLs used by the service.
-12. Iterate over the indifidual records that `xpath()` returned.
+12. Iterate over the individual records that `xpath()` returned.
 13. Transformation of the above mentioned tree structure of the record to XML via a sequence of steps:
 14. create the XML string...
 15. convert to UTF-8 encoding...
-16. remove the [XML declaration](https://www.w3.org/TR/REC-xml/#dt-xmldecl) - we do not need it for
-    each records.
+16. remove the [XML declaration](https://www.w3.org/TR/REC-xml/#dt-xmldecl) -- we do not need it for
+    each record.
 17. add the record into the record collection
 18. increase the record counter by one
 19. if the record collection contains more than 100 000 records...
-20. the records should write to a file...
+20. the records should be written to a file...
 21. then empty the collection, and increase file counter by one
 22. after the iteration if the record collection is not empty write it to a file
 23. finally notify the user about the number of records ingested and files written 
@@ -243,7 +242,7 @@ print('saved %d records to %d files' % (record_counter, file_counter)) # <23>
 ## Download an SQL file
 
 Some bibliographic data sources are available as a relational database. These databases are
-distributed as so called `SQL dump`, a non binary text based file, that contains both the
+distributed as a so-called `SQL dump`, a non binary text based file, that contains both the
 definition of the database structure (the properties of tables and columns), and the values. 
 The dump files can be imported to the database. In this section we will import the following
 database:
@@ -252,17 +251,17 @@ database:
 > 1769-1794 ([https://fbtee.westernsydney.edu.au/stn/interface/](https://fbtee.westernsydney.edu.au/stn/interface/), 6 May 2014)
 
 It maps the trade of the Société Typographique de Neuchâtel, 1769-1794, and based on the almost 
-intactly survided archive of the alliance of the printers at Neuchâtel (Switzerland). The database 
+intactly surviving archive of the alliance of the printers at Neuchâtel (Switzerland). The database 
 (henceforth _FBTEE_) could be imported into MySQL or its Open Source form MariaDB. the
 database is downloadable from
 [https://fbtee.westernsydney.edu.au/main/download-database/](https://fbtee.westernsydney.edu.au/main/download-database/).
 
 As now we would like to download another file we might choose to copy the previous script, and replace the
-variables `url` and `target_file` with another one, but it would duplicate the usiness logic of the script.
-In software development there is a principle _Don't Repeat Yourself_  abbreviated as _DRY_. It suggest
-that we should avoid from code repetition, or other words: the code should be reusable, Instead of writing
-two (or more) specialized scripts that repeat the actual download and uncompressin part, we will create
-a function, that will be used by these scripts.
+variables `url` and `target_file` with another one, but it would duplicate the business logic of the script.
+In software development there is a principle _Don't Repeat Yourself_  abbreviated as _DRY_. It suggests
+that we should avoid code repetition, or in other words: the code should be reusable. Instead of writing
+two (or more) specialized scripts that repeat the actual download and uncompressing part, we will create
+a function that will be used by these scripts.
 
 First we will create a utility script that will contain functions we can use in the course. It will
 be called bdsutils (short for Bibliographic Data Science utilities). This is the 
@@ -291,7 +290,7 @@ def download_and_unzip(url, target_file):   # <2>
         zip_ref.extractall(target_dir)
 ```
 
-1. the script keeps only one variable `target_dir`, that will remane the same accross calls
+1. the script keeps only one variable `target_dir`, that will remain the same across calls
 2. the definition of the method
 3. the documentation of the method
 
@@ -321,12 +320,12 @@ os.rename(target_dir + '/chop_leeds_ac_uk.sql', # <5>
           directory + '/chop_leeds_ac_uk.sql')
 ```
 
-1. import both the variable and the function from bdsutils (we should not add the `.py` extension). 
+1. imports both the variable and the function from bdsutils (we should not add the `.py` extension). 
    This way we should not use the prefix bdsutils for these components (such as `bdsutils.target_dir`)
 2. the definition of the _FBTEE_ specific variables
 3. usage of the method defined in bdsutils
-4. create a dedicated directory for the database if it doesn't already exist
-5. move the file to this directory
+4. creates a dedicated directory for the database if it doesn't already exist
+5. moves the file to this directory
 
 If you run it, you will have two files:
 - raw-data/fbtee/chop_leeds_ac_uk.sql
@@ -337,13 +336,13 @@ The file is available in the repository as `scripts/ch3a-download-stn.py`.
 ### import BTEE to the database
 
 Importing a datadump into MySQL or MariaDB is a two step process. First you should create the database 
-itself with permissions (for security reason it is advisable to create a dedicated user as well and 
+itself with permissions (for security reasons it is advisable to create a dedicated user as well and 
 not to use the default database user), then you can import the data.
 
 Step 1. Prepare the database
 
 Log in to MySQL, then create the database `fbtee` and a dedicated user (replace `<username>` and `<password>`
-with your choosen credentials):
+with your chosen credentials):
 
 ```SQL
 CREATE DATABASE fbtee;
@@ -454,22 +453,22 @@ The result:
 23 rows in set (0,001 sec)
 ```
 
-This material is not intend to provide introduction to SQL, if you are interested, we 
+This material is not intended to provide an introduction to SQL, if you are interested, we 
 can suggest the Library Carpentry's [SQL lesson](https://librarycarpentry.github.io/lc-sql/).
 
 ## Web scraping
 
-Often times it happens that an interesting bibliographic data source does not provide any 
+Oftentimes it happens that an interesting bibliographic data source does not provide any 
 download or programmable access option. We have two options here. The first is to contact
 the data provider and ask help to access the data. If we can not find contact information,
-or we do not receive any asnwer to our question, the second option is to extract data from
+or we do not receive any answer to our question, the second option is to extract data from
 the public web site, called _screen scraping_ or 
 [web scraping](https://en.wikipedia.org/wiki/Web_scraping). 
 In this section the method will be demonstrated on UNESCO’s Index Translationum database (IT).
 
 IT collected bibliographical records describing translated books in any genre. These records
 came from national libraries between 1978 and roughly 2009 (IT never announced the cease of
-data collection, but practically records after this year are quire rare). Before 1978 IT had
+data collection, but practically records after this year are quite rare). Before 1978 IT had
 been published in printed volumes, however I am not aware of digitised versions. 
 Another important problem is that the IT website is not always available. 
 
@@ -602,3 +601,354 @@ and Programming Historian also has a tutorial:
 which unfortunately a ‘retired’ lesson, since the HTML page on which the author
 demonstrates the strength of the library is no longer available, but still a good
 introduction, and one can apply the methods on IT.
+
+```Python
+import requests    # <1>
+import lxml.html   # <2>
+import os
+import re          # <3>
+import urllib.parse # <4>
+import csv         # <5>
+from collections import Counter # <6>
+```
+
+1. We use another URL handling library: the [request library](https://requests.readthedocs.io/en/latest/)
+   that provides more convenient methods for the same task as the urllib package. The request package needs
+   installation with a `pip install request`. 
+2. Previously we used another module from the `lxml` library. `html` provides methods for parsing HTML files.
+3. `re` provides regular expression functionalities. As this part of core Python, it doesn't need installation.
+4. the [parse module](https://docs.python.org/3/library/urllib.parse.html) helps to parse URLs and extract
+   important parameters
+5. The [csv module](https://docs.python.org/3/library/csv.html) helps in reading and writing CSV files.
+6. Counter, well it is counting things
+
+We define two variables for our URL requests.
+
+```Python
+base_url = 'https://www.unesco.org/xtrans/bsresult.aspx'
+it_params = {
+    'a': 'Bourdieu, Pierre',
+    'fr': 0
+}
+```
+`base_url` is part of the URL we always use in the requests. To retrieve the second and
+any following pages of the hit list we should change the rest of the URL, the so-called
+_query_ part (after the question mark). It is a list of key=value pairs separated by 
+ampersand (_&_) character. We set up the `it_params` variable, which represents the URL query.
+This is a _dict_ data type, and will be automatically transformed to URL during the request.
+
+We should do some more preparation. When we parse HTML pages the process is almost always 
+iterative, because we usually move forward with baby steps adding new and new parts to
+our script. In practice it means that we fetch the website many times -- that might cause 
+problems on the data provider's web site. A best practice is to be nice to them, and 
+try to eliminate the number of requests by caching: when we first retrieve a page, we should
+store it locally as a file in our disk, and next time we read it from the disk.
+
+Add a new function to our `bsutils` module:
+
+```Python
+import os
+...
+def create_dir(dir):
+    """
+    Create a directory if it doesn't yet exist
+    
+    :param dir: the directory name
+    """
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+```
+
+Then we use it in the web scraping script:
+
+```Python
+import bsutils                          # <1>
+...
+create_dir('cache')                     # <2>
+cache_dir = os.path.join('cache', 'it') # <3>
+create_dir(cache_dir)
+```
+1. imports our module
+2. creates a directory called 'cache'
+3. defines a directory called `it` inside the `cache` directory. Different operating systems
+   handle subdirectories differently, `os.path.join` provides a safe way to use the
+   appropriate syntax.
+
+We also have to create containers for the data we plan to extract.
+
+```Python
+records = []              # <1>
+authors = []              # <2>
+translators = []
+record_counter = 1        # <3>
+field_names = Counter({}) # <4>
+```
+1. `record` (a list of dictionaries) will contain our records. 
+2. as there might be multiple authors, and translators, we collect them
+   separately. Records will have an `id` field (IT does not provide one), 
+   and these two entities will refer to that identifier as the external keys
+   in relational databases.
+3. record_counter is the source of this identifier. When we process a new record,
+   we will increment this value
+4. during the development we do not always know each field beforehand. 
+   [Counter](https://docs.python.org/3/library/collections.html#collections.Counter)
+   is a special Python data type that provides us a method to count things.
+
+We start the process with the initial values:
+
+```Python
+request_page(it_params)
+```
+
+that triggers the following:
+
+```Python
+def request_page(it_params):
+    cache_file = os.path.join(cache_dir, f'results_{it_params['fr']}.html') # <1>
+    if os.path.exists(cache_file):                                          # <2>
+        with open(cache_file, 'r') as f:                                    # <3>
+            content = f.read()
+        process_page(content)
+    else:
+        response = requests.get(base_url, params=it_params)                 # <4>
+        if response.status_code == 200:                                     # <5>
+            content = response.text                                         # <6>
+            if re.search('The requested URL was rejected.', content) is None: # <7>
+                with open(cache_file, 'wb') as f:                           # <8>
+                    f.write(response.content)
+            process_page(content)                                           # <9>
+```
+1. defines the cache file name out of the current URL's `fr` parameter (the offset
+   of the first record in the page from the first record in the hit list).
+2. checks if the cache file already exists
+3. if it does, the content should be read from the file, then process it with
+   process_page() method.
+4. otherwise we should request the page from the IT server
+5. if it returns with HTTP status code 200 -- which means the communication
+   went well
+6. extracts the content
+7. however, the IT web server also returns code 200 even though there are some errors, for 
+   example if we issue too many requests (which is now prevented by the caching mechanism).
+   During the development we met only one error message. 
+   [re.search](https://docs.python.org/3/library/re.html#re.search)(pattern, string)
+   returns mathing objects if pattern is found in the string, otherwise it returns None.
+8. if it doesn't find the error message, the content will be saved to the cache file.
+9. processes it with process_page() method.
+
+```Python
+def process_page(content):
+    doc = lxml.html.fromstring(content)    # <1>
+    extract_translations(doc)              # <2>
+    from_param = extract_next_link(doc)    # <3>
+    if from_param != None:                 # <4>
+        it_params['fr'] = from_param       # <5>
+        request_page(it_params)            # <6>
+```
+1. the lxml library parses the document into an internal object
+2. extract_translations() method will use it to extract the records from this object
+3. extract_next_link() method extracts the above mentioned from (`fr`) parameter 
+   from the "next" link on the page.
+4. if it is not None
+5. update the parameter holder
+6. and call request_page() to process the next page.
+
+So these two functions call each other until there is a "next" link on the page.
+
+```Python
+ef extract_translations(doc):
+    global record_counter, authors, translators                                   # <1>
+    items = doc.findall('body/table[@class="restable"]/tr/td[@class="res2"]', {}) # <2>
+    for item in items:
+        record_counter += 1                                                       # <3>
+        record = {'id': record_counter}                                           # <4>
+        spans = item.findall('span')                                              # <5>
+        for span in spans:
+            key = span.get('class')                                               # <6>
+            if key == 'sn_pub':                                                   # <7>
+                subs = span.findall('span')
+                for sub in subs:
+                    extract_key_value(record, sub)                                # <8>
+            else:
+                extract_key_value(record, span)                                   # <8>
+        record, record_authors, record_translators = normalize_record(record)     # <9>
+        records.append(record)                                                    # <10>
+        authors += record_authors                                                 # <11>
+        translators += record_translators
+```
+1. the method uses some global variables, we make it possible with the
+   `global` keyword
+2. extracts individual table cells with an XPath expression (explained above). For each
+   HTML snippet...
+3. increases the record counter by one
+4. creates a  dictionary for the record structure, initially only with the identifier
+5. all the important data elements are in `<span>` elements, so we have to find extract them
+   (inside the current cell), and iterate over them
+6. the semantic information is found in the class attribute, so we should save it
+7. however there is a special span: `sn_pub` is a container of other spans, and we
+   have to run a second iteration to extract its children
+8. at the end we call the extract_key_value() method with the record structure and the
+   current (non complex) span element. It extracts the value and stores it in the record
+9. after processing all spans we should normalize the record with the normalize_record()
+   method. It returns the normalized method, the list of authors, authors and translators
+10. as record is a single dictionary it can be appended easily to the list of records
+11. however as authors and translators are list of dictionaries, append() can not be used here,
+    we should concatenate the lists
+
+```Python
+def extract_key_value(record, span):
+    key = re.sub(r'^sn_', '', span.get('class'))                              # <1>
+    if key not in ['auth_name', 'auth_firstname', 'transl_name', 'transl_firstname']: # <2>
+        field_names.update([key])
+    if key not in record:                                                     # <3>
+        record[key] = []
+    record[key].append(span.text)                                             # <4>
+```
+1. the key of the field is derived from the class attribute, but the 'sn_' string from its
+   beginning should be removed with a regular expression. [re.sub](https://docs.python.org/3/library/re.html#re.sub)
+   has three mandatory parameters: pattern, replacement and the input string. `^` is a building
+   block of regular expressions, meaning the beginning of the string, so it will not
+   match same string elsewhere (see the full syntax 
+   [here](https://docs.python.org/3/library/re.html#regular-expression-syntax))
+2. author and translator names will be stored in a distinct table, but we count how many times
+   the rest appear in the pages.
+3. we expect that each field is repeatable, so if the key is not available in the
+   dictionary, we initialize it as a list
+4. and append the value (the text attribute of the span) to this list
+
+```Python
+def extract_next_link(doc):
+    next = doc.findall('body/table[@class="nav"]/tr[1]/td[@class="next"]/a', {}) # <1>
+    if len(next) > 0:                                                            # <2>
+        link = next[0].get('href')                                               # <3>
+        parsed_link = urllib.parse.urlparse(link)                                # <4>
+        parameters = urllib.parse.parse_qs(parsed_link.query)                    # <5>
+        if 'fr' in parameters and len(parameters['fr']) == 1:                    # <6>
+            return parameters['fr'][0]                                           # <7>
+    return None                                                                  # <8>
+```
+1. extracts the "next" link
+2. it is not available on the last page, so it should be checked if it is processable
+3. the _fr_ parameter is available in the href attribute of the first (and only) "next" link
+4. parses it with the urllib's [method](https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse),
+   that returns a fixed structure: [6-item named tuple](https://docs.python.org/3/library/urllib.parse.html#urllib.parse.ParseResult).
+5. its element query contains only a string, which should be parsed with 
+   [parse_qs](https://docs.python.org/3/library/urllib.parse.html#urllib.parse.parse_qs)
+6. the keys in the query string are repeatable, and parse returns a dictionary. Make sure
+   that the parameters you look for is available and has only one value
+7. returns the first (and only) fr value
+8. in every other cases returns a special value: None (not above we had a check on this None)
+
+As mentioned above there are two things we should improve in the extracted record structure:
+
+1. we would store the author and translators in distinct CSV files (and we will join tables 
+   only during data analysis)
+2. the values of the other fields are also lists, however we do not necessary need them as
+   list, and in CSV it is not easy to handle lists in cells
+
+```Python
+def normalize_record(record):
+    for key, value in record.items():                                                     # <1>
+        if key not in ['auth_name', 'auth_firstname', 'transl_name', 'transl_firstname']: # <2>
+            record[key] = ', '.join(value)                                                # <3>
+
+    authors = extract_names(record, 'auth_name', 'auth_firstname')                        # <4>
+    translators = extract_names(record, 'transl_name', 'transl_firstname')
+
+    return record, authors, translators                                                   # <5>
+```
+1. iterates over the key-value pairs of the dictionary
+2. if the key is not one of the author and translator name related field
+3. "flatten" it by concatenate the value with comma (and space)
+4. handles author and translator names with the extract_names() method, that returns
+   the list of authors, and the list of translators
+5. returns the cleared record, and the two name lists
+
+The extract_names() method however is not that simple as it seems to be. There are two problems.
+
+1. in HTML we have sequences of last name, first name pairs, while our structure collects all 
+   last names and first names in distinct lists
+2. sometimes the first name pair is missing. It would not be the problem if it would be the last
+   element, but there are cases when an 'et al.' (as last name) takes place in the middle of 
+   the list. Because of this problem we can not use the otherwise handy built-in
+   [zip](https://docs.python.org/3/library/functions.html#zip) function, that creates
+   tuples out of the pairs.
+
+```Python
+def extract_names(record, lastname_key, firstname_key):
+    name_records = []                                                             # <1>
+    i = -1                                                                        # <2>
+    if lastname_key in record:                                                    # <3>
+        firstnames = record.get(firstname_key, [])                                # <4>
+        for name in record.get(lastname_key):                                     # <5>
+            name_record = {'rid': record['id'], 'last': name, 'first': None}      # <6>
+            if name != 'et al.':                                                  # <7>
+                i += 1                                                            # <8>
+                if (len(firstnames) > i):                                         # <9>
+                    name_record['first'] = firstnames[i]
+            name_records.append(name_record)
+
+        del record[lastname_key]                                                  # <10>
+        if len(firstnames) > 0:                                                   # <11>
+            del record[firstname_key]
+    
+    return name_records
+```
+1. creates an empty list for the names
+2. initializes a counter with -1, because 0 is the index of the first element 
+   in a list and we will increase it before using it
+3. sometimes translators are missing from the records, so we check if we should process
+   it at all
+4. the first name is also missing sometimes, so we get an empty list if this is the case.
+   If we would not add the default parameter, we would retrieve None instead which is 
+   not iterable, and raises errors when we check the length later.
+5. iterates over the last names
+6. creates a dictionary with None as the default first name that will be updated if
+   there is a real first name
+7. 'et al.' does not have first name, so we can skip it
+8. in every other case it increases our counter
+9. if there is a corresponding first name by the index it updates the dictionary with 
+   that value. At the end of the check the current name will be appended to the list of names.
+10. as we do not need it any more in the main record structure, we delete the last name
+11. and the first name as well if it exists at all.
+
+What remained is to save the extracted data into CSV files:
+
+```Python
+create_diroutput_dir = os.path.join('raw-data', 'it')
+create_dir(output_dir)
+
+output_file = os.path.join(output_dir, 'it.csv')                                  # <1>
+with open(output_file, 'w', encoding='utf-8') as csv_file: 
+    column_names = ['id'] + list(field_names.keys())                              # <2>
+    output_writer = csv.DictWriter(csv_file, fieldnames=column_names)             # <3>
+    output_writer.writeheader()                                                   # <4>
+    output_writer.writerows(records)                                              # <5>
+
+column_names=['rid', 'last', 'first']
+output_file = os.path.join(output_dir, 'authors.csv')                             # <6>
+with open(output_file, 'w', encoding='utf-8') as csv_file:
+    output_writer = csv.DictWriter(csv_file, fieldnames=column_names)
+    output_writer.writeheader()
+    output_writer.writerows(authors)
+
+output_file = os.path.join(output_dir, 'translators.csv')                         # <7>
+with open(output_file, 'w', encoding='utf-8') as csv_file:
+    output_writer = csv.DictWriter(csv_file, fieldnames=column_names)
+    output_writer.writeheader()
+    output_writer.writerows(translators)
+```
+1. opens a CSV file raw-data/it/it.csv using the safe os.path.join function
+2. the column names are 'id' and the names we extracted from the class attributes
+3. CSV writer's API is similar to other file writers in Python. The csv library
+   provides a number of functions, here we use the 
+   [DictWriter](https://docs.python.org/3/library/csv.html#csv.DictWriter) that allows
+   us to turn the list of dictionaries to CSV. It has two mandatory parameters: 
+   the file handler and the list of field names. All keys in the dictionaries 
+   should be available in the field name list, however they might be missing values in
+   the records. E.g. if "location" is a key in the record dictionary, the field name list
+   must contain it, but not every record should have the "location" key.
+4. writes out the header line to the CSV file
+5. writes out the individual records
+6. repeats the same process for authors and translators, but here we give a
+   fixed field name list, and not extract it from the HTML.
+7. ditto
