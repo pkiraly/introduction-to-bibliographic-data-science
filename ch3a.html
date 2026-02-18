@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-00ccf60c28c3bdf2d57f5131fbf16f11.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -455,56 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="annotated-cell-3-19"><a href="#annotated-cell-3-19" aria-hidden="true" tabindex="-1"></a></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-3-20" class="code-annotation-target"><a href="#annotated-cell-3-20" aria-hidden="true" tabindex="-1"></a>header <span class="op">=</span> <span class="st">'&lt;?xml version="1.0" encoding="utf8"?&gt;'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">\</span></span>
 <span id="annotated-cell-3-21"><a href="#annotated-cell-3-21" aria-hidden="true" tabindex="-1"></a>       <span class="op">+</span> <span class="st">'&lt;collection&gt;'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="annotated-cell-3-22"><a href="#annotated-cell-3-22" aria-hidden="true" tabindex="-1"></a>footer <span class="op">=</span> <span class="st">'&lt;/collection&gt;'</span></span>
-<span id="annotated-cell-3-23"><a href="#annotated-cell-3-23" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-3-24" class="code-annotation-target"><a href="#annotated-cell-3-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_output(xmlrecords, file_counter, dir_name):</span>
-<span id="annotated-cell-3-25"><a href="#annotated-cell-3-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="annotated-cell-3-26"><a href="#annotated-cell-3-26" aria-hidden="true" tabindex="-1"></a><span class="co">    Writes MARC records to file</span></span>
-<span id="annotated-cell-3-27"><a href="#annotated-cell-3-27" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters                              </span></span>
-<span id="annotated-cell-3-28"><a href="#annotated-cell-3-28" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
-<span id="annotated-cell-3-29"><a href="#annotated-cell-3-29" aria-hidden="true" tabindex="-1"></a><span class="co">    xmlrecords : list</span></span>
-<span id="annotated-cell-3-30"><a href="#annotated-cell-3-30" aria-hidden="true" tabindex="-1"></a><span class="co">        A list of string contains the individual MARCXML records</span></span>
-<span id="annotated-cell-3-31"><a href="#annotated-cell-3-31" aria-hidden="true" tabindex="-1"></a><span class="co">    file_counter : int</span></span>
-<span id="annotated-cell-3-32"><a href="#annotated-cell-3-32" aria-hidden="true" tabindex="-1"></a><span class="co">        A file name counter</span></span>
-<span id="annotated-cell-3-33"><a href="#annotated-cell-3-33" aria-hidden="true" tabindex="-1"></a><span class="co">    dir_name : int</span></span>
-<span id="annotated-cell-3-34"><a href="#annotated-cell-3-34" aria-hidden="true" tabindex="-1"></a><span class="co">        The name of the output directory</span></span>
-<span id="annotated-cell-3-35"><a href="#annotated-cell-3-35" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="annotated-cell-3-36"><a href="#annotated-cell-3-36" aria-hidden="true" tabindex="-1"></a>    file_name <span class="op">=</span> <span class="st">"</span><span class="sc">%s</span><span class="st">/</span><span class="sc">%06d</span><span class="st">.xml"</span> <span class="op">%</span> (dir_name, counter)</span>
-<span id="annotated-cell-3-37"><a href="#annotated-cell-3-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(file_name)</span>
-<span id="annotated-cell-3-38"><a href="#annotated-cell-3-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> io.<span class="bu">open</span>(file_name, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf8'</span>) <span class="im">as</span> f:</span>
-<span id="annotated-cell-3-39"><a href="#annotated-cell-3-39" aria-hidden="true" tabindex="-1"></a>        f.write(header)</span>
-<span id="annotated-cell-3-40"><a href="#annotated-cell-3-40" aria-hidden="true" tabindex="-1"></a>        f.write(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(xmlrecords) <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="annotated-cell-3-41"><a href="#annotated-cell-3-41" aria-hidden="true" tabindex="-1"></a>        f.write(footer)</span>
-<span id="annotated-cell-3-42"><a href="#annotated-cell-3-42" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-3-43" class="code-annotation-target"><a href="#annotated-cell-3-43" aria-hidden="true" tabindex="-1"></a>sickle <span class="op">=</span> Sickle(<span class="st">'https://data.digar.ee/repox/OAIHandler'</span>, max_retries<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="annotated-cell-3-44"><a href="#annotated-cell-3-44" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-3-45" class="code-annotation-target"><a href="#annotated-cell-3-45" aria-hidden="true" tabindex="-1"></a>xmlrecords <span class="op">=</span> []</span>
-<span id="annotated-cell-3-46"><a href="#annotated-cell-3-46" aria-hidden="true" tabindex="-1"></a>file_counter <span class="op">=</span> <span class="dv">0</span></span>
-<span id="annotated-cell-3-47"><a href="#annotated-cell-3-47" aria-hidden="true" tabindex="-1"></a>record_counter <span class="op">=</span> <span class="dv">0</span></span>
-<span id="annotated-cell-3-48"><a href="#annotated-cell-3-48" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-3-49" class="code-annotation-target"><a href="#annotated-cell-3-49" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> sickle.ListRecords(metadataPrefix<span class="op">=</span><span class="st">'marc21xml'</span>, <span class="bu">set</span><span class="op">=</span><span class="st">'erb'</span>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-3-50" class="code-annotation-target"><a href="#annotated-cell-3-50" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> content <span class="kw">in</span> it:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-3-51" class="code-annotation-target"><a href="#annotated-cell-3-51" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">=</span> etree.ElementTree(content)</span>
-<span id="annotated-cell-3-52"><a href="#annotated-cell-3-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-3-53"><a href="#annotated-cell-3-53" aria-hidden="true" tabindex="-1"></a>    records <span class="op">=</span> tree.xpath(</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-3-54" class="code-annotation-target"><a href="#annotated-cell-3-54" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'/oai:record[*]/oai:metadata/marc21:record'</span>,</span>
-<span id="annotated-cell-3-55"><a href="#annotated-cell-3-55" aria-hidden="true" tabindex="-1"></a>                  namespaces<span class="op">=</span>namespaces)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="12" onclick="event.preventDefault();">12</a><span id="annotated-cell-3-56" class="code-annotation-target"><a href="#annotated-cell-3-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> record <span class="kw">in</span> records:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="13" onclick="event.preventDefault();">13</a><span id="annotated-cell-3-57" class="code-annotation-target"><a href="#annotated-cell-3-57" aria-hidden="true" tabindex="-1"></a>        xmlrecord <span class="op">=</span> etree<span class="op">\</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="14" onclick="event.preventDefault();">14</a><span id="annotated-cell-3-58" class="code-annotation-target"><a href="#annotated-cell-3-58" aria-hidden="true" tabindex="-1"></a>              .tostring(record, encoding<span class="op">=</span><span class="st">'utf8'</span>, method<span class="op">=</span><span class="st">'xml'</span>)<span class="op">\</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="15" onclick="event.preventDefault();">15</a><span id="annotated-cell-3-59" class="code-annotation-target"><a href="#annotated-cell-3-59" aria-hidden="true" tabindex="-1"></a>              .decode(<span class="st">"utf-8"</span>)<span class="op">\</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="16" onclick="event.preventDefault();">16</a><span id="annotated-cell-3-60" class="code-annotation-target"><a href="#annotated-cell-3-60" aria-hidden="true" tabindex="-1"></a>              .replace(<span class="st">"&lt;?xml version='1.0' encoding='utf8'?&gt;</span><span class="ch">\n</span><span class="st">"</span>, <span class="st">''</span>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="17" onclick="event.preventDefault();">17</a><span id="annotated-cell-3-61" class="code-annotation-target"><a href="#annotated-cell-3-61" aria-hidden="true" tabindex="-1"></a>        xmlrecords.append(xmlrecord)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="18" onclick="event.preventDefault();">18</a><span id="annotated-cell-3-62" class="code-annotation-target"><a href="#annotated-cell-3-62" aria-hidden="true" tabindex="-1"></a>        record_counter <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="annotated-cell-3-63"><a href="#annotated-cell-3-63" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="19" onclick="event.preventDefault();">19</a><span id="annotated-cell-3-64" class="code-annotation-target"><a href="#annotated-cell-3-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(xmlrecords) <span class="op">&gt;=</span> <span class="dv">100000</span>:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="20" onclick="event.preventDefault();">20</a><span id="annotated-cell-3-65" class="code-annotation-target"><a href="#annotated-cell-3-65" aria-hidden="true" tabindex="-1"></a>        write_output(xmlrecords, file_counter, <span class="bu">dir</span>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="21" onclick="event.preventDefault();">21</a><span id="annotated-cell-3-66" class="code-annotation-target"><a href="#annotated-cell-3-66" aria-hidden="true" tabindex="-1"></a>        xmlrecords <span class="op">=</span> []</span>
-<span id="annotated-cell-3-67"><a href="#annotated-cell-3-67" aria-hidden="true" tabindex="-1"></a>        file_counter <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="annotated-cell-3-68"><a href="#annotated-cell-3-68" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="22" onclick="event.preventDefault();">22</a><span id="annotated-cell-3-69" class="code-annotation-target"><a href="#annotated-cell-3-69" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(xmlrecords) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="annotated-cell-3-70"><a href="#annotated-cell-3-70" aria-hidden="true" tabindex="-1"></a>    write_output(xmlrecords, file_counter, <span class="bu">dir</span>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="23" onclick="event.preventDefault();">23</a><span id="annotated-cell-3-71" class="code-annotation-target"><a href="#annotated-cell-3-71" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'saved </span><span class="sc">%d</span><span class="st"> records to </span><span class="sc">%d</span><span class="st"> files'</span> <span class="op">%</span> (record_counter, file_counter))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="annotated-cell-3-22"><a href="#annotated-cell-3-22" aria-hidden="true" tabindex="-1"></a>footer <span class="op">=</span> <span class="st">'&lt;/collection&gt;'</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
@@ -522,81 +473,138 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dd>
 <span data-code-cell="annotated-cell-3" data-code-lines="20" data-code-annotation="4"><code>header</code> and <code>footer</code> needs at the beginning and end of the output XML files. The XML files are hierarchical: their main content is a list of MARC records, and their parent element will be the <code>&lt;collection&gt;</code>.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="5">5</dt>
+</dl>
+<p>To save the records we have to do several things, like naming an output file, insert header and footer. We should save records several times, so if we have such repeatable task, it is always suggested to create a method.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-4-1" class="code-annotation-target"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_output(xmlrecords, file_counter, dir_name):</span>
+<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Writes MARC records to file</span></span>
+<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters                              </span></span>
+<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a><span class="co">    xmlrecords : list</span></span>
+<span id="annotated-cell-4-7"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a><span class="co">        A list of string contains the individual MARCXML records</span></span>
+<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    file_counter : int</span></span>
+<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a><span class="co">        A file name counter</span></span>
+<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    dir_name : int</span></span>
+<span id="annotated-cell-4-11"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a><span class="co">        The name of the output directory</span></span>
+<span id="annotated-cell-4-12"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="annotated-cell-4-13"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a>    file_name <span class="op">=</span> <span class="st">"</span><span class="sc">%s</span><span class="st">/</span><span class="sc">%06d</span><span class="st">.xml"</span> <span class="op">%</span> (dir_name, counter)</span>
+<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(file_name)</span>
+<span id="annotated-cell-4-15"><a href="#annotated-cell-4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> io.<span class="bu">open</span>(file_name, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf8'</span>) <span class="im">as</span> f:</span>
+<span id="annotated-cell-4-16"><a href="#annotated-cell-4-16" aria-hidden="true" tabindex="-1"></a>        f.write(header)</span>
+<span id="annotated-cell-4-17"><a href="#annotated-cell-4-17" aria-hidden="true" tabindex="-1"></a>        f.write(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(xmlrecords) <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="annotated-cell-4-18"><a href="#annotated-cell-4-18" aria-hidden="true" tabindex="-1"></a>        f.write(footer)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="24" data-code-annotation="5"><code>write_output()</code> function creates the output files in the specified directory. It prints the XML header, join together and prints the XML records, and finally prints the XML footer.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="1" data-code-annotation="1">A <code>write_output()</code> function creates the output files in the specified directory. It prints the XML header, join together and prints the XML records, and finally prints the XML footer.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="6">6</dt>
+</dl>
+<p>Then we create some variables to store the harvested records, and keeping status information, then initialize and start the harvester.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-5"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a>xmlrecords <span class="op">=</span> []</span>
+<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>file_counter <span class="op">=</span> <span class="dv">0</span></span>
+<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a>record_counter <span class="op">=</span> <span class="dv">0</span></span>
+<span id="annotated-cell-5-4"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-5-5" class="code-annotation-target"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>sickle <span class="op">=</span> Sickle(<span class="st">'https://data.digar.ee/repox/OAIHandler'</span>, max_retries<span class="op">=</span><span class="dv">4</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-5-6" class="code-annotation-target"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> sickle.ListRecords(metadataPrefix<span class="op">=</span><span class="st">'marc21xml'</span>, <span class="bu">set</span><span class="op">=</span><span class="st">'erb'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="43" data-code-annotation="6">The Sickle harvester is initialized with the endpoint of the OAI-PMH service and an extra argument to specify how many times it can retry to fetch a single URL. It is needed because sometimes there are communication problems between the server and the client (due to problems on either side or in the network).</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="1" data-code-annotation="1">Initialisation of the necessary variables: the collector of the individual records, the output file counter and the record counter.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="45" data-code-annotation="7">Initialisation of the necessary variables: the collector of the individual records, the output file counter and the record counter.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="5" data-code-annotation="2">The Sickle harvester is initialized with the endpoint of the OAI-PMH service and an extra argument to specify how many times it can retry to fetch a single URL. It is needed because sometimes there are communication problems between the server and the client (due to problems on either side or in the network).</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="8">8</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="49" data-code-annotation="8">Start the harvest using the <code>ListRecords</code> verb. It returns an iterator, so we should not take care of pagination with individual HTTP calls and resumptionToken mentioned above, it is handled automatically by the Sickle module. We use two arguments: we set the metadata schema as MARCXML and the set as <code>erb</code> which stands for the Estonian National Bibliography. These values can be extracted from a preliminary investigation of the supported values returned by the <code>ListMetadataFormats</code> and <code>ListSets</code> verbs.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="6" data-code-annotation="3">Start the harvest using the <code>ListRecords</code> verb. It returns an iterator, so we should not take care of pagination with individual HTTP calls and resumptionToken mentioned above, it is handled automatically by the Sickle module. We use two arguments: we set the metadata schema as MARCXML and the set as <code>erb</code> which stands for the Estonian National Bibliography. These values can be extracted from a preliminary investigation of the supported values returned by the <code>ListMetadataFormats</code> and <code>ListSets</code> verbs.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="9">9</dt>
+</dl>
+<p>In the following the script iterates over the individual XML responses of the calls.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-6"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> content <span class="kw">in</span> it:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">=</span> etree.ElementTree(content)</span>
+<span id="annotated-cell-6-3"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>    records <span class="op">=</span> tree.xpath(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-6-5" class="code-annotation-target"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'/oai:record[*]/oai:metadata/marc21:record'</span>,</span>
+<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a>                  namespaces<span class="op">=</span>namespaces)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-6-7" class="code-annotation-target"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> record <span class="kw">in</span> records:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-6-8" class="code-annotation-target"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a>        xmlrecord <span class="op">=</span> etree<span class="op">\</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-6-9" class="code-annotation-target"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a>              .tostring(record, encoding<span class="op">=</span><span class="st">'utf8'</span>, method<span class="op">=</span><span class="st">'xml'</span>)<span class="op">\</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-6-10" class="code-annotation-target"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a>              .decode(<span class="st">"utf-8"</span>)<span class="op">\</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-6-11" class="code-annotation-target"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a>              .replace(<span class="st">"&lt;?xml version='1.0' encoding='utf8'?&gt;</span><span class="ch">\n</span><span class="st">"</span>, <span class="st">''</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-6-12" class="code-annotation-target"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a>        xmlrecords.append(xmlrecord)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-6-13" class="code-annotation-target"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a>        record_counter <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-6-15" class="code-annotation-target"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(xmlrecords) <span class="op">&gt;=</span> <span class="dv">100000</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="12" onclick="event.preventDefault();">12</a><span id="annotated-cell-6-16" class="code-annotation-target"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a>        write_output(xmlrecords, file_counter, <span class="bu">dir</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="13" onclick="event.preventDefault();">13</a><span id="annotated-cell-6-17" class="code-annotation-target"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a>        xmlrecords <span class="op">=</span> []</span>
+<span id="annotated-cell-6-18"><a href="#annotated-cell-6-18" aria-hidden="true" tabindex="-1"></a>        file_counter <span class="op">+=</span> <span class="dv">1</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="50" data-code-annotation="9">In the following the script iterates over the individual XML responses of the calls.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="1" data-code-annotation="1">Iterates over the responses. We do not need to call individual HTTP requests, the underlying library Sickle does it for us automatically.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="10">10</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="51" data-code-annotation="10">The raw XML content is transformed to an <a href="https://docs.python.org/3/library/xml.etree.elementtree.html">XML element tree</a> that is an internal data structure with an API.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="2" data-code-annotation="2">The raw XML content is transformed to an <a href="https://docs.python.org/3/library/xml.etree.elementtree.html">XML element tree</a> that is an internal data structure with an API.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="11">11</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="54" data-code-annotation="11">Selection of the individual records with an XPath expression. For the expression we should provide the XML namespace. In OAI-PMH the individual records (<code>&lt;oai:record&gt;</code>) have two parts: a header, that contains record identifier and other metadata (such as the set it belongs to, the date of last modification) and the actual record (<code>&lt;oai:metadata&gt;</code>). This later is the container of the MARCXML record (<code>&lt;marc21:record&gt;</code>). If you would like to apply this script to another OAI-PMH server, please check the namespaces it uses. The abbreviations are not important, you can name them as you like (however to keep them as in the source, i.e.&nbsp;the XML response of the service helps in debugging the problems, if there are), but you should always use the URLs used by the service.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="5" data-code-annotation="3">Selection of the individual records with an XPath expression. For the expression we should provide the XML namespace. In OAI-PMH the individual records (<code>&lt;oai:record&gt;</code>) have two parts: a header, that contains record identifier and other metadata (such as the set it belongs to, the date of last modification) and the actual record (<code>&lt;oai:metadata&gt;</code>). This later is the container of the MARCXML record (<code>&lt;marc21:record&gt;</code>). If you would like to apply this script to another OAI-PMH server, please check the namespaces it uses. The abbreviations are not important, you can name them as you like (however to keep them as in the source, i.e.&nbsp;the XML response of the service helps in debugging the problems, if there are), but you should always use the URLs used by the service.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="12">12</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="56" data-code-annotation="12">Iterate over the individual records that <code>xpath()</code> returned.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="7" data-code-annotation="4">Iterate over the individual records that <code>xpath()</code> returned.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="13">13</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="57" data-code-annotation="13">Transformation of the above mentioned tree structure of the record to XML via a sequence of steps:</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="8" data-code-annotation="5">Transformation of the above mentioned tree structure of the record to XML via a sequence of steps:</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="14">14</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="58" data-code-annotation="14">create the XML string…</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="9" data-code-annotation="6">create the XML string…</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="15">15</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="59" data-code-annotation="15">convert to UTF-8 encoding…</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="10" data-code-annotation="7">convert to UTF-8 encoding…</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="16">16</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="60" data-code-annotation="16">remove the <a href="https://www.w3.org/TR/REC-xml/#dt-xmldecl">XML declaration</a> – we do not need it for each record.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="11" data-code-annotation="8">remove the <a href="https://www.w3.org/TR/REC-xml/#dt-xmldecl">XML declaration</a> – we do not need it for each record.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="17">17</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="61" data-code-annotation="17">add the record into the record collection</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="12" data-code-annotation="9">add the record into the record collection</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="18">18</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="10">10</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="62" data-code-annotation="18">increase the record counter by one</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="13" data-code-annotation="10">increase the record counter by one</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="19">19</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="11">11</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="64" data-code-annotation="19">if the record collection contains more than 100 000 records…</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="15" data-code-annotation="11">if the record collection contains more than 100 000 records…</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="20">20</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="12">12</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="65" data-code-annotation="20">the records should be written to a file…</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="16" data-code-annotation="12">the records should be written to a file…</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="21">21</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="13">13</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="66" data-code-annotation="21">then empty the collection, and increase file counter by one</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="17" data-code-annotation="13">then empty the collection, and increase file counter by one</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="22">22</dt>
+</dl>
+<p>Since during the iteration we collect records, but do not save the list to file only when the list size reaches a limit, there is a chance that when the iteraton ends we still have unsaved record. So we should save them and print a report.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-7-1" class="code-annotation-target"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(xmlrecords) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>    write_output(xmlrecords, file_counter, <span class="bu">dir</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'saved </span><span class="sc">%d</span><span class="st"> records to </span><span class="sc">%d</span><span class="st"> files'</span> <span class="op">%</span> (record_counter, file_counter))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="69" data-code-annotation="22">after the iteration if the record collection is not empty write it to a file</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="1" data-code-annotation="1">after the iteration if the record collection is not empty write it to a file</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="23">23</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="71" data-code-annotation="23">finally notify the user about the number of records ingested and files written</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="2">finally notify the user about the number of records ingested and files written</span>
 </dd>
 </dl>
 </section>
@@ -610,39 +618,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It maps the trade of the Société Typographique de Neuchâtel, 1769-1794, and based on the almost intactly surviving archive of the alliance of the printers at Neuchâtel (Switzerland). The database (henceforth <em>FBTEE</em>) could be imported into MySQL or its Open Source form MariaDB. the database is downloadable from <a href="https://fbtee.westernsydney.edu.au/main/download-database/">https://fbtee.westernsydney.edu.au/main/download-database/</a>.</p>
 <p>As now we would like to download another file we might choose to copy the previous script, and replace the variables <code>url</code> and <code>target_file</code> with another one, but it would duplicate the business logic of the script. In software development there is a principle <em>Don’t Repeat Yourself</em> abbreviated as <em>DRY</em>. It suggests that we should avoid code repetition, or in other words: the code should be reusable. Instead of writing two (or more) specialized scripts that repeat the actual download and uncompressing part, we will create a function that will be used by these scripts.</p>
 <p>First we will create a utility script that will contain functions we can use in the course. It will be called bdsutils (short for Bibliographic Data Science utilities). This is the</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
-<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
-<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-4-4" class="code-annotation-target"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>target_dir <span class="op">=</span> <span class="st">'raw-data'</span></span>
-<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-4-6" class="code-annotation-target"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download_and_unzip(url, target_file):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-4-7" class="code-annotation-target"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Download a zip file, and uncompress it</span></span>
-<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
-<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
-<span id="annotated-cell-4-11"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
-<span id="annotated-cell-4-12"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a><span class="co">    url : str</span></span>
-<span id="annotated-cell-4-13"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a><span class="co">        The URL of the zip file to download</span></span>
-<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a><span class="co">    sound : str</span></span>
-<span id="annotated-cell-4-15"><a href="#annotated-cell-4-15" aria-hidden="true" tabindex="-1"></a><span class="co">        The local file name</span></span>
-<span id="annotated-cell-4-16"><a href="#annotated-cell-4-16" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="annotated-cell-4-17"><a href="#annotated-cell-4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-4-18"><a href="#annotated-cell-4-18" aria-hidden="true" tabindex="-1"></a>    urllib.request.urlretrieve(url, target_file)</span>
-<span id="annotated-cell-4-19"><a href="#annotated-cell-4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-4-20"><a href="#annotated-cell-4-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> zipfile.ZipFile(target_file, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
-<span id="annotated-cell-4-21"><a href="#annotated-cell-4-21" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(target_dir)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
+<span id="annotated-cell-8-2"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
+<span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-8-4" class="code-annotation-target"><a href="#annotated-cell-8-4" aria-hidden="true" tabindex="-1"></a>target_dir <span class="op">=</span> <span class="st">'raw-data'</span></span>
+<span id="annotated-cell-8-5"><a href="#annotated-cell-8-5" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-8-6" class="code-annotation-target"><a href="#annotated-cell-8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download_and_unzip(url, target_file):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-8-7" class="code-annotation-target"><a href="#annotated-cell-8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="annotated-cell-8-8"><a href="#annotated-cell-8-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Download a zip file, and uncompress it</span></span>
+<span id="annotated-cell-8-9"><a href="#annotated-cell-8-9" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="annotated-cell-8-10"><a href="#annotated-cell-8-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="annotated-cell-8-11"><a href="#annotated-cell-8-11" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="annotated-cell-8-12"><a href="#annotated-cell-8-12" aria-hidden="true" tabindex="-1"></a><span class="co">    url : str</span></span>
+<span id="annotated-cell-8-13"><a href="#annotated-cell-8-13" aria-hidden="true" tabindex="-1"></a><span class="co">        The URL of the zip file to download</span></span>
+<span id="annotated-cell-8-14"><a href="#annotated-cell-8-14" aria-hidden="true" tabindex="-1"></a><span class="co">    sound : str</span></span>
+<span id="annotated-cell-8-15"><a href="#annotated-cell-8-15" aria-hidden="true" tabindex="-1"></a><span class="co">        The local file name</span></span>
+<span id="annotated-cell-8-16"><a href="#annotated-cell-8-16" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="annotated-cell-8-17"><a href="#annotated-cell-8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-8-18"><a href="#annotated-cell-8-18" aria-hidden="true" tabindex="-1"></a>    urllib.request.urlretrieve(url, target_file)</span>
+<span id="annotated-cell-8-19"><a href="#annotated-cell-8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-8-20"><a href="#annotated-cell-8-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> zipfile.ZipFile(target_file, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
+<span id="annotated-cell-8-21"><a href="#annotated-cell-8-21" aria-hidden="true" tabindex="-1"></a>        zip_ref.extractall(target_dir)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="4" data-code-annotation="1">the script keeps only one variable <code>target_dir</code>, that will remain the same across calls</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="4" data-code-annotation="1">the script keeps only one variable <code>target_dir</code>, that will remain the same across calls</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="6" data-code-annotation="2">the definition of the method</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="6" data-code-annotation="2">the definition of the method</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="7,8,10,11,12,13,14,15,16" data-code-annotation="3">the documentation of the method</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="7,8,10,11,12,13,14,15,16" data-code-annotation="3">the documentation of the method</span>
 </dd>
 </dl>
 <div class="callout callout-style-simple callout-important">
@@ -657,40 +665,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The file is available in the repository as <code>scripts/bdsutils.py</code>.</p>
 <p>Once we have this utility script, we can create the specific one for <em>FBTEE</em>. This zip file does not contain directories, only a single file <em>chop_leeds_ac_uk.sql</em>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-5"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bdsutils <span class="im">import</span> target_dir, download_and_unzip</span>
-<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-5-4" class="code-annotation-target"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://fbtee.uws.edu.au/stn/database/download/STN_database.zip'</span></span>
-<span id="annotated-cell-5-5"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>target_file <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/stn_database.zip'</span></span>
-<span id="annotated-cell-5-6"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-5-7" class="code-annotation-target"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a>download_and_unzip(url, target_file)</span>
-<span id="annotated-cell-5-8"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-5-9"><a href="#annotated-cell-5-9" aria-hidden="true" tabindex="-1"></a>directory <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/fbtee'</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-5-10" class="code-annotation-target"><a href="#annotated-cell-5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(directory):</span>
-<span id="annotated-cell-5-11"><a href="#annotated-cell-5-11" aria-hidden="true" tabindex="-1"></a>    os.mkdir(directory)</span>
-<span id="annotated-cell-5-12"><a href="#annotated-cell-5-12" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-5-13" class="code-annotation-target"><a href="#annotated-cell-5-13" aria-hidden="true" tabindex="-1"></a>os.rename(target_dir <span class="op">+</span> <span class="st">'/chop_leeds_ac_uk.sql'</span>,</span>
-<span id="annotated-cell-5-14"><a href="#annotated-cell-5-14" aria-hidden="true" tabindex="-1"></a>          directory <span class="op">+</span> <span class="st">'/chop_leeds_ac_uk.sql'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-9"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-9-1" class="code-annotation-target"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bdsutils <span class="im">import</span> target_dir, download_and_unzip</span>
+<span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-9-4" class="code-annotation-target"><a href="#annotated-cell-9-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://fbtee.uws.edu.au/stn/database/download/STN_database.zip'</span></span>
+<span id="annotated-cell-9-5"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a>target_file <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/stn_database.zip'</span></span>
+<span id="annotated-cell-9-6"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-9-7" class="code-annotation-target"><a href="#annotated-cell-9-7" aria-hidden="true" tabindex="-1"></a>download_and_unzip(url, target_file)</span>
+<span id="annotated-cell-9-8"><a href="#annotated-cell-9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-9-9"><a href="#annotated-cell-9-9" aria-hidden="true" tabindex="-1"></a>directory <span class="op">=</span> target_dir <span class="op">+</span> <span class="st">'/fbtee'</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-9-10" class="code-annotation-target"><a href="#annotated-cell-9-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(directory):</span>
+<span id="annotated-cell-9-11"><a href="#annotated-cell-9-11" aria-hidden="true" tabindex="-1"></a>    os.mkdir(directory)</span>
+<span id="annotated-cell-9-12"><a href="#annotated-cell-9-12" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-9-13" class="code-annotation-target"><a href="#annotated-cell-9-13" aria-hidden="true" tabindex="-1"></a>os.rename(target_dir <span class="op">+</span> <span class="st">'/chop_leeds_ac_uk.sql'</span>,</span>
+<span id="annotated-cell-9-14"><a href="#annotated-cell-9-14" aria-hidden="true" tabindex="-1"></a>          directory <span class="op">+</span> <span class="st">'/chop_leeds_ac_uk.sql'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="1" data-code-annotation="1">imports both the variable and the function from bdsutils (we should not add the <code>.py</code> extension). This way we should not use the prefix bdsutils for these components (such as <code>bdsutils.target_dir</code>)</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="1" data-code-annotation="1">imports both the variable and the function from bdsutils (we should not add the <code>.py</code> extension). This way we should not use the prefix bdsutils for these components (such as <code>bdsutils.target_dir</code>)</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="4" data-code-annotation="2">the definition of the <em>FBTEE</em> specific variables</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="4" data-code-annotation="2">the definition of the <em>FBTEE</em> specific variables</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="7" data-code-annotation="3">usage of the method defined in bdsutils</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="7" data-code-annotation="3">usage of the method defined in bdsutils</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="10" data-code-annotation="4">creates a dedicated directory for the database if it doesn’t already exist</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="10" data-code-annotation="4">creates a dedicated directory for the database if it doesn’t already exist</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="13" data-code-annotation="5">moves the file to this directory</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="13" data-code-annotation="5">moves the file to this directory</span>
 </dd>
 </dl>
 <p>If you run it, you will have two files: - raw-data/fbtee/chop_leeds_ac_uk.sql - raw-data/stn_database.zip</p>
@@ -859,37 +867,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Jeri Wieringa, “Intro to Beautiful Soup,” Programming Historian 1 (2012), <a href="https://doi.org/10.46430/phen0008">https://doi.org/10.46430/phen0008</a></p>
 </blockquote>
 <p>which unfortunately a ‘retired’ lesson, since the HTML page on which the author demonstrates the strength of the library is no longer available, but still a good introduction, and one can apply the methods on IT.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-16"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-16-1" class="code-annotation-target"><a href="#annotated-cell-16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-16-2" class="code-annotation-target"><a href="#annotated-cell-16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lxml.html</span>
-<span id="annotated-cell-16-3"><a href="#annotated-cell-16-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-16-4" class="code-annotation-target"><a href="#annotated-cell-16-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-16-5" class="code-annotation-target"><a href="#annotated-cell-16-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.parse</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-16-6" class="code-annotation-target"><a href="#annotated-cell-16-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-16-7" class="code-annotation-target"><a href="#annotated-cell-16-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-20"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-20-1" class="code-annotation-target"><a href="#annotated-cell-20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-20-2" class="code-annotation-target"><a href="#annotated-cell-20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lxml.html</span>
+<span id="annotated-cell-20-3"><a href="#annotated-cell-20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-20-4" class="code-annotation-target"><a href="#annotated-cell-20-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-20-5" class="code-annotation-target"><a href="#annotated-cell-20-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.parse</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-20-6" class="code-annotation-target"><a href="#annotated-cell-20-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-20-7" class="code-annotation-target"><a href="#annotated-cell-20-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-16" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-20" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="1" data-code-annotation="1">We use another URL handling library: the <a href="https://requests.readthedocs.io/en/latest/">request library</a> that provides more convenient methods for the same task as the urllib package. The request package needs installation with a <code>pip install request</code>.</span>
+<span data-code-cell="annotated-cell-20" data-code-lines="1" data-code-annotation="1">We use another URL handling library: the <a href="https://requests.readthedocs.io/en/latest/">request library</a> that provides more convenient methods for the same task as the urllib package. The request package needs installation with a <code>pip install request</code>.</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-20" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="2" data-code-annotation="2">Previously we used another module from the <code>lxml</code> library. <code>html</code> provides methods for parsing HTML files.</span>
+<span data-code-cell="annotated-cell-20" data-code-lines="2" data-code-annotation="2">Previously we used another module from the <code>lxml</code> library. <code>html</code> provides methods for parsing HTML files.</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-20" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="4" data-code-annotation="3"><code>re</code> provides regular expression functionalities. As this part of core Python, it doesn’t need installation.</span>
+<span data-code-cell="annotated-cell-20" data-code-lines="4" data-code-annotation="3"><code>re</code> provides regular expression functionalities. As this part of core Python, it doesn’t need installation.</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-20" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="5" data-code-annotation="4">the <a href="https://docs.python.org/3/library/urllib.parse.html">parse module</a> helps to parse URLs and extract important parameters</span>
+<span data-code-cell="annotated-cell-20" data-code-lines="5" data-code-annotation="4">the <a href="https://docs.python.org/3/library/urllib.parse.html">parse module</a> helps to parse URLs and extract important parameters</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-20" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="6" data-code-annotation="5">The <a href="https://docs.python.org/3/library/csv.html">csv module</a> helps in reading and writing CSV files.</span>
+<span data-code-cell="annotated-cell-20" data-code-lines="6" data-code-annotation="5">The <a href="https://docs.python.org/3/library/csv.html">csv module</a> helps in reading and writing CSV files.</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-20" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-lines="7" data-code-annotation="6">Counter, well it is counting things</span>
+<span data-code-cell="annotated-cell-20" data-code-lines="7" data-code-annotation="6">Counter, well it is counting things</span>
 </dd>
 </dl>
 <p>We define two variables for our URL requests.</p>
@@ -912,273 +920,273 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> os.path.exists(<span class="bu">dir</span>):</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        os.makedirs(<span class="bu">dir</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then we use it in the web scraping script:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-19"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-19-1" class="code-annotation-target"><a href="#annotated-cell-19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bsutils</span>
-<span id="annotated-cell-19-2"><a href="#annotated-cell-19-2" aria-hidden="true" tabindex="-1"></a>...</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-19-3" class="code-annotation-target"><a href="#annotated-cell-19-3" aria-hidden="true" tabindex="-1"></a>create_dir(<span class="st">'cache'</span>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-19-4" class="code-annotation-target"><a href="#annotated-cell-19-4" aria-hidden="true" tabindex="-1"></a>cache_dir <span class="op">=</span> os.path.join(<span class="st">'cache'</span>, <span class="st">'it'</span>)</span>
-<span id="annotated-cell-19-5"><a href="#annotated-cell-19-5" aria-hidden="true" tabindex="-1"></a>create_dir(cache_dir)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-23"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-23-1" class="code-annotation-target"><a href="#annotated-cell-23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bsutils</span>
+<span id="annotated-cell-23-2"><a href="#annotated-cell-23-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-23-3" class="code-annotation-target"><a href="#annotated-cell-23-3" aria-hidden="true" tabindex="-1"></a>create_dir(<span class="st">'cache'</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-23-4" class="code-annotation-target"><a href="#annotated-cell-23-4" aria-hidden="true" tabindex="-1"></a>cache_dir <span class="op">=</span> os.path.join(<span class="st">'cache'</span>, <span class="st">'it'</span>)</span>
+<span id="annotated-cell-23-5"><a href="#annotated-cell-23-5" aria-hidden="true" tabindex="-1"></a>create_dir(cache_dir)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-19" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-23" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-19" data-code-lines="1" data-code-annotation="1">imports our module</span>
+<span data-code-cell="annotated-cell-23" data-code-lines="1" data-code-annotation="1">imports our module</span>
 </dd>
-<dt data-target-cell="annotated-cell-19" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-23" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-19" data-code-lines="3" data-code-annotation="2">creates a directory called ‘cache’</span>
+<span data-code-cell="annotated-cell-23" data-code-lines="3" data-code-annotation="2">creates a directory called ‘cache’</span>
 </dd>
-<dt data-target-cell="annotated-cell-19" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-23" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-19" data-code-lines="4" data-code-annotation="3">defines a directory called <code>it</code> inside the <code>cache</code> directory. Different operating systems handle subdirectories differently, <code>os.path.join</code> provides a safe way to use the appropriate syntax.</span>
+<span data-code-cell="annotated-cell-23" data-code-lines="4" data-code-annotation="3">defines a directory called <code>it</code> inside the <code>cache</code> directory. Different operating systems handle subdirectories differently, <code>os.path.join</code> provides a safe way to use the appropriate syntax.</span>
 </dd>
 </dl>
 <p>We also have to create containers for the data we plan to extract.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-20"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-20-1" class="code-annotation-target"><a href="#annotated-cell-20-1" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> []</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-20-2" class="code-annotation-target"><a href="#annotated-cell-20-2" aria-hidden="true" tabindex="-1"></a>authors <span class="op">=</span> []</span>
-<span id="annotated-cell-20-3"><a href="#annotated-cell-20-3" aria-hidden="true" tabindex="-1"></a>translators <span class="op">=</span> []</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-20-4" class="code-annotation-target"><a href="#annotated-cell-20-4" aria-hidden="true" tabindex="-1"></a>record_counter <span class="op">=</span> <span class="dv">1</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-20-5" class="code-annotation-target"><a href="#annotated-cell-20-5" aria-hidden="true" tabindex="-1"></a>field_names <span class="op">=</span> Counter({})</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-24"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-24-1" class="code-annotation-target"><a href="#annotated-cell-24-1" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> []</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-24-2" class="code-annotation-target"><a href="#annotated-cell-24-2" aria-hidden="true" tabindex="-1"></a>authors <span class="op">=</span> []</span>
+<span id="annotated-cell-24-3"><a href="#annotated-cell-24-3" aria-hidden="true" tabindex="-1"></a>translators <span class="op">=</span> []</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-24-4" class="code-annotation-target"><a href="#annotated-cell-24-4" aria-hidden="true" tabindex="-1"></a>record_counter <span class="op">=</span> <span class="dv">1</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-24-5" class="code-annotation-target"><a href="#annotated-cell-24-5" aria-hidden="true" tabindex="-1"></a>field_names <span class="op">=</span> Counter({})</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-20" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-24" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-20" data-code-lines="1" data-code-annotation="1"><code>record</code> (a list of dictionaries) will contain our records.</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="1" data-code-annotation="1"><code>record</code> (a list of dictionaries) will contain our records.</span>
 </dd>
-<dt data-target-cell="annotated-cell-20" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-24" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-20" data-code-lines="2" data-code-annotation="2">as there might be multiple authors, and translators, we collect them separately. Records will have an <code>id</code> field (IT does not provide one), and these two entities will refer to that identifier as the external keys in relational databases.</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="2" data-code-annotation="2">as there might be multiple authors, and translators, we collect them separately. Records will have an <code>id</code> field (IT does not provide one), and these two entities will refer to that identifier as the external keys in relational databases.</span>
 </dd>
-<dt data-target-cell="annotated-cell-20" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-24" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-20" data-code-lines="4" data-code-annotation="3">record_counter is the source of this identifier. When we process a new record, we will increment this value</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="4" data-code-annotation="3">record_counter is the source of this identifier. When we process a new record, we will increment this value</span>
 </dd>
-<dt data-target-cell="annotated-cell-20" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-24" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-20" data-code-lines="5" data-code-annotation="4">during the development we do not always know each field beforehand. <a href="https://docs.python.org/3/library/collections.html#collections.Counter">Counter</a> is a special Python data type that provides us a method to count things.</span>
+<span data-code-cell="annotated-cell-24" data-code-lines="5" data-code-annotation="4">during the development we do not always know each field beforehand. <a href="https://docs.python.org/3/library/collections.html#collections.Counter">Counter</a> is a special Python data type that provides us a method to count things.</span>
 </dd>
 </dl>
 <p>We start the process with the initial values:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>request_page(it_params)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>that triggers the following:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-22"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-22-1"><a href="#annotated-cell-22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> request_page(it_params):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-22-2" class="code-annotation-target"><a href="#annotated-cell-22-2" aria-hidden="true" tabindex="-1"></a>    cache_file <span class="op">=</span> os.path.join(cache_dir, <span class="ss">f'results_</span><span class="sc">{</span>it_params[<span class="st">'fr'</span>]<span class="sc">}</span><span class="ss">.html'</span>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-22-3" class="code-annotation-target"><a href="#annotated-cell-22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> os.path.exists(cache_file):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-22-4" class="code-annotation-target"><a href="#annotated-cell-22-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(cache_file, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
-<span id="annotated-cell-22-5"><a href="#annotated-cell-22-5" aria-hidden="true" tabindex="-1"></a>            content <span class="op">=</span> f.read()</span>
-<span id="annotated-cell-22-6"><a href="#annotated-cell-22-6" aria-hidden="true" tabindex="-1"></a>        process_page(content)</span>
-<span id="annotated-cell-22-7"><a href="#annotated-cell-22-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-22-8" class="code-annotation-target"><a href="#annotated-cell-22-8" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> requests.get(base_url, params<span class="op">=</span>it_params)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-22-9" class="code-annotation-target"><a href="#annotated-cell-22-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-22-10" class="code-annotation-target"><a href="#annotated-cell-22-10" aria-hidden="true" tabindex="-1"></a>            content <span class="op">=</span> response.text</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-22-11" class="code-annotation-target"><a href="#annotated-cell-22-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> re.search(<span class="st">'The requested URL was rejected.'</span>, content) <span class="kw">is</span> <span class="va">None</span>:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-22-12" class="code-annotation-target"><a href="#annotated-cell-22-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">with</span> <span class="bu">open</span>(cache_file, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
-<span id="annotated-cell-22-13"><a href="#annotated-cell-22-13" aria-hidden="true" tabindex="-1"></a>                    f.write(response.content)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-22-14" class="code-annotation-target"><a href="#annotated-cell-22-14" aria-hidden="true" tabindex="-1"></a>            process_page(content)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-22" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-22" data-code-lines="2" data-code-annotation="1">defines the cache file name out of the current URL’s <code>fr</code> parameter (the offset of the first record in the page from the first record in the hit list).</span>
-</dd>
-<dt data-target-cell="annotated-cell-22" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-22" data-code-lines="3" data-code-annotation="2">checks if the cache file already exists</span>
-</dd>
-<dt data-target-cell="annotated-cell-22" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-22" data-code-lines="4" data-code-annotation="3">if it does, the content should be read from the file, then process it with process_page() method.</span>
-</dd>
-<dt data-target-cell="annotated-cell-22" data-target-annotation="4">4</dt>
-<dd>
-<span data-code-cell="annotated-cell-22" data-code-lines="8" data-code-annotation="4">otherwise we should request the page from the IT server</span>
-</dd>
-<dt data-target-cell="annotated-cell-22" data-target-annotation="5">5</dt>
-<dd>
-<span data-code-cell="annotated-cell-22" data-code-lines="9" data-code-annotation="5">if it returns with HTTP status code 200 – which means the communication went well</span>
-</dd>
-<dt data-target-cell="annotated-cell-22" data-target-annotation="6">6</dt>
-<dd>
-<span data-code-cell="annotated-cell-22" data-code-lines="10" data-code-annotation="6">extracts the content</span>
-</dd>
-<dt data-target-cell="annotated-cell-22" data-target-annotation="7">7</dt>
-<dd>
-<span data-code-cell="annotated-cell-22" data-code-lines="11" data-code-annotation="7">however, the IT web server also returns code 200 even though there are some errors, for example if we issue too many requests (which is now prevented by the caching mechanism). During the development we met only one error message. <a href="https://docs.python.org/3/library/re.html#re.search">re.search</a>(pattern, string) returns mathing objects if pattern is found in the string, otherwise it returns None.</span>
-</dd>
-<dt data-target-cell="annotated-cell-22" data-target-annotation="8">8</dt>
-<dd>
-<span data-code-cell="annotated-cell-22" data-code-lines="12" data-code-annotation="8">if it doesn’t find the error message, the content will be saved to the cache file.</span>
-</dd>
-<dt data-target-cell="annotated-cell-22" data-target-annotation="9">9</dt>
-<dd>
-<span data-code-cell="annotated-cell-22" data-code-lines="14" data-code-annotation="9">processes it with process_page() method.</span>
-</dd>
-</dl>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-23"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-23-1"><a href="#annotated-cell-23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_page(content):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-23-2" class="code-annotation-target"><a href="#annotated-cell-23-2" aria-hidden="true" tabindex="-1"></a>    doc <span class="op">=</span> lxml.html.fromstring(content)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-23-3" class="code-annotation-target"><a href="#annotated-cell-23-3" aria-hidden="true" tabindex="-1"></a>    extract_translations(doc)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-23-4" class="code-annotation-target"><a href="#annotated-cell-23-4" aria-hidden="true" tabindex="-1"></a>    from_param <span class="op">=</span> extract_next_link(doc)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-23-5" class="code-annotation-target"><a href="#annotated-cell-23-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> from_param <span class="op">!=</span> <span class="va">None</span>:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-23-6" class="code-annotation-target"><a href="#annotated-cell-23-6" aria-hidden="true" tabindex="-1"></a>        it_params[<span class="st">'fr'</span>] <span class="op">=</span> from_param</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-23-7" class="code-annotation-target"><a href="#annotated-cell-23-7" aria-hidden="true" tabindex="-1"></a>        request_page(it_params)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-23" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-23" data-code-lines="2" data-code-annotation="1">the lxml library parses the document into an internal object</span>
-</dd>
-<dt data-target-cell="annotated-cell-23" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-23" data-code-lines="3" data-code-annotation="2">extract_translations() method will use it to extract the records from this object</span>
-</dd>
-<dt data-target-cell="annotated-cell-23" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-23" data-code-lines="4" data-code-annotation="3">extract_next_link() method extracts the above mentioned from (<code>fr</code>) parameter from the “next” link on the page.</span>
-</dd>
-<dt data-target-cell="annotated-cell-23" data-target-annotation="4">4</dt>
-<dd>
-<span data-code-cell="annotated-cell-23" data-code-lines="5" data-code-annotation="4">if it is not None</span>
-</dd>
-<dt data-target-cell="annotated-cell-23" data-target-annotation="5">5</dt>
-<dd>
-<span data-code-cell="annotated-cell-23" data-code-lines="6" data-code-annotation="5">update the parameter holder</span>
-</dd>
-<dt data-target-cell="annotated-cell-23" data-target-annotation="6">6</dt>
-<dd>
-<span data-code-cell="annotated-cell-23" data-code-lines="7" data-code-annotation="6">and call request_page() to process the next page.</span>
-</dd>
-</dl>
-<p>So these two functions call each other until there is a “next” link on the page.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-24"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-24-1"><a href="#annotated-cell-24-1" aria-hidden="true" tabindex="-1"></a>ef extract_translations(doc):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-24-2" class="code-annotation-target"><a href="#annotated-cell-24-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> record_counter, authors, translators</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-24-3" class="code-annotation-target"><a href="#annotated-cell-24-3" aria-hidden="true" tabindex="-1"></a>    items <span class="op">=</span> doc.findall(<span class="st">'body/table[@class="restable"]/tr/td[@class="res2"]'</span>, {})</span>
-<span id="annotated-cell-24-4"><a href="#annotated-cell-24-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> items:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-24-5" class="code-annotation-target"><a href="#annotated-cell-24-5" aria-hidden="true" tabindex="-1"></a>        record <span class="op">=</span> {<span class="st">'id'</span>: record_counter}</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-24-6" class="code-annotation-target"><a href="#annotated-cell-24-6" aria-hidden="true" tabindex="-1"></a>        spans <span class="op">=</span> item.findall(<span class="st">'span'</span>)</span>
-<span id="annotated-cell-24-7"><a href="#annotated-cell-24-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> span <span class="kw">in</span> spans:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-24-8" class="code-annotation-target"><a href="#annotated-cell-24-8" aria-hidden="true" tabindex="-1"></a>            key <span class="op">=</span> span.get(<span class="st">'class'</span>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-24-9" class="code-annotation-target"><a href="#annotated-cell-24-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> key <span class="op">==</span> <span class="st">'sn_pub'</span>:</span>
-<span id="annotated-cell-24-10"><a href="#annotated-cell-24-10" aria-hidden="true" tabindex="-1"></a>                subs <span class="op">=</span> span.findall(<span class="st">'span'</span>)</span>
-<span id="annotated-cell-24-11"><a href="#annotated-cell-24-11" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> sub <span class="kw">in</span> subs:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-24-12" class="code-annotation-target"><a href="#annotated-cell-24-12" aria-hidden="true" tabindex="-1"></a>                    extract_key_value(record, sub)</span>
-<span id="annotated-cell-24-13"><a href="#annotated-cell-24-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-24-14" class="code-annotation-target"><a href="#annotated-cell-24-14" aria-hidden="true" tabindex="-1"></a>                extract_key_value(record, span)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-24-15" class="code-annotation-target"><a href="#annotated-cell-24-15" aria-hidden="true" tabindex="-1"></a>        record, record_authors, record_translators <span class="op">=</span> normalize_record(record)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-24-16" class="code-annotation-target"><a href="#annotated-cell-24-16" aria-hidden="true" tabindex="-1"></a>        records.append(record)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-24-17" class="code-annotation-target"><a href="#annotated-cell-24-17" aria-hidden="true" tabindex="-1"></a>        authors <span class="op">+=</span> record_authors</span>
-<span id="annotated-cell-24-18"><a href="#annotated-cell-24-18" aria-hidden="true" tabindex="-1"></a>        translators <span class="op">+=</span> record_translators</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="12" onclick="event.preventDefault();">12</a><span id="annotated-cell-24-19" class="code-annotation-target"><a href="#annotated-cell-24-19" aria-hidden="true" tabindex="-1"></a>        record_counter <span class="op">+=</span> <span class="dv">1</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-24" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="2" data-code-annotation="1">the method uses some global variables, we make it possible with the <code>global</code> keyword</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="3" data-code-annotation="2">extracts individual table cells with an XPath expression (explained above). For each HTML snippet…</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="5" data-code-annotation="3">creates a dictionary for the record structure, initially only with the identifier</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="4">4</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="6" data-code-annotation="4">all the important data elements are in <code>&lt;span&gt;</code> elements, so we have to find extract them (inside the current cell), and iterate over them</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="5">5</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="8" data-code-annotation="5">the semantic information is found in the class attribute, so we should save it</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="6">6</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="9" data-code-annotation="6">however there is a special span: <code>sn_pub</code> is a container of other spans, and we have to run a second iteration to extract its children</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="7">7</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="12" data-code-annotation="7">and 8. at the end we call the extract_key_value() method with the record structure and the current (non complex) span element. It extracts the value and stores it in the record</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="8">8</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="14" data-code-annotation="8">ditto</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="9">9</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="15" data-code-annotation="9">after processing all spans we should normalize the record with the normalize_record() method. It returns the normalized method, the list of authors, authors and translators</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="10">10</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="16" data-code-annotation="10">as record is a single dictionary it can be appended easily to the list of records</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="11">11</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="17" data-code-annotation="11">however as authors and translators are list of dictionaries, append() can not be used here, we should concatenate the lists</span>
-</dd>
-<dt data-target-cell="annotated-cell-24" data-target-annotation="12">12</dt>
-<dd>
-<span data-code-cell="annotated-cell-24" data-code-lines="19" data-code-annotation="12">increases the record counter by one</span>
-</dd>
-</dl>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-25"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-25-1"><a href="#annotated-cell-25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_key_value(record, span):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-25-2" class="code-annotation-target"><a href="#annotated-cell-25-2" aria-hidden="true" tabindex="-1"></a>    key <span class="op">=</span> re.sub(<span class="vs">r'</span><span class="dv">^</span><span class="vs">sn_'</span>, <span class="st">''</span>, span.get(<span class="st">'class'</span>))</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-25-3" class="code-annotation-target"><a href="#annotated-cell-25-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> key <span class="kw">not</span> <span class="kw">in</span> [<span class="st">'auth_name'</span>, <span class="st">'auth_firstname'</span>, <span class="st">'transl_name'</span>, <span class="st">'transl_firstname'</span>]:</span>
-<span id="annotated-cell-25-4"><a href="#annotated-cell-25-4" aria-hidden="true" tabindex="-1"></a>        field_names.update([key])</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-25-5" class="code-annotation-target"><a href="#annotated-cell-25-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> key <span class="kw">not</span> <span class="kw">in</span> record:</span>
-<span id="annotated-cell-25-6"><a href="#annotated-cell-25-6" aria-hidden="true" tabindex="-1"></a>        record[key] <span class="op">=</span> []</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-25-7" class="code-annotation-target"><a href="#annotated-cell-25-7" aria-hidden="true" tabindex="-1"></a>    record[key].append(span.text)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-25" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-25" data-code-lines="2" data-code-annotation="1">the key of the field is derived from the class attribute, but the ‘sn_’ string from its beginning should be removed with a regular expression. <a href="https://docs.python.org/3/library/re.html#re.sub">re.sub</a> has three mandatory parameters: pattern, replacement and the input string. <code>^</code> is a building block of regular expressions, meaning the beginning of the string, so it will not match same string elsewhere (see the full syntax <a href="https://docs.python.org/3/library/re.html#regular-expression-syntax">here</a>)</span>
-</dd>
-<dt data-target-cell="annotated-cell-25" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-25" data-code-lines="3" data-code-annotation="2">author and translator names will be stored in a distinct table, but we count how many times the rest appear in the pages.</span>
-</dd>
-<dt data-target-cell="annotated-cell-25" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-25" data-code-lines="5" data-code-annotation="3">we expect that each field is repeatable, so if the key is not available in the dictionary, we initialize it as a list</span>
-</dd>
-<dt data-target-cell="annotated-cell-25" data-target-annotation="4">4</dt>
-<dd>
-<span data-code-cell="annotated-cell-25" data-code-lines="7" data-code-annotation="4">and append the value (the text attribute of the span) to this list</span>
-</dd>
-</dl>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-26"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-26-1"><a href="#annotated-cell-26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_next_link(doc):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-26-2" class="code-annotation-target"><a href="#annotated-cell-26-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">next</span> <span class="op">=</span> doc.findall(<span class="st">'body/table[@class="nav"]/tr[1]/td[@class="next"]/a'</span>, {})</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-26-3" class="code-annotation-target"><a href="#annotated-cell-26-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(<span class="bu">next</span>) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-26-4" class="code-annotation-target"><a href="#annotated-cell-26-4" aria-hidden="true" tabindex="-1"></a>        link <span class="op">=</span> <span class="bu">next</span>[<span class="dv">0</span>].get(<span class="st">'href'</span>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-26-5" class="code-annotation-target"><a href="#annotated-cell-26-5" aria-hidden="true" tabindex="-1"></a>        parsed_link <span class="op">=</span> urllib.parse.urlparse(link)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-26-6" class="code-annotation-target"><a href="#annotated-cell-26-6" aria-hidden="true" tabindex="-1"></a>        parameters <span class="op">=</span> urllib.parse.parse_qs(parsed_link.query)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-26-7" class="code-annotation-target"><a href="#annotated-cell-26-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'fr'</span> <span class="kw">in</span> parameters <span class="kw">and</span> <span class="bu">len</span>(parameters[<span class="st">'fr'</span>]) <span class="op">==</span> <span class="dv">1</span>:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-26-8" class="code-annotation-target"><a href="#annotated-cell-26-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> parameters[<span class="st">'fr'</span>][<span class="dv">0</span>]</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-26-9" class="code-annotation-target"><a href="#annotated-cell-26-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-26"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-26-1"><a href="#annotated-cell-26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> request_page(it_params):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-26-2" class="code-annotation-target"><a href="#annotated-cell-26-2" aria-hidden="true" tabindex="-1"></a>    cache_file <span class="op">=</span> os.path.join(cache_dir, <span class="ss">f'results_</span><span class="sc">{</span>it_params[<span class="st">'fr'</span>]<span class="sc">}</span><span class="ss">.html'</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-26-3" class="code-annotation-target"><a href="#annotated-cell-26-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> os.path.exists(cache_file):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-26-4" class="code-annotation-target"><a href="#annotated-cell-26-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(cache_file, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="annotated-cell-26-5"><a href="#annotated-cell-26-5" aria-hidden="true" tabindex="-1"></a>            content <span class="op">=</span> f.read()</span>
+<span id="annotated-cell-26-6"><a href="#annotated-cell-26-6" aria-hidden="true" tabindex="-1"></a>        process_page(content)</span>
+<span id="annotated-cell-26-7"><a href="#annotated-cell-26-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-26-8" class="code-annotation-target"><a href="#annotated-cell-26-8" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> requests.get(base_url, params<span class="op">=</span>it_params)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-26-9" class="code-annotation-target"><a href="#annotated-cell-26-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-26-10" class="code-annotation-target"><a href="#annotated-cell-26-10" aria-hidden="true" tabindex="-1"></a>            content <span class="op">=</span> response.text</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-26-11" class="code-annotation-target"><a href="#annotated-cell-26-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> re.search(<span class="st">'The requested URL was rejected.'</span>, content) <span class="kw">is</span> <span class="va">None</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-26-12" class="code-annotation-target"><a href="#annotated-cell-26-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">with</span> <span class="bu">open</span>(cache_file, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
+<span id="annotated-cell-26-13"><a href="#annotated-cell-26-13" aria-hidden="true" tabindex="-1"></a>                    f.write(response.content)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-26-14" class="code-annotation-target"><a href="#annotated-cell-26-14" aria-hidden="true" tabindex="-1"></a>            process_page(content)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-26" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-26" data-code-lines="2" data-code-annotation="1">extracts the “next” link</span>
+<span data-code-cell="annotated-cell-26" data-code-lines="2" data-code-annotation="1">defines the cache file name out of the current URL’s <code>fr</code> parameter (the offset of the first record in the page from the first record in the hit list).</span>
 </dd>
 <dt data-target-cell="annotated-cell-26" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-26" data-code-lines="3" data-code-annotation="2">it is not available on the last page, so it should be checked if it is processable</span>
+<span data-code-cell="annotated-cell-26" data-code-lines="3" data-code-annotation="2">checks if the cache file already exists</span>
 </dd>
 <dt data-target-cell="annotated-cell-26" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-26" data-code-lines="4" data-code-annotation="3">the <em>fr</em> parameter is available in the href attribute of the first (and only) “next” link</span>
+<span data-code-cell="annotated-cell-26" data-code-lines="4" data-code-annotation="3">if it does, the content should be read from the file, then process it with process_page() method.</span>
 </dd>
 <dt data-target-cell="annotated-cell-26" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-26" data-code-lines="5" data-code-annotation="4">parses it with the urllib’s <a href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse">method</a>, that returns a fixed structure: <a href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.ParseResult">6-item named tuple</a>.</span>
+<span data-code-cell="annotated-cell-26" data-code-lines="8" data-code-annotation="4">otherwise we should request the page from the IT server</span>
 </dd>
 <dt data-target-cell="annotated-cell-26" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-26" data-code-lines="6" data-code-annotation="5">its element query contains only a string, which should be parsed with <a href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.parse_qs">parse_qs</a></span>
+<span data-code-cell="annotated-cell-26" data-code-lines="9" data-code-annotation="5">if it returns with HTTP status code 200 – which means the communication went well</span>
 </dd>
 <dt data-target-cell="annotated-cell-26" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-26" data-code-lines="7" data-code-annotation="6">the keys in the query string are repeatable, and parse returns a dictionary. Make sure that the parameters you look for is available and has only one value</span>
+<span data-code-cell="annotated-cell-26" data-code-lines="10" data-code-annotation="6">extracts the content</span>
 </dd>
 <dt data-target-cell="annotated-cell-26" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-26" data-code-lines="8" data-code-annotation="7">returns the first (and only) fr value</span>
+<span data-code-cell="annotated-cell-26" data-code-lines="11" data-code-annotation="7">however, the IT web server also returns code 200 even though there are some errors, for example if we issue too many requests (which is now prevented by the caching mechanism). During the development we met only one error message. <a href="https://docs.python.org/3/library/re.html#re.search">re.search</a>(pattern, string) returns mathing objects if pattern is found in the string, otherwise it returns None.</span>
 </dd>
 <dt data-target-cell="annotated-cell-26" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-cell="annotated-cell-26" data-code-lines="9" data-code-annotation="8">in every other cases returns a special value: None (not above we had a check on this None)</span>
+<span data-code-cell="annotated-cell-26" data-code-lines="12" data-code-annotation="8">if it doesn’t find the error message, the content will be saved to the cache file.</span>
+</dd>
+<dt data-target-cell="annotated-cell-26" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-26" data-code-lines="14" data-code-annotation="9">processes it with process_page() method.</span>
+</dd>
+</dl>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-27"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-27-1"><a href="#annotated-cell-27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_page(content):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-27-2" class="code-annotation-target"><a href="#annotated-cell-27-2" aria-hidden="true" tabindex="-1"></a>    doc <span class="op">=</span> lxml.html.fromstring(content)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-27-3" class="code-annotation-target"><a href="#annotated-cell-27-3" aria-hidden="true" tabindex="-1"></a>    extract_translations(doc)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-27-4" class="code-annotation-target"><a href="#annotated-cell-27-4" aria-hidden="true" tabindex="-1"></a>    from_param <span class="op">=</span> extract_next_link(doc)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-27-5" class="code-annotation-target"><a href="#annotated-cell-27-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> from_param <span class="op">!=</span> <span class="va">None</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-27-6" class="code-annotation-target"><a href="#annotated-cell-27-6" aria-hidden="true" tabindex="-1"></a>        it_params[<span class="st">'fr'</span>] <span class="op">=</span> from_param</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-27-7" class="code-annotation-target"><a href="#annotated-cell-27-7" aria-hidden="true" tabindex="-1"></a>        request_page(it_params)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-27" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="2" data-code-annotation="1">the lxml library parses the document into an internal object</span>
+</dd>
+<dt data-target-cell="annotated-cell-27" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="3" data-code-annotation="2">extract_translations() method will use it to extract the records from this object</span>
+</dd>
+<dt data-target-cell="annotated-cell-27" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="4" data-code-annotation="3">extract_next_link() method extracts the above mentioned from (<code>fr</code>) parameter from the “next” link on the page.</span>
+</dd>
+<dt data-target-cell="annotated-cell-27" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="5" data-code-annotation="4">if it is not None</span>
+</dd>
+<dt data-target-cell="annotated-cell-27" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="6" data-code-annotation="5">update the parameter holder</span>
+</dd>
+<dt data-target-cell="annotated-cell-27" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="7" data-code-annotation="6">and call request_page() to process the next page.</span>
+</dd>
+</dl>
+<p>So these two functions call each other until there is a “next” link on the page.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-28"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a>ef extract_translations(doc):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-28-2" class="code-annotation-target"><a href="#annotated-cell-28-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> record_counter, authors, translators</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-28-3" class="code-annotation-target"><a href="#annotated-cell-28-3" aria-hidden="true" tabindex="-1"></a>    items <span class="op">=</span> doc.findall(<span class="st">'body/table[@class="restable"]/tr/td[@class="res2"]'</span>, {})</span>
+<span id="annotated-cell-28-4"><a href="#annotated-cell-28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> items:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-28-5" class="code-annotation-target"><a href="#annotated-cell-28-5" aria-hidden="true" tabindex="-1"></a>        record <span class="op">=</span> {<span class="st">'id'</span>: record_counter}</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-28-6" class="code-annotation-target"><a href="#annotated-cell-28-6" aria-hidden="true" tabindex="-1"></a>        spans <span class="op">=</span> item.findall(<span class="st">'span'</span>)</span>
+<span id="annotated-cell-28-7"><a href="#annotated-cell-28-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> span <span class="kw">in</span> spans:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-28-8" class="code-annotation-target"><a href="#annotated-cell-28-8" aria-hidden="true" tabindex="-1"></a>            key <span class="op">=</span> span.get(<span class="st">'class'</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-28-9" class="code-annotation-target"><a href="#annotated-cell-28-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> key <span class="op">==</span> <span class="st">'sn_pub'</span>:</span>
+<span id="annotated-cell-28-10"><a href="#annotated-cell-28-10" aria-hidden="true" tabindex="-1"></a>                subs <span class="op">=</span> span.findall(<span class="st">'span'</span>)</span>
+<span id="annotated-cell-28-11"><a href="#annotated-cell-28-11" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> sub <span class="kw">in</span> subs:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-28-12" class="code-annotation-target"><a href="#annotated-cell-28-12" aria-hidden="true" tabindex="-1"></a>                    extract_key_value(record, sub)</span>
+<span id="annotated-cell-28-13"><a href="#annotated-cell-28-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-28-14" class="code-annotation-target"><a href="#annotated-cell-28-14" aria-hidden="true" tabindex="-1"></a>                extract_key_value(record, span)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-28-15" class="code-annotation-target"><a href="#annotated-cell-28-15" aria-hidden="true" tabindex="-1"></a>        record, record_authors, record_translators <span class="op">=</span> normalize_record(record)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-28-16" class="code-annotation-target"><a href="#annotated-cell-28-16" aria-hidden="true" tabindex="-1"></a>        records.append(record)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-28-17" class="code-annotation-target"><a href="#annotated-cell-28-17" aria-hidden="true" tabindex="-1"></a>        authors <span class="op">+=</span> record_authors</span>
+<span id="annotated-cell-28-18"><a href="#annotated-cell-28-18" aria-hidden="true" tabindex="-1"></a>        translators <span class="op">+=</span> record_translators</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="12" onclick="event.preventDefault();">12</a><span id="annotated-cell-28-19" class="code-annotation-target"><a href="#annotated-cell-28-19" aria-hidden="true" tabindex="-1"></a>        record_counter <span class="op">+=</span> <span class="dv">1</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="2" data-code-annotation="1">the method uses some global variables, we make it possible with the <code>global</code> keyword</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="3" data-code-annotation="2">extracts individual table cells with an XPath expression (explained above). For each HTML snippet…</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="5" data-code-annotation="3">creates a dictionary for the record structure, initially only with the identifier</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="6" data-code-annotation="4">all the important data elements are in <code>&lt;span&gt;</code> elements, so we have to find extract them (inside the current cell), and iterate over them</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="8" data-code-annotation="5">the semantic information is found in the class attribute, so we should save it</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="9" data-code-annotation="6">however there is a special span: <code>sn_pub</code> is a container of other spans, and we have to run a second iteration to extract its children</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="12" data-code-annotation="7">and 8. at the end we call the extract_key_value() method with the record structure and the current (non complex) span element. It extracts the value and stores it in the record</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="14" data-code-annotation="8">ditto</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="15" data-code-annotation="9">after processing all spans we should normalize the record with the normalize_record() method. It returns the normalized method, the list of authors, authors and translators</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="10">10</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="16" data-code-annotation="10">as record is a single dictionary it can be appended easily to the list of records</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="11">11</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="17" data-code-annotation="11">however as authors and translators are list of dictionaries, append() can not be used here, we should concatenate the lists</span>
+</dd>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="12">12</dt>
+<dd>
+<span data-code-cell="annotated-cell-28" data-code-lines="19" data-code-annotation="12">increases the record counter by one</span>
+</dd>
+</dl>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-29"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-29-1"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_key_value(record, span):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-29-2" class="code-annotation-target"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a>    key <span class="op">=</span> re.sub(<span class="vs">r'</span><span class="dv">^</span><span class="vs">sn_'</span>, <span class="st">''</span>, span.get(<span class="st">'class'</span>))</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-29-3" class="code-annotation-target"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> key <span class="kw">not</span> <span class="kw">in</span> [<span class="st">'auth_name'</span>, <span class="st">'auth_firstname'</span>, <span class="st">'transl_name'</span>, <span class="st">'transl_firstname'</span>]:</span>
+<span id="annotated-cell-29-4"><a href="#annotated-cell-29-4" aria-hidden="true" tabindex="-1"></a>        field_names.update([key])</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-29-5" class="code-annotation-target"><a href="#annotated-cell-29-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> key <span class="kw">not</span> <span class="kw">in</span> record:</span>
+<span id="annotated-cell-29-6"><a href="#annotated-cell-29-6" aria-hidden="true" tabindex="-1"></a>        record[key] <span class="op">=</span> []</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-29-7" class="code-annotation-target"><a href="#annotated-cell-29-7" aria-hidden="true" tabindex="-1"></a>    record[key].append(span.text)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-29" data-code-lines="2" data-code-annotation="1">the key of the field is derived from the class attribute, but the ‘sn_’ string from its beginning should be removed with a regular expression. <a href="https://docs.python.org/3/library/re.html#re.sub">re.sub</a> has three mandatory parameters: pattern, replacement and the input string. <code>^</code> is a building block of regular expressions, meaning the beginning of the string, so it will not match same string elsewhere (see the full syntax <a href="https://docs.python.org/3/library/re.html#regular-expression-syntax">here</a>)</span>
+</dd>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-29" data-code-lines="3" data-code-annotation="2">author and translator names will be stored in a distinct table, but we count how many times the rest appear in the pages.</span>
+</dd>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-29" data-code-lines="5" data-code-annotation="3">we expect that each field is repeatable, so if the key is not available in the dictionary, we initialize it as a list</span>
+</dd>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-29" data-code-lines="7" data-code-annotation="4">and append the value (the text attribute of the span) to this list</span>
+</dd>
+</dl>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-30"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-30-1"><a href="#annotated-cell-30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_next_link(doc):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-30-2" class="code-annotation-target"><a href="#annotated-cell-30-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">next</span> <span class="op">=</span> doc.findall(<span class="st">'body/table[@class="nav"]/tr[1]/td[@class="next"]/a'</span>, {})</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-30-3" class="code-annotation-target"><a href="#annotated-cell-30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(<span class="bu">next</span>) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-30-4" class="code-annotation-target"><a href="#annotated-cell-30-4" aria-hidden="true" tabindex="-1"></a>        link <span class="op">=</span> <span class="bu">next</span>[<span class="dv">0</span>].get(<span class="st">'href'</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-30-5" class="code-annotation-target"><a href="#annotated-cell-30-5" aria-hidden="true" tabindex="-1"></a>        parsed_link <span class="op">=</span> urllib.parse.urlparse(link)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-30-6" class="code-annotation-target"><a href="#annotated-cell-30-6" aria-hidden="true" tabindex="-1"></a>        parameters <span class="op">=</span> urllib.parse.parse_qs(parsed_link.query)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-30-7" class="code-annotation-target"><a href="#annotated-cell-30-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'fr'</span> <span class="kw">in</span> parameters <span class="kw">and</span> <span class="bu">len</span>(parameters[<span class="st">'fr'</span>]) <span class="op">==</span> <span class="dv">1</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-30-8" class="code-annotation-target"><a href="#annotated-cell-30-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> parameters[<span class="st">'fr'</span>][<span class="dv">0</span>]</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-30-9" class="code-annotation-target"><a href="#annotated-cell-30-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-30" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="2" data-code-annotation="1">extracts the “next” link</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="3" data-code-annotation="2">it is not available on the last page, so it should be checked if it is processable</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="4" data-code-annotation="3">the <em>fr</em> parameter is available in the href attribute of the first (and only) “next” link</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="5" data-code-annotation="4">parses it with the urllib’s <a href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse">method</a>, that returns a fixed structure: <a href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.ParseResult">6-item named tuple</a>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="6" data-code-annotation="5">its element query contains only a string, which should be parsed with <a href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.parse_qs">parse_qs</a></span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="7" data-code-annotation="6">the keys in the query string are repeatable, and parse returns a dictionary. Make sure that the parameters you look for is available and has only one value</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="8" data-code-annotation="7">returns the first (and only) fr value</span>
+</dd>
+<dt data-target-cell="annotated-cell-30" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-30" data-code-lines="9" data-code-annotation="8">in every other cases returns a special value: None (not above we had a check on this None)</span>
 </dd>
 </dl>
 <p>As mentioned above there are two things we should improve in the extracted record structure:</p>
@@ -1186,35 +1194,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>we would store the author and translators in distinct CSV files (and we will join tables only during data analysis)</li>
 <li>the values of the other fields are also lists, however we do not necessary need them as list, and in CSV it is not easy to handle lists in cells</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-27"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-27-1"><a href="#annotated-cell-27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normalize_record(record):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-27-2" class="code-annotation-target"><a href="#annotated-cell-27-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key, value <span class="kw">in</span> record.items():</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-27-3" class="code-annotation-target"><a href="#annotated-cell-27-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> key <span class="kw">not</span> <span class="kw">in</span> [<span class="st">'auth_name'</span>, <span class="st">'auth_firstname'</span>, <span class="st">'transl_name'</span>, <span class="st">'transl_firstname'</span>]:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-27-4" class="code-annotation-target"><a href="#annotated-cell-27-4" aria-hidden="true" tabindex="-1"></a>            record[key] <span class="op">=</span> <span class="st">', '</span>.join(value)</span>
-<span id="annotated-cell-27-5"><a href="#annotated-cell-27-5" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-27-6" class="code-annotation-target"><a href="#annotated-cell-27-6" aria-hidden="true" tabindex="-1"></a>    authors <span class="op">=</span> extract_names(record, <span class="st">'auth_name'</span>, <span class="st">'auth_firstname'</span>)</span>
-<span id="annotated-cell-27-7"><a href="#annotated-cell-27-7" aria-hidden="true" tabindex="-1"></a>    translators <span class="op">=</span> extract_names(record, <span class="st">'transl_name'</span>, <span class="st">'transl_firstname'</span>)</span>
-<span id="annotated-cell-27-8"><a href="#annotated-cell-27-8" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-27-9" class="code-annotation-target"><a href="#annotated-cell-27-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> record, authors, translators</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-31"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-31-1"><a href="#annotated-cell-31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normalize_record(record):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-31-2" class="code-annotation-target"><a href="#annotated-cell-31-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key, value <span class="kw">in</span> record.items():</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-31-3" class="code-annotation-target"><a href="#annotated-cell-31-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> key <span class="kw">not</span> <span class="kw">in</span> [<span class="st">'auth_name'</span>, <span class="st">'auth_firstname'</span>, <span class="st">'transl_name'</span>, <span class="st">'transl_firstname'</span>]:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-31-4" class="code-annotation-target"><a href="#annotated-cell-31-4" aria-hidden="true" tabindex="-1"></a>            record[key] <span class="op">=</span> <span class="st">', '</span>.join(value)</span>
+<span id="annotated-cell-31-5"><a href="#annotated-cell-31-5" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-31-6" class="code-annotation-target"><a href="#annotated-cell-31-6" aria-hidden="true" tabindex="-1"></a>    authors <span class="op">=</span> extract_names(record, <span class="st">'auth_name'</span>, <span class="st">'auth_firstname'</span>)</span>
+<span id="annotated-cell-31-7"><a href="#annotated-cell-31-7" aria-hidden="true" tabindex="-1"></a>    translators <span class="op">=</span> extract_names(record, <span class="st">'transl_name'</span>, <span class="st">'transl_firstname'</span>)</span>
+<span id="annotated-cell-31-8"><a href="#annotated-cell-31-8" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-31-9" class="code-annotation-target"><a href="#annotated-cell-31-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> record, authors, translators</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-27" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-27" data-code-lines="2" data-code-annotation="1">iterates over the key-value pairs of the dictionary</span>
+<span data-code-cell="annotated-cell-31" data-code-lines="2" data-code-annotation="1">iterates over the key-value pairs of the dictionary</span>
 </dd>
-<dt data-target-cell="annotated-cell-27" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-27" data-code-lines="3" data-code-annotation="2">if the key is not one of the author and translator name related field</span>
+<span data-code-cell="annotated-cell-31" data-code-lines="3" data-code-annotation="2">if the key is not one of the author and translator name related field</span>
 </dd>
-<dt data-target-cell="annotated-cell-27" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-27" data-code-lines="4" data-code-annotation="3">“flatten” it by concatenate the value with comma (and space)</span>
+<span data-code-cell="annotated-cell-31" data-code-lines="4" data-code-annotation="3">“flatten” it by concatenate the value with comma (and space)</span>
 </dd>
-<dt data-target-cell="annotated-cell-27" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-27" data-code-lines="6" data-code-annotation="4">handles author and translator names with the extract_names() method, that returns the list of authors, and the list of translators</span>
+<span data-code-cell="annotated-cell-31" data-code-lines="6" data-code-annotation="4">handles author and translator names with the extract_names() method, that returns the list of authors, and the list of translators</span>
 </dd>
-<dt data-target-cell="annotated-cell-27" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-31" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-27" data-code-lines="9" data-code-annotation="5">returns the cleared record, and the two name lists</span>
+<span data-code-cell="annotated-cell-31" data-code-lines="9" data-code-annotation="5">returns the cleared record, and the two name lists</span>
 </dd>
 </dl>
 <p>The extract_names() method however is not that simple as it seems to be. There are two problems.</p>
@@ -1222,125 +1230,125 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>in HTML we have sequences of last name, first name pairs, while our structure collects all last names and first names in distinct lists</li>
 <li>sometimes the first name pair is missing. It would not be the problem if it would be the last element, but there are cases when an ‘et al.’ (as last name) takes place in the middle of the list. Because of this problem we can not use the otherwise handy built-in <a href="https://docs.python.org/3/library/functions.html#zip">zip</a> function, that creates tuples out of the pairs.</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-28"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_names(record, lastname_key, firstname_key):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-28-2" class="code-annotation-target"><a href="#annotated-cell-28-2" aria-hidden="true" tabindex="-1"></a>    name_records <span class="op">=</span> []</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-28-3" class="code-annotation-target"><a href="#annotated-cell-28-3" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-28-4" class="code-annotation-target"><a href="#annotated-cell-28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> lastname_key <span class="kw">in</span> record:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-28-5" class="code-annotation-target"><a href="#annotated-cell-28-5" aria-hidden="true" tabindex="-1"></a>        firstnames <span class="op">=</span> record.get(firstname_key, [])</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-28-6" class="code-annotation-target"><a href="#annotated-cell-28-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> name <span class="kw">in</span> record.get(lastname_key):</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-28-7" class="code-annotation-target"><a href="#annotated-cell-28-7" aria-hidden="true" tabindex="-1"></a>            name_record <span class="op">=</span> {<span class="st">'rid'</span>: record[<span class="st">'id'</span>], <span class="st">'last'</span>: name, <span class="st">'first'</span>: <span class="va">None</span>}</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-28-8" class="code-annotation-target"><a href="#annotated-cell-28-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> name <span class="op">!=</span> <span class="st">'et al.'</span>:</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-28-9" class="code-annotation-target"><a href="#annotated-cell-28-9" aria-hidden="true" tabindex="-1"></a>                i <span class="op">+=</span> <span class="dv">1</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-28-10" class="code-annotation-target"><a href="#annotated-cell-28-10" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> (<span class="bu">len</span>(firstnames) <span class="op">&gt;</span> i):</span>
-<span id="annotated-cell-28-11"><a href="#annotated-cell-28-11" aria-hidden="true" tabindex="-1"></a>                    name_record[<span class="st">'first'</span>] <span class="op">=</span> firstnames[i]</span>
-<span id="annotated-cell-28-12"><a href="#annotated-cell-28-12" aria-hidden="true" tabindex="-1"></a>            name_records.append(name_record)</span>
-<span id="annotated-cell-28-13"><a href="#annotated-cell-28-13" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-28-14" class="code-annotation-target"><a href="#annotated-cell-28-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">del</span> record[lastname_key]</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-28-15" class="code-annotation-target"><a href="#annotated-cell-28-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(firstnames) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="annotated-cell-28-16"><a href="#annotated-cell-28-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">del</span> record[firstname_key]</span>
-<span id="annotated-cell-28-17"><a href="#annotated-cell-28-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="annotated-cell-28-18"><a href="#annotated-cell-28-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> name_records</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-32"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-32-1"><a href="#annotated-cell-32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_names(record, lastname_key, firstname_key):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-32-2" class="code-annotation-target"><a href="#annotated-cell-32-2" aria-hidden="true" tabindex="-1"></a>    name_records <span class="op">=</span> []</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-32-3" class="code-annotation-target"><a href="#annotated-cell-32-3" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-32-4" class="code-annotation-target"><a href="#annotated-cell-32-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> lastname_key <span class="kw">in</span> record:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-32-5" class="code-annotation-target"><a href="#annotated-cell-32-5" aria-hidden="true" tabindex="-1"></a>        firstnames <span class="op">=</span> record.get(firstname_key, [])</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-32-6" class="code-annotation-target"><a href="#annotated-cell-32-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> name <span class="kw">in</span> record.get(lastname_key):</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-32-7" class="code-annotation-target"><a href="#annotated-cell-32-7" aria-hidden="true" tabindex="-1"></a>            name_record <span class="op">=</span> {<span class="st">'rid'</span>: record[<span class="st">'id'</span>], <span class="st">'last'</span>: name, <span class="st">'first'</span>: <span class="va">None</span>}</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-32-8" class="code-annotation-target"><a href="#annotated-cell-32-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> name <span class="op">!=</span> <span class="st">'et al.'</span>:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-32-9" class="code-annotation-target"><a href="#annotated-cell-32-9" aria-hidden="true" tabindex="-1"></a>                i <span class="op">+=</span> <span class="dv">1</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-32-10" class="code-annotation-target"><a href="#annotated-cell-32-10" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> (<span class="bu">len</span>(firstnames) <span class="op">&gt;</span> i):</span>
+<span id="annotated-cell-32-11"><a href="#annotated-cell-32-11" aria-hidden="true" tabindex="-1"></a>                    name_record[<span class="st">'first'</span>] <span class="op">=</span> firstnames[i]</span>
+<span id="annotated-cell-32-12"><a href="#annotated-cell-32-12" aria-hidden="true" tabindex="-1"></a>            name_records.append(name_record)</span>
+<span id="annotated-cell-32-13"><a href="#annotated-cell-32-13" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-32-14" class="code-annotation-target"><a href="#annotated-cell-32-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">del</span> record[lastname_key]</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-32-15" class="code-annotation-target"><a href="#annotated-cell-32-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(firstnames) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="annotated-cell-32-16"><a href="#annotated-cell-32-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">del</span> record[firstname_key]</span>
+<span id="annotated-cell-32-17"><a href="#annotated-cell-32-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="annotated-cell-32-18"><a href="#annotated-cell-32-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> name_records</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="2" data-code-annotation="1">creates an empty list for the names</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="2" data-code-annotation="1">creates an empty list for the names</span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="3" data-code-annotation="2">initializes a counter with -1, because 0 is the index of the first element in a list and we will increase it before using it</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="3" data-code-annotation="2">initializes a counter with -1, because 0 is the index of the first element in a list and we will increase it before using it</span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="4" data-code-annotation="3">sometimes translators are missing from the records, so we check if we should process it at all</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="4" data-code-annotation="3">sometimes translators are missing from the records, so we check if we should process it at all</span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="5" data-code-annotation="4">the first name is also missing sometimes, so we get an empty list if this is the case. If we would not add the default parameter, we would retrieve None instead which is not iterable, and raises errors when we check the length later.</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="5" data-code-annotation="4">the first name is also missing sometimes, so we get an empty list if this is the case. If we would not add the default parameter, we would retrieve None instead which is not iterable, and raises errors when we check the length later.</span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="6" data-code-annotation="5">iterates over the last names</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="6" data-code-annotation="5">iterates over the last names</span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="7" data-code-annotation="6">creates a dictionary with None as the default first name that will be updated if there is a real first name</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="7" data-code-annotation="6">creates a dictionary with None as the default first name that will be updated if there is a real first name</span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="8" data-code-annotation="7">‘et al.’ does not have first name, so we can skip it</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="8" data-code-annotation="7">‘et al.’ does not have first name, so we can skip it</span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="8">8</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="9" data-code-annotation="8">in every other case it increases our counter</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="9" data-code-annotation="8">in every other case it increases our counter</span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="9">9</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="10" data-code-annotation="9">if there is a corresponding first name by the index it updates the dictionary with that value. At the end of the check the current name will be appended to the list of names.</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="10" data-code-annotation="9">if there is a corresponding first name by the index it updates the dictionary with that value. At the end of the check the current name will be appended to the list of names.</span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="10">10</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="10">10</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="14" data-code-annotation="10">as we do not need it any more in the main record structure, we delete the last name</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="14" data-code-annotation="10">as we do not need it any more in the main record structure, we delete the last name</span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="11">11</dt>
+<dt data-target-cell="annotated-cell-32" data-target-annotation="11">11</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="15" data-code-annotation="11">and the first name as well if it exists at all.</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="15" data-code-annotation="11">and the first name as well if it exists at all.</span>
 </dd>
 </dl>
 <p>What remained is to save the extracted data into CSV files:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-29"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-29-1"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a>create_diroutput_dir <span class="op">=</span> os.path.join(<span class="st">'raw-data'</span>, <span class="st">'it'</span>)</span>
-<span id="annotated-cell-29-2"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a>create_dir(output_dir)</span>
-<span id="annotated-cell-29-3"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-29-4" class="code-annotation-target"><a href="#annotated-cell-29-4" aria-hidden="true" tabindex="-1"></a>output_file <span class="op">=</span> os.path.join(output_dir, <span class="st">'it.csv'</span>)</span>
-<span id="annotated-cell-29-5"><a href="#annotated-cell-29-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(output_file, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> csv_file: </span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-29-6" class="code-annotation-target"><a href="#annotated-cell-29-6" aria-hidden="true" tabindex="-1"></a>    column_names <span class="op">=</span> [<span class="st">'id'</span>] <span class="op">+</span> <span class="bu">list</span>(field_names.keys())</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-29-7" class="code-annotation-target"><a href="#annotated-cell-29-7" aria-hidden="true" tabindex="-1"></a>    output_writer <span class="op">=</span> csv.DictWriter(csv_file, fieldnames<span class="op">=</span>column_names)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-29-8" class="code-annotation-target"><a href="#annotated-cell-29-8" aria-hidden="true" tabindex="-1"></a>    output_writer.writeheader()</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-29-9" class="code-annotation-target"><a href="#annotated-cell-29-9" aria-hidden="true" tabindex="-1"></a>    output_writer.writerows(records)</span>
-<span id="annotated-cell-29-10"><a href="#annotated-cell-29-10" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-29-11" class="code-annotation-target"><a href="#annotated-cell-29-11" aria-hidden="true" tabindex="-1"></a>column_names<span class="op">=</span>[<span class="st">'rid'</span>, <span class="st">'last'</span>, <span class="st">'first'</span>]</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-29-12" class="code-annotation-target"><a href="#annotated-cell-29-12" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> {<span class="st">'authors.csv'</span>: authors, <span class="st">'translators.csv'</span>: translators}</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-29-13" class="code-annotation-target"><a href="#annotated-cell-29-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file_name, data <span class="kw">in</span> names.items():</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-29-14" class="code-annotation-target"><a href="#annotated-cell-29-14" aria-hidden="true" tabindex="-1"></a>    output_file <span class="op">=</span> os.path.join(output_dir, file_name)</span>
-<span id="annotated-cell-29-15"><a href="#annotated-cell-29-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(output_file, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> csv_file:</span>
-<span id="annotated-cell-29-16"><a href="#annotated-cell-29-16" aria-hidden="true" tabindex="-1"></a>        output_writer <span class="op">=</span> csv.DictWriter(csv_file, fieldnames<span class="op">=</span>column_names)</span>
-<span id="annotated-cell-29-17"><a href="#annotated-cell-29-17" aria-hidden="true" tabindex="-1"></a>        output_writer.writeheader()</span>
-<span id="annotated-cell-29-18"><a href="#annotated-cell-29-18" aria-hidden="true" tabindex="-1"></a>        output_writer.writerows(data)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-33"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-33-1"><a href="#annotated-cell-33-1" aria-hidden="true" tabindex="-1"></a>create_diroutput_dir <span class="op">=</span> os.path.join(<span class="st">'raw-data'</span>, <span class="st">'it'</span>)</span>
+<span id="annotated-cell-33-2"><a href="#annotated-cell-33-2" aria-hidden="true" tabindex="-1"></a>create_dir(output_dir)</span>
+<span id="annotated-cell-33-3"><a href="#annotated-cell-33-3" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-33-4" class="code-annotation-target"><a href="#annotated-cell-33-4" aria-hidden="true" tabindex="-1"></a>output_file <span class="op">=</span> os.path.join(output_dir, <span class="st">'it.csv'</span>)</span>
+<span id="annotated-cell-33-5"><a href="#annotated-cell-33-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(output_file, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> csv_file: </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-33-6" class="code-annotation-target"><a href="#annotated-cell-33-6" aria-hidden="true" tabindex="-1"></a>    column_names <span class="op">=</span> [<span class="st">'id'</span>] <span class="op">+</span> <span class="bu">list</span>(field_names.keys())</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-33-7" class="code-annotation-target"><a href="#annotated-cell-33-7" aria-hidden="true" tabindex="-1"></a>    output_writer <span class="op">=</span> csv.DictWriter(csv_file, fieldnames<span class="op">=</span>column_names)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-33-8" class="code-annotation-target"><a href="#annotated-cell-33-8" aria-hidden="true" tabindex="-1"></a>    output_writer.writeheader()</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-33-9" class="code-annotation-target"><a href="#annotated-cell-33-9" aria-hidden="true" tabindex="-1"></a>    output_writer.writerows(records)</span>
+<span id="annotated-cell-33-10"><a href="#annotated-cell-33-10" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-33-11" class="code-annotation-target"><a href="#annotated-cell-33-11" aria-hidden="true" tabindex="-1"></a>column_names<span class="op">=</span>[<span class="st">'rid'</span>, <span class="st">'last'</span>, <span class="st">'first'</span>]</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-33-12" class="code-annotation-target"><a href="#annotated-cell-33-12" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> {<span class="st">'authors.csv'</span>: authors, <span class="st">'translators.csv'</span>: translators}</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-33-13" class="code-annotation-target"><a href="#annotated-cell-33-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file_name, data <span class="kw">in</span> names.items():</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-33-14" class="code-annotation-target"><a href="#annotated-cell-33-14" aria-hidden="true" tabindex="-1"></a>    output_file <span class="op">=</span> os.path.join(output_dir, file_name)</span>
+<span id="annotated-cell-33-15"><a href="#annotated-cell-33-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(output_file, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> csv_file:</span>
+<span id="annotated-cell-33-16"><a href="#annotated-cell-33-16" aria-hidden="true" tabindex="-1"></a>        output_writer <span class="op">=</span> csv.DictWriter(csv_file, fieldnames<span class="op">=</span>column_names)</span>
+<span id="annotated-cell-33-17"><a href="#annotated-cell-33-17" aria-hidden="true" tabindex="-1"></a>        output_writer.writeheader()</span>
+<span id="annotated-cell-33-18"><a href="#annotated-cell-33-18" aria-hidden="true" tabindex="-1"></a>        output_writer.writerows(data)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="4" data-code-annotation="1">opens a CSV file raw-data/it/it.csv using the safe os.path.join function</span>
+<span data-code-cell="annotated-cell-33" data-code-lines="4" data-code-annotation="1">opens a CSV file raw-data/it/it.csv using the safe os.path.join function</span>
 </dd>
-<dt data-target-cell="annotated-cell-29" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="6" data-code-annotation="2">the column names are ‘id’ and the names we extracted from the class attributes</span>
+<span data-code-cell="annotated-cell-33" data-code-lines="6" data-code-annotation="2">the column names are ‘id’ and the names we extracted from the class attributes</span>
 </dd>
-<dt data-target-cell="annotated-cell-29" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="7" data-code-annotation="3">CSV writer’s API is similar to other file writers in Python. The csv library provides a number of functions, here we use the <a href="https://docs.python.org/3/library/csv.html#csv.DictWriter">DictWriter</a> that allows us to turn the list of dictionaries to CSV. It has two mandatory parameters: the file handler and the list of field names. All keys in the dictionaries should be available in the field name list, however they might be missing values in the records. E.g. if “location” is a key in the record dictionary, the field name list must contain it, but not every record should have the “location” key.</span>
+<span data-code-cell="annotated-cell-33" data-code-lines="7" data-code-annotation="3">CSV writer’s API is similar to other file writers in Python. The csv library provides a number of functions, here we use the <a href="https://docs.python.org/3/library/csv.html#csv.DictWriter">DictWriter</a> that allows us to turn the list of dictionaries to CSV. It has two mandatory parameters: the file handler and the list of field names. All keys in the dictionaries should be available in the field name list, however they might be missing values in the records. E.g. if “location” is a key in the record dictionary, the field name list must contain it, but not every record should have the “location” key.</span>
 </dd>
-<dt data-target-cell="annotated-cell-29" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="8" data-code-annotation="4">writes out the header line to the CSV file</span>
+<span data-code-cell="annotated-cell-33" data-code-lines="8" data-code-annotation="4">writes out the header line to the CSV file</span>
 </dd>
-<dt data-target-cell="annotated-cell-29" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="9" data-code-annotation="5">writes out the individual records</span>
+<span data-code-cell="annotated-cell-33" data-code-lines="9" data-code-annotation="5">writes out the individual records</span>
 </dd>
-<dt data-target-cell="annotated-cell-29" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="11" data-code-annotation="6">repeats the same process for authors and translators, but here we give a fixed field name list, and not extract it from the HTML.</span>
+<span data-code-cell="annotated-cell-33" data-code-lines="11" data-code-annotation="6">repeats the same process for authors and translators, but here we give a fixed field name list, and not extract it from the HTML.</span>
 </dd>
-<dt data-target-cell="annotated-cell-29" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="12" data-code-annotation="7">creates a dictionary for enabling the iteration. Its keys will be used as file names and the values are the name lists.</span>
+<span data-code-cell="annotated-cell-33" data-code-lines="12" data-code-annotation="7">creates a dictionary for enabling the iteration. Its keys will be used as file names and the values are the name lists.</span>
 </dd>
-<dt data-target-cell="annotated-cell-29" data-target-annotation="8">8</dt>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="13" data-code-annotation="8">items() on a dictionary iterates over its key-value pairs – we can name them anyhow.</span>
+<span data-code-cell="annotated-cell-33" data-code-lines="13" data-code-annotation="8">items() on a dictionary iterates over its key-value pairs – we can name them anyhow.</span>
 </dd>
-<dt data-target-cell="annotated-cell-29" data-target-annotation="9">9</dt>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="14" data-code-annotation="9">the rest is very similar to the first CSV writing process.</span>
+<span data-code-cell="annotated-cell-33" data-code-lines="14" data-code-annotation="9">the rest is very similar to the first CSV writing process.</span>
 </dd>
 </dl>
 <p>The full script is available in the repository as scripts/ch3a-web-scraping.py. The Intra-Belgian literary translations since 1970 (<a href="https://www.kbr.be/en/projects/beltrans/">BELTRANS</a>) project of <a href="https://kbr.be">KBR</a> (the Belgian National Library) provides a more elaborated approach to the same problem in their <a href="https://github.com/kbrbe/beltrans-data-integration/tree/main/data-sources/unesco">Github repository</a> – thanks to Sven Lieber for the pointer.</p>
