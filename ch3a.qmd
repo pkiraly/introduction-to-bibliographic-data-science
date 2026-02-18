@@ -132,8 +132,29 @@ namespaces = {                                          # <3>
 header = '<?xml version="1.0" encoding="utf8"?>' + "\n" \ # <4>
        + '<collection>' + "\n"
 footer = '</collection>'
+```
 
-def write_output(xmlrecords, file_counter, dir_name):           # <5>
+1. When we run Python, the `sys.argv` list contains the arguments we passed to the interpreter. 
+   The `len()` function returns the number of elements in a collection, so it gives here
+   the number of arguments. The first argument is the name of the current script, so if the
+   number here is zero it means that the script itself does not have any argument. We should
+   pass at least one argument: the name of the directory where the script will store the
+   records -- if we don't provide it, the script will send us a message and stop running
+   (with the `exit()` function).
+2. If we provide an argument it will be stored as the name of the output directory. Then 
+   it creates the directory if it does not already exist, and notify us.
+3. `namespaces` variable registers the XML namespaces the process needs - otherwise the
+   XPath expressions would not work.
+4. `header` and `footer` needs at the beginning and end of the output XML files. The XML 
+   files are hierarchical: their main content is a list of MARC records, and their parent
+   element will be the `<collection>`.
+
+To save the records we have to do several things, like naming an output file, insert
+header and footer. We should save records several times, so if we have such repeatable 
+task, it is always suggested to create a method. 
+
+```Python
+def write_output(xmlrecords, file_counter, dir_name):           # <1>
     """
     Writes MARC records to file
     Parameters                              
@@ -151,71 +172,64 @@ def write_output(xmlrecords, file_counter, dir_name):           # <5>
         f.write(header)
         f.write("\n".join(xmlrecords) + "\n")
         f.write(footer)
+```
+1. A `write_output()` function creates the output files in the specified directory. It 
+   prints the XML header, join together and prints the XML records, and finally prints the
+   XML footer.
 
-sickle = Sickle('https://data.digar.ee/repox/OAIHandler', max_retries=4) # <6>
+Then we create some variables to store the harvested records, and keeping
+status information, then initialize and start the harvester.
 
-xmlrecords = []                                                  # <7>
+```Python
+xmlrecords = []                                                  # <1>
 file_counter = 0
 record_counter = 0
 
-it = sickle.ListRecords(metadataPrefix='marc21xml', set='erb')  # <8>
-for content in it:                                              # <9>
-    tree = etree.ElementTree(content)                           # <10>      
-
-    records = tree.xpath(
-                  '/oai:record[*]/oai:metadata/marc21:record',  # <11>
-                  namespaces=namespaces)
-    for record in records:                                      # <12>
-        xmlrecord = etree\                                      # <13>
-              .tostring(record, encoding='utf8', method='xml')\ # <14>
-              .decode("utf-8")\                                 # <15>
-              .replace("<?xml version='1.0' encoding='utf8'?>\n", '') # <16>
-        xmlrecords.append(xmlrecord)                            # <17>
-        record_counter += 1                                     # <18>
-
-    if len(xmlrecords) >= 100000:                               # <19>
-        write_output(xmlrecords, file_counter, dir)             # <20>
-        xmlrecords = []                                         # <21>
-        file_counter += 1
-
-if len(xmlrecords) > 0:                                        # <22>
-    write_output(xmlrecords, file_counter, dir)
-print('saved %d records to %d files' % (record_counter, file_counter)) # <23>
+sickle = Sickle('https://data.digar.ee/repox/OAIHandler', max_retries=4) # <2>
+it = sickle.ListRecords(metadataPrefix='marc21xml', set='erb')  # <3>
 ```
-
-1. When we run Python, the `sys.argv` list contains the arguments we passed to the interpreter. 
-   The `len()` function returns the number of elements in a collection, so it gives here
-   the number of arguments. The first argument is the name of the current script, so if the
-   number here is zero it means that the script itself does not have any argument. We should
-   pass at least one argument: the name of the directory where the script will store the
-   records -- if we don't provide it, the script will send us a message and stop running
-   (with the `exit()` function).
-2. If we provide an argument it will be stored as the name of the output directory. Then 
-   it creates the directory if it does not already exist, and notify us.
-3. `namespaces` variable registers the XML namespaces the process needs - otherwise the
-   XPath expressions would not work.
-4. `header` and `footer` needs at the beginning and end of the output XML files. The XML 
-   files are hierarchical: their main content is a list of MARC records, and their parent
-   element will be the `<collection>`.
-5. `write_output()` function creates the output files in the specified directory. It 
-   prints the XML header, join together and prints the XML records, and finally prints the
-   XML footer.
-6. The Sickle harvester is initialized with the endpoint of the OAI-PMH service and an extra
+1. Initialisation of the necessary variables: the collector of the individual records,
+   the output file counter and the record counter.
+2. The Sickle harvester is initialized with the endpoint of the OAI-PMH service and an extra
    argument to specify how many times it can retry to fetch a single URL. It is needed because
    sometimes there are communication problems between the server and the client (due to
    problems on either side or in the network). 
-7. Initialisation of the necessary variables: the collector of the individual records,
-   the output file counter and the record counter.
-8. Start the harvest using the `ListRecords` verb. It returns an iterator, so we should
+3. Start the harvest using the `ListRecords` verb. It returns an iterator, so we should
    not take care of pagination with individual HTTP calls and resumptionToken mentioned above,
    it is handled automatically by the Sickle module. We use two arguments: we set the 
    metadata schema as MARCXML and the set as `erb` which stands for the Estonian National Bibliography.
    These values can be extracted from a preliminary investigation of the supported values
    returned by the `ListMetadataFormats` and `ListSets` verbs.
-9. In the following the script iterates over the individual XML responses of the calls.
-10. The raw XML content is transformed to an [XML element tree](https://docs.python.org/3/library/xml.etree.elementtree.html)
-    that is an internal data structure with an API.
-11. Selection of the individual records with an XPath expression. For the expression
+
+In the following the script iterates over the individual XML responses of the calls.
+
+```Python
+for content in it:                                              # <1>
+    tree = etree.ElementTree(content)                           # <2>      
+
+    records = tree.xpath(
+                  '/oai:record[*]/oai:metadata/marc21:record',  # <3>
+                  namespaces=namespaces)
+    for record in records:                                      # <4>
+        xmlrecord = etree\                                      # <5>
+              .tostring(record, encoding='utf8', method='xml')\ # <6>
+              .decode("utf-8")\                                 # <7>
+              .replace("<?xml version='1.0' encoding='utf8'?>\n", '') # <8>
+        xmlrecords.append(xmlrecord)                            # <9>
+        record_counter += 1                                     # <10>
+
+    if len(xmlrecords) >= 100000:                               # <11>
+        write_output(xmlrecords, file_counter, dir)             # <12>
+        xmlrecords = []                                         # <13>
+        file_counter += 1
+```
+
+1. Iterates over the responses. We do not need to call individual HTTP requests,
+   the underlying library Sickle does it for us automatically.
+2. The raw XML content is transformed to an 
+   [XML element tree](https://docs.python.org/3/library/xml.etree.elementtree.html)
+   that is an internal data structure with an API.
+3. Selection of the individual records with an XPath expression. For the expression
     we should provide the XML namespace. In OAI-PMH the individual records (`<oai:record>`)
     have two parts: a header, that contains record identifier and other metadata (such as the
     set it belongs to, the date of last modification) and the actual record (`<oai:metadata>`).
@@ -224,19 +238,30 @@ print('saved %d records to %d files' % (record_counter, file_counter)) # <23>
     abbreviations are not important, you can name them as you like (however to keep them as in
     the source, i.e. the XML response of the service helps in debugging the problems, if there are),
     but you should always use the URLs used by the service.
-12. Iterate over the individual records that `xpath()` returned.
-13. Transformation of the above mentioned tree structure of the record to XML via a sequence of steps:
-14. create the XML string...
-15. convert to UTF-8 encoding...
-16. remove the [XML declaration](https://www.w3.org/TR/REC-xml/#dt-xmldecl) -- we do not need it for
+4. Iterate over the individual records that `xpath()` returned.
+5. Transformation of the above mentioned tree structure of the record to XML via a sequence of steps:
+6. create the XML string...
+7. convert to UTF-8 encoding...
+8. remove the [XML declaration](https://www.w3.org/TR/REC-xml/#dt-xmldecl) -- we do not need it for
     each record.
-17. add the record into the record collection
-18. increase the record counter by one
-19. if the record collection contains more than 100 000 records...
-20. the records should be written to a file...
-21. then empty the collection, and increase file counter by one
-22. after the iteration if the record collection is not empty write it to a file
-23. finally notify the user about the number of records ingested and files written 
+9. add the record into the record collection
+10. increase the record counter by one
+11. if the record collection contains more than 100 000 records...
+12. the records should be written to a file...
+13. then empty the collection, and increase file counter by one
+
+Since during the iteration we collect records, but do not save the list to file
+only when the list size reaches a limit, there is a chance that when the iteraton
+ends we still have unsaved record. So we should save them and print a report. 
+
+```Python
+if len(xmlrecords) > 0:                                        # <1>
+    write_output(xmlrecords, file_counter, dir)
+print('saved %d records to %d files' % (record_counter, file_counter)) # <2>
+```
+
+1. after the iteration if the record collection is not empty write it to a file
+2. finally notify the user about the number of records ingested and files written 
 
 
 ## Download an SQL file
