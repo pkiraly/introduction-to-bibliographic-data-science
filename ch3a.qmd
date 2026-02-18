@@ -166,7 +166,7 @@ def write_output(xmlrecords, file_counter, dir_name):           # <1>
     dir_name : int
         The name of the output directory
     """
-    file_name = "%s/%06d.xml" % (dir_name, counter)
+    file_name = "%s/%06d.xml" % (dir_name, file_counter)
     print(file_name)
     with io.open(file_name, 'w', encoding='utf8') as f:
         f.write(header)
