@@ -487,16 +487,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    dir_name : int</span></span>
 <span id="annotated-cell-4-11"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a><span class="co">        The name of the output directory</span></span>
 <span id="annotated-cell-4-12"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="annotated-cell-4-13"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a>    file_name <span class="op">=</span> <span class="st">"</span><span class="sc">%s</span><span class="st">/</span><span class="sc">%06d</span><span class="st">.xml"</span> <span class="op">%</span> (dir_name, file_counter)</span>
-<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(file_name)</span>
-<span id="annotated-cell-4-15"><a href="#annotated-cell-4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> io.<span class="bu">open</span>(file_name, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf8'</span>) <span class="im">as</span> f:</span>
-<span id="annotated-cell-4-16"><a href="#annotated-cell-4-16" aria-hidden="true" tabindex="-1"></a>        f.write(header)</span>
-<span id="annotated-cell-4-17"><a href="#annotated-cell-4-17" aria-hidden="true" tabindex="-1"></a>        f.write(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(xmlrecords) <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="annotated-cell-4-18"><a href="#annotated-cell-4-18" aria-hidden="true" tabindex="-1"></a>        f.write(footer)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-4-13" class="code-annotation-target"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a>    file_name <span class="op">=</span> os.path.join(dir_name, <span class="ss">f'</span><span class="sc">{</span>file_counter<span class="sc">:06}</span><span class="ss">.xml'</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-4-14" class="code-annotation-target"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(file_name)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-4-15" class="code-annotation-target"><a href="#annotated-cell-4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> io.<span class="bu">open</span>(file_name, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf8'</span>) <span class="im">as</span> f:</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-4-16" class="code-annotation-target"><a href="#annotated-cell-4-16" aria-hidden="true" tabindex="-1"></a>        f.write(header)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-4-17" class="code-annotation-target"><a href="#annotated-cell-4-17" aria-hidden="true" tabindex="-1"></a>        f.write(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>.join(xmlrecords) <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-4-18" class="code-annotation-target"><a href="#annotated-cell-4-18" aria-hidden="true" tabindex="-1"></a>        f.write(footer)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
 <span data-code-cell="annotated-cell-4" data-code-lines="1" data-code-annotation="1">A <code>write_output()</code> function creates the output files in the specified directory. It prints the XML header, join together and prints the XML records, and finally prints the XML footer.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="13" data-code-annotation="2">To create an output file name might looks a bit complicated at first sight. The os.path.join function is a safe way to create a path in your operating system – you might know that the directory separator character is different in Windows (<code>\</code>) than in Mac and Linux (<code>/</code>). With this function Python returns the path syntax that fits to your OS. In this case it has two parameters: a directory name, and a file name. We generate the later with the f-string syntax. <code>{file_counter:06}</code> returns a string that takes the value of the <code>file_counter</code> variable (a number) and pad it with zeros on the left side up to six characters so 1 becomes <code>000001</code>, 1000 becomes <code>001000</code> etc. The last part of the f-string append this with the file extension.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="14" data-code-annotation="3">Just for logging the progress it prints out the generated path.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="15" data-code-annotation="4">opens the file in writing mode with UTF-8 character encoding</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="16" data-code-annotation="5">first, writes out the above defined XML header</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="17" data-code-annotation="6">then, joins the individual XML records to a single string and writes it (alternatively we could iterate over the records and write them one by one).</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="18" data-code-annotation="7">finally, writes out the XML footer (the closing collection tag).</span>
 </dd>
 </dl>
 <p>Then we create some variables to store the harvested records, and keeping status information, then initialize and start the harvester.</p>
