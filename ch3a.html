@@ -617,7 +617,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span data-code-cell="annotated-cell-6" data-code-lines="17" data-code-annotation="13">then empty the collection, and increase file counter by one</span>
 </dd>
 </dl>
-<p>Since during the iteration we collect records, but do not save the list to file only when the list size reaches a limit, there is a chance that when the iteraton ends we still have unsaved record. So we should save them and print a report.</p>
+<p>Since during the iteration we collect records, but do not save the list to file only when the list size reaches a limit, there is a chance that when the iteration ends we still have unsaved record. So we should save them and print a report.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-7-1" class="code-annotation-target"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(xmlrecords) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
 <span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>    write_output(xmlrecords, file_counter, <span class="bu">dir</span>)</span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'saved </span><span class="sc">%d</span><span class="st"> records to </span><span class="sc">%d</span><span class="st"> files'</span> <span class="op">%</span> (record_counter, file_counter))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -631,6 +631,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="2">finally notify the user about the number of records ingested and files written</span>
 </dd>
 </dl>
+<p>If you reached this point without errors, congratulation, you downloaded the Estonian national bibliography’s MARCXML records.</p>
+<p>A final note: while you can use OAI-PMH to download records from many libraries, the protocol and its implementations have some downsides:</p>
+<ol type="1">
+<li>you can not select or search for records, you are depending on what the organisation have selected for you via the sets of the protocol</li>
+<li>the iteration of the record is serial, and you can not skip some records or jump to the n-th record. The resumption token gives you the key for the next iteration. Some implementation however contains a counter that you might “hack” by manipulating it. Sometimes it works, however it is not supported by the protocol itself. In this post we did not see the resumption token, you should do some investigation yourself to figure out how to implement such hack when using Sickle or other Python library.</li>
+<li>sometimes it happens that server stops responding, or responds an error or even the resumption token is invalidated. In that case you can retry issuing the same URL request again (we saw max_retries parameter when Sickle was initialized). If that would not work you have two options: either hack the resumption token to jump ahead (but as mentioned before, it is not available if there is no counter in it) or you should start over.</li>
+</ol>
 </section>
 </section>
 <section id="download-an-sql-file" class="level2" data-number="5.4">
