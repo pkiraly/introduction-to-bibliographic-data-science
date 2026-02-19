@@ -267,7 +267,7 @@ for content in it:                                              # <1>
 13. then empty the collection, and increase file counter by one
 
 Since during the iteration we collect records, but do not save the list to file
-only when the list size reaches a limit, there is a chance that when the iteraton
+only when the list size reaches a limit, there is a chance that when the iteration
 ends we still have unsaved record. So we should save them and print a report. 
 
 ```Python
@@ -279,6 +279,27 @@ print('saved %d records to %d files' % (record_counter, file_counter)) # <2>
 1. after the iteration if the record collection is not empty write it to a file
 2. finally notify the user about the number of records ingested and files written 
 
+If you reached this point without errors, congratulation, you downloaded the Estonian 
+national bibliography’s MARCXML records.
+
+A final note: while you can use OAI-PMH to download records from many libraries, 
+the protocol and its implementations have some downsides:
+
+1. you can not select or search for records, you are depending on what the 
+   organisation have selected for you via the sets of the protocol
+2. the iteration of the record is serial, and you can not skip some records
+   or jump to the n-th record. The resumption token gives you the key for the
+   next iteration. Some implementation however contains a counter that you 
+   might “hack” by manipulating it. Sometimes it works, however it is not 
+   supported by the protocol itself. In this post we did not see the resumption
+   token, you should do some investigation yourself to figure out how to
+   implement such hack when using Sickle or other Python library.
+3. sometimes it happens that server stops responding, or responds an error
+   or even the resumption token is invalidated. In that case you can retry
+   issuing the same URL request again (we saw max_retries parameter when
+   Sickle was initialized). If that would not work you have two options:
+   either hack the resumption token to jump ahead (but as mentioned before,
+   it is not available if there is no counter in it) or you should start over.
 
 ## Download an SQL file
 
