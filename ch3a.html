@@ -908,11 +908,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-20" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-20" data-code-lines="1" data-code-annotation="1">We use another URL handling library: the <a href="https://requests.readthedocs.io/en/latest/">request library</a> that provides more convenient methods for the same task as the urllib package. The request package needs installation with a <code>pip install request</code>.</span>
+<span data-code-cell="annotated-cell-20" data-code-lines="1" data-code-annotation="1">we use another URL handling library: the <a href="https://requests.readthedocs.io/en/latest/">request library</a> that provides more convenient methods for the same task as the urllib package. The request package needs installation with a <code>pip install request</code>.</span>
 </dd>
 <dt data-target-cell="annotated-cell-20" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-20" data-code-lines="2" data-code-annotation="2">Previously we used another module from the <code>lxml</code> library. <code>html</code> provides methods for parsing HTML files.</span>
+<span data-code-cell="annotated-cell-20" data-code-lines="2" data-code-annotation="2">previously we used another module from the <code>lxml</code> library. <code>html</code> provides methods for parsing HTML files.</span>
 </dd>
 <dt data-target-cell="annotated-cell-20" data-target-annotation="3">3</dt>
 <dd>
@@ -924,7 +924,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dd>
 <dt data-target-cell="annotated-cell-20" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-20" data-code-lines="6" data-code-annotation="5">The <a href="https://docs.python.org/3/library/csv.html">csv module</a> helps in reading and writing CSV files.</span>
+<span data-code-cell="annotated-cell-20" data-code-lines="6" data-code-annotation="5">the <a href="https://docs.python.org/3/library/csv.html">csv module</a> helps in reading and writing CSV files.</span>
 </dd>
 <dt data-target-cell="annotated-cell-20" data-target-annotation="6">6</dt>
 <dd>
@@ -1083,7 +1083,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dd>
 </dl>
 <p>So these two functions call each other until there is a “next” link on the page.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-28"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a>ef extract_translations(doc):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-28"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_translations(doc):</span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-28-2" class="code-annotation-target"><a href="#annotated-cell-28-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> record_counter, authors, translators</span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-28-3" class="code-annotation-target"><a href="#annotated-cell-28-3" aria-hidden="true" tabindex="-1"></a>    items <span class="op">=</span> doc.findall(<span class="st">'body/table[@class="restable"]/tr/td[@class="res2"]'</span>, {})</span>
 <span id="annotated-cell-28-4"><a href="#annotated-cell-28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> items:</span>
