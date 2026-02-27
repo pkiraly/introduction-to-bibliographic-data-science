@@ -674,14 +674,14 @@ import csv         # <5>
 from collections import Counter # <6>
 ```
 
-1. We use another URL handling library: the [request library](https://requests.readthedocs.io/en/latest/)
+1. we use another URL handling library: the [request library](https://requests.readthedocs.io/en/latest/)
    that provides more convenient methods for the same task as the urllib package. The request package needs
    installation with a `pip install request`. 
-2. Previously we used another module from the `lxml` library. `html` provides methods for parsing HTML files.
+2. previously we used another module from the `lxml` library. `html` provides methods for parsing HTML files.
 3. `re` provides regular expression functionalities. As this part of core Python, it doesn't need installation.
 4. the [parse module](https://docs.python.org/3/library/urllib.parse.html) helps to parse URLs and extract
    important parameters
-5. The [csv module](https://docs.python.org/3/library/csv.html) helps in reading and writing CSV files.
+5. the [csv module](https://docs.python.org/3/library/csv.html) helps in reading and writing CSV files.
 6. Counter, well it is counting things
 
 We define two variables for our URL requests.
@@ -817,7 +817,7 @@ def process_page(content):
 So these two functions call each other until there is a "next" link on the page.
 
 ```Python
-ef extract_translations(doc):
+def extract_translations(doc):
     global record_counter, authors, translators                                   # <1>
     items = doc.findall('body/table[@class="restable"]/tr/td[@class="res2"]', {}) # <2>
     for item in items:
