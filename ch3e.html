@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>9&nbsp; data analysis – Introduction to Bibliographic Data Science</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -24,7 +27,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -55,15 +57,14 @@ div.csl-indent {
 <link href="./images/favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-00ccf60c28c3bdf2d57f5131fbf16f11.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3f70bac5631458d474a321d4182f9338.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -298,34 +299,34 @@ div.csl-indent {
 <p>The most spectacular phase of the work process is data analysis.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Here, the researcher translates his or her own research questions into the operations offered by the tools used. Two types of data are used in the analyses: on the one hand, the original or enriched data available after data harmonization (title, place of publication, language, number of pages), and on the other hand, calculated data based on their analysis (including font type and size, amount of paper used to produce the form, number of words, number of printed words per capita). Data analysis methods are not unique to bibliographic data science; they are general methods for which general and (to a lesser extent) specialized data science teaching materials in the humanities<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> are available, as well as textbooks on quantitative history.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> The curriculum cannot, of course, cover every conceivable data science technique, but it should use examples to introduce the most common procedures used in the history of the discipline (the basics of statistics, time series analysis, data visualization including map representation, text analysis, network analysis).</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-arnoldHumanitiesDataExploring2024" class="csl-entry" role="listitem">
-Arnold, Taylor, and Lauren Tilton. 2024. <em>Humanities <span>Data</span> in <span>R</span>: <span>Exploring</span> <span>Networks</span>, <span>Geospatial</span> <span>Data</span>, <span>Images</span>, and <span>Text</span></em>. 2nd ed. 2024. Quantitative <span>Methods</span> in the <span>Humanities</span> and <span>Social</span> <span>Sciences</span>. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-031-62566-4">https://doi.org/10.1007/978-3-031-62566-4</a>.
+Arnold, Taylor, and Lauren Tilton. 2024. <em>Humanities <span>Data</span> in <span>R</span>: <span>Exploring</span> <span>Networks</span>, <span>Geospatial</span> <span>Data</span>, <span>Images</span>, and <span>Text</span></em>. 2nd ed. 2024. Quantitative <span>Methods</span> in the <span>Humanities</span> and <span>Social</span> <span>Sciences</span>. Springer International Publishing. <a href="https://doi.org/10.1007/978-3-031-62566-4">https://doi.org/10.1007/978-3-031-62566-4</a>.
 </div>
 <div id="ref-batorfyAdatvizualizacioElmeletRendszer2024" class="csl-entry" role="listitem">
-Bátorfy, Attila. 2024. <em>Adatvizualizáció. <span>Elmélet</span>, <span class="nocase">rendszer</span>, <span class="nocase">módszer</span>. <span>Bevezetés</span> <span class="nocase">az</span> <span class="nocase">adatok</span> <span class="nocase">grafikus</span> <span class="nocase">ábrázolásának</span> <span class="nocase">elméletébe</span> <span class="nocase">és</span> <span class="nocase">gyakorlatába</span></em>. Budapest: ELTE Eötvös Kiadó.
+Bátorfy, Attila. 2024. <em>Adatvizualizáció. <span>Elmélet</span>, <span class="nocase">rendszer</span>, <span class="nocase">módszer</span>. <span>Bevezetés</span> <span class="nocase">az</span> <span class="nocase">adatok</span> <span class="nocase">grafikus</span> <span class="nocase">ábrázolásának</span> <span class="nocase">elméletébe</span> <span class="nocase">és</span> <span class="nocase">gyakorlatába</span></em>. ELTE Eötvös Kiadó.
 </div>
 <div id="ref-feinsteinMakingHistoryCount2008" class="csl-entry" role="listitem">
-Feinstein, Charles H., and Mark Thomas. 2008. <em>Making History Count: A Primer in Quantitative Methods for Historians</em>. Transferred to digital printing (with corrections). Cambridge New York Melbourne Madrid Cape Town Singapore São Paulo: Cambridge University Press.
+Feinstein, Charles H., and Mark Thomas. 2008. <em>Making History Count: A Primer in Quantitative Methods for Historians</em>. Transferred to digital printing (with corrections). Cambridge University Press.
 </div>
 <div id="ref-hudsonHistoryNumbersIntroduction2017" class="csl-entry" role="listitem">
-Hudson, Pat, and Mina Ishizu. 2017. <em>History by Numbers: An Introduction to Quantitative Approaches</em>. Second edition. London Oxford New York New Delhi Sydney: Bloomsbury Academic.
+Hudson, Pat, and Mina Ishizu. 2017. <em>History by Numbers: An Introduction to Quantitative Approaches</em>. Second edition. Bloomsbury Academic.
 </div>
 <div id="ref-karsdorpHumanitiesDataAnalysis2021" class="csl-entry" role="listitem">
-Karsdorp, Folgert, Mike Kestemont, and Allen Riddell. 2021. <em>Humanities Data Analysis: Case Studies with <span>Python</span></em>. Princeton Oxford: Princeton University Press.
+Karsdorp, Folgert, Mike Kestemont, and Allen Riddell. 2021. <em>Humanities Data Analysis: Case Studies with <span>Python</span></em>. Princeton University Press.
 </div>
 <div id="ref-klinkeCulturalDataScience2025" class="csl-entry" role="listitem">
-Klinke, Harald. 2025. <em>Cultural Data Science: An Introduction to <span>R</span></em>. Quantitative Methods in the Humanities and Social Sciences. Cham: Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-031-88130-5">https://doi.org/10.1007/978-3-031-88130-5</a>.
+Klinke, Harald. 2025. <em>Cultural Data Science: An Introduction to <span>R</span></em>. Quantitative Methods in the Humanities and Social Sciences. Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-031-88130-5">https://doi.org/10.1007/978-3-031-88130-5</a>.
 </div>
 <div id="ref-lemercierQuantitativeMethodsHumanities2019" class="csl-entry" role="listitem">
-Lemercier, Claire, and Claire Zalc. 2019. <em>Quantitative Methods in the Humanities: An Introduction</em>. Translated by Arthur Goldhammer. Charlottesville: University of Virginia Press.
+Lemercier, Claire, and Claire Zalc. 2019. <em>Quantitative Methods in the Humanities: An Introduction</em>. Translated by Arthur Goldhammer. University of Virginia Press.
 </div>
 </div>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn1"><p>see, among other things, the literature cited in connection with the research questions.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><span class="citation" data-cites="karsdorpHumanitiesDataAnalysis2021">(<a href="references.html#ref-karsdorpHumanitiesDataAnalysis2021" role="doc-biblioref">Karsdorp, Kestemont, and Riddell 2021</a>)</span>; <span class="citation" data-cites="klinkeCulturalDataScience2025">(<a href="references.html#ref-klinkeCulturalDataScience2025" role="doc-biblioref">Klinke 2025</a>)</span>; <span class="citation" data-cites="arnoldHumanitiesDataExploring2024">(<a href="references.html#ref-arnoldHumanitiesDataExploring2024" role="doc-biblioref">Arnold and Tilton 2024</a>)</span>; <span class="citation" data-cites="batorfyAdatvizualizacioElmeletRendszer2024">(<a href="references.html#ref-batorfyAdatvizualizacioElmeletRendszer2024" role="doc-biblioref">Bátorfy 2024</a>)</span>; and the Programming Historian site: <a href="https://programminghistorian.org">https://programminghistorian.org</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><span class="citation" data-cites="karsdorpHumanitiesDataAnalysis2021">(<a href="references.html#ref-karsdorpHumanitiesDataAnalysis2021" role="doc-biblioref">Karsdorp et al. 2021</a>)</span>; <span class="citation" data-cites="klinkeCulturalDataScience2025">(<a href="references.html#ref-klinkeCulturalDataScience2025" role="doc-biblioref">Klinke 2025</a>)</span>; <span class="citation" data-cites="arnoldHumanitiesDataExploring2024">(<a href="references.html#ref-arnoldHumanitiesDataExploring2024" role="doc-biblioref">Arnold and Tilton 2024</a>)</span>; <span class="citation" data-cites="batorfyAdatvizualizacioElmeletRendszer2024">(<a href="references.html#ref-batorfyAdatvizualizacioElmeletRendszer2024" role="doc-biblioref">Bátorfy 2024</a>)</span>; and the Programming Historian site: <a href="https://programminghistorian.org">https://programminghistorian.org</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p><span class="citation" data-cites="lemercierQuantitativeMethodsHumanities2019">(<a href="references.html#ref-lemercierQuantitativeMethodsHumanities2019" role="doc-biblioref">Lemercier and Zalc 2019</a>)</span>; <span class="citation" data-cites="feinsteinMakingHistoryCount2008">(<a href="references.html#ref-feinsteinMakingHistoryCount2008" role="doc-biblioref">Feinstein and Thomas 2008</a>)</span>; <span class="citation" data-cites="hudsonHistoryNumbersIntroduction2017">(<a href="references.html#ref-hudsonHistoryNumbersIntroduction2017" role="doc-biblioref">Hudson and Ishizu 2017</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
