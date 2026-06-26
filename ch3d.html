@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -93,6 +128,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -297,6 +361,208 @@ div.csl-indent {
 
 <p>abstract: normalization and data enrichment. The reproducible conversion into a data set suitable for quantitative humanities analysis.</p>
 <p>Data maintained by others rarely fit in every respect to the specific analytical purpose for which we are preparing them. The data that are important to us must be harmonized, i.e., normalized (standardize, resolve contradictions, convert certain data types—such as particular text variables to numeric ones) and enriched (calculate derived data, such as page numbers, import data from external data sources). Below, we examine four such harmonization steps: the harmonization of dates, place names, persons, and concepts. The dates show a high degree of variation not only in the MoMe collection, but in almost every library catalog we find dates that differ from the format that is easy for programs to handle. For example, dates given in Roman numerals (“MDCCLXXX. [1780]”), in text form (“druk janvier 2016.”), according to the reign of a monarch (“Meiji 40”) or according to another calendar. Another problem is the handling of uncertain dates (e.g., “18–” and “18uu” in library catalogs both mean that the publication is from the 19th century). Due to the variety, the conversion is not trivial, but neither is deciding what to convert the dates to in the end. There are different approaches in certain areas (see, for example, archival standards or the practice of Europeana). As the latest proposal, the undate Python library<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> created by the DHTech community stores the following data elements: the unchanged form of the date in the source, the calendar, the accuracy of the date, the earliest and latest normalized dates, and the duration – i.e., for the sake of consistency in retrieval, the date is always a time range. For place names, gazeeters are available for identification and, if necessary, for extra data elements required for map representation or the display of language variants. Among the most important ones are CERL Thesaurus,<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Getty Thesaurus of Geographic Names,<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and Geonames,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> which can be queried via APIs. Although these are rich databases built from many sources and thoroughly checked, practice shows that in almost every bibliographic source we will find name forms that are not recognized by these services, so these can be incorporated into our own database with some non-automated manual data refinement. The same procedure can be followed for individuals, but naturally using different services: VIAF (Virtual International Authority File),<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> the CERL Thesaurus personal name database, ISNI (International Standard Name Identifier),<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Wikidata.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> It is important to note that any given database will naturally contain many more personal names than geographical names, so the hit rate is likely to be lower. The world of concepts is much more diverse than that of geographical and personal names. Although there are universal conceptual dictionaries (knowledge organization systems), there is virtually no library catalog whose records contain only the concepts of a single dictionary. Instead of specific dictionaries, we recommend using the BARTOC service (Basic Register of Thesauri, Ontologies and Classification)<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> to find the dictionary that best suits your research questions. When discussing harmonization, it is essential to mention the categories of inaccurate, incomplete, subjective, and uncertain data.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> We have seen an example of inaccurate data and its handling in the case of dates. Incomplete data is when we do not know all the details, for example, not all authors of a work are listed, or there are gaps in the provenance history of an object. We can deduce some data, but it is very difficult to describe what does not exist. Subjective data refers to provenance, i.e., who made the statement in question. Such statements are often hypothetical and may even be contradictory. Finally, uncertain data is when the truthfulness of a statement is doubtful. An important part of the theories cited above is that the past is constructed, and the interpretation of sources also depends on the interpreter’s prior knowledge. Consequently, historical information systems must necessarily allow for the coexistence of contradictory interpretations, and instead of binary (true-false) logic, uncertainties could be described using probability values.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> For example, “Alexandre Dumas” (if no other information is available) could refer to either the father or the son (both writers)—the former being more likely, the value of which can be recorded in the database and used, for example, when sorting search results.</p>
+<section id="dates" class="level5" data-number="8.0.0.0.1">
+<h5 data-number="8.0.0.0.1" class="anchored" data-anchor-id="dates"><span class="header-section-number">8.0.0.0.1</span> Dates</h5>
+<p>One of the most frequently utilised data elements in bibliographic data science is date of publication. It is usually a year (or range of years), and is the basis of any chronological analysis, answering questions such as how feature X changed through times, where X might be the subjects, language, format, authors or other features of the book. The value of the year of publication in MARC21 records however is not a normalised date, so we should apply some transformation to extract a numeric value. In the code we do not provide a very sophisticated solution. For that we suggest you check and adapt the <a href="https://github.com/COMHIS/bibliographica/blob/master/R/polish_years.R">polish_years</a> function of bibliographica package<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> written in R language.</p>
+<p>We utilize the Undate package<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>. This package could accept different date formats, but if the input is not recognisable it throws an exception – helping us to filter out those dates that don’t fit to any format, and using this as a feedback to improve our regular expressions. We also use <a href="https://docs.python.org/3/library/collections.html#collections.Counter">Counter</a> objects that is a special tool for counting elements. We will count the success and failure cases with the <code>success_counter</code> and the irregular date formats in the <code>date_counter</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymarc <span class="im">import</span> map_xml</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> undate <span class="im">import</span> Undate</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>success_counter <span class="op">=</span> Counter()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>date_counter <span class="op">=</span> Counter()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In this approach we will check some typical formats with regular expressions. We have two kings of patters: one for the most frequently occured string, and another set for extracting year-like string from irregular dates. In regex one can create referencable groups with the parentheses, e.g.&nbsp;<code>r'^c?(\d{4})[\.-]?$'</code> will match a string that starts with one or zero ‘c’ character, that is followed by four numbers, and finally ends with an optional dot or dash character. The four number is in parenthesis, so we can access it as the first group (<code>group(1)</code>). The order of the regular expression is important, here on the top of the list we have very specific expressions, while the last three match numbers anywhere in the string.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>regexes <span class="op">=</span> [</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># these are the regex to mach the whole value of a subfield</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    re.<span class="bu">compile</span>(<span class="vs">r'</span><span class="dv">^</span><span class="vs">c</span><span class="op">?</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="pp">[</span><span class="ch">\.</span><span class="pp">-]</span><span class="op">?</span><span class="dv">$</span><span class="vs">'</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    re.<span class="bu">compile</span>(<span class="vs">r'</span><span class="dv">^</span><span class="ch">\[</span><span class="vs">c</span><span class="op">?</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="ch">\?</span><span class="op">?</span><span class="ch">\]</span><span class="dv">$</span><span class="vs">'</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    re.<span class="bu">compile</span>(<span class="vs">r'</span><span class="dv">^</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="vs">, c</span><span class="dv">\d</span><span class="op">{4}</span><span class="ch">\.</span><span class="dv">$</span><span class="vs">'</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    re.<span class="bu">compile</span>(<span class="vs">r'</span><span class="dv">^</span><span class="ch">\[</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="vs">, c</span><span class="dv">\d</span><span class="op">{4}</span><span class="ch">\]</span><span class="dv">$</span><span class="vs">'</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    re.<span class="bu">compile</span>(<span class="vs">r'</span><span class="dv">^</span><span class="vs">c</span><span class="op">?</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="ch">\?</span><span class="op">?</span><span class="ch">\]</span><span class="dv">$</span><span class="vs">'</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    re.<span class="bu">compile</span>(<span class="vs">r'</span><span class="dv">^</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="vs">-</span><span class="dv">\d</span><span class="op">{4}</span><span class="ch">\.</span><span class="dv">$</span><span class="vs">'</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># these are fallback regexes, finding a reasonable year-like string</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    re.<span class="bu">compile</span>(<span class="vs">r'</span><span class="dv">^.</span><span class="op">*?</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="dv">.</span><span class="op">*</span><span class="dv">$</span><span class="vs">'</span>),    <span class="co"># any four numbers</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    re.<span class="bu">compile</span>(<span class="vs">r'</span><span class="dv">^.</span><span class="op">*?</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{3}</span><span class="vs">-</span><span class="kw">)</span><span class="dv">.</span><span class="op">*?</span><span class="dv">$</span><span class="vs">'</span>),  <span class="co"># three numbers and a dash</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    re.<span class="bu">compile</span>(<span class="vs">r'</span><span class="dv">^.</span><span class="op">*?</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="vs">--</span><span class="kw">)</span><span class="dv">.</span><span class="op">*?</span><span class="dv">$</span><span class="vs">'</span>), <span class="co"># two numbers and two dashes</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In the <code>process_record</code> function we concentrate on extracting publication years, and counting the success rate of the approach:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_record(record):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">id</span> <span class="op">=</span> record.get(<span class="st">'001'</span>).value()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    date_original <span class="op">=</span> record.pubyear</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> date_original <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        date_cleaned <span class="op">=</span> date_original.strip()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        reg_found <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> reg <span class="kw">in</span> regexes:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">not</span> reg_found:</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                m <span class="op">=</span> reg.match(date_cleaned)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> m <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                    reg_found <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                    date_cleaned <span class="op">=</span> m.group(<span class="dv">1</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">break</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">"-"</span> <span class="kw">in</span> date_cleaned:</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            date_cleaned <span class="op">=</span> re.sub(<span class="st">"-"</span>, <span class="st">"0"</span>, date_cleaned)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            date_undate <span class="op">=</span> Undate(date_cleaned)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            success_counter.update([<span class="va">True</span>])</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            success_counter.update([<span class="va">False</span>])</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>            date_counter.update([re.sub(<span class="st">"</span><span class="ch">\\</span><span class="st">d"</span>, <span class="st">'D'</span>, date_cleaned)])</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>input_file_name <span class="op">=</span> <span class="st">'raw-data/yale/bib_20250706_full_000_00.xml'</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>map_xml(process_record, input_file_name)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(success_counter)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(date_counter.most_common(<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>record.pubyear</code> is a similar alias property as <code>record.subjects</code> that we saw earlier – it returns <a href="https://www.loc.gov/marc/bibliographic/bd264.html">260<span class="math inline">\(c](https://www.loc.gov/marc/bibliographic/bd260.html) or [264\)</span>c</a>. We remove leading and trailing white spaces with <code>trim()</code>, then iterate over the regular expression. The first one that matches will extract the first group of the match. In MARC21 when the date is not well known cataloguers uses dash character, so “198-” means that the book has been published in the 1980-es, “19–” means that the book has been published in the 20th century. Now we just simply replace dashes with zeros, so we set the earliest possible year. There might be different approaches for that, and with undate we can set the level of precision such as century, decade etc. When we cleaned the date, we run the test with undate: if it successful, we get a new object, and we can register that the transformation was successful, otherwise undate throws and exception that we catch, then increase the number of failures, and count the failed patterns. This later one is not a regular expression, but close to it: we just replace numbers with ‘D’ (referring to any digits).</p>
+<p>After processing all records, we print out the number of successes and failures and the top 10 most frequent patterns. Data harmonisation is almost always an iterative process, based on its output we extend the list of regular expressions (either the specific or the generic ones) up to the point we feel it worth. There is a chance that there are lots of variations that occur very infrequently (or even only once). You can even add some examples or log record identifiers along with the collected patterns if the pattern itself does not help to understand the situation.</p>
+</section>
+<section id="visualization" class="level4" data-number="8.0.0.1">
+<h4 data-number="8.0.0.1" class="anchored" data-anchor-id="visualization"><span class="header-section-number">8.0.0.1</span> Visualization</h4>
+<p>A good data visualization that summarises numbers helps someone to realise trends and important features of a collection of data. We will see how we can create plots out of what we have calculated so far. First we see how to draw timelines, and then we see a Venn diagram as well.</p>
+<section id="preparation" class="level5" data-number="8.0.0.1.1">
+<h5 data-number="8.0.0.1.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">8.0.0.1.1</span> Preparation</h5>
+<p>First we check how the number of subject headings changed over time. Here we extend a bit the extraction of subjects and dates. First we import the necessary Python modules.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymarc <span class="im">import</span> map_xml</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> undate <span class="im">import</span> Undate</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Besides the already familiar ones we have imported the following new libraries:</p>
+<ul>
+<li><a href="https://numpy.org/">numpy</a> is used in scientific computing mainly for numerical operation. Here we use only one feature: it defines data types that Pandas can use. Its frequently used abbreviation is <code>np</code>.</li>
+<li><a href="https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot</a> is one of the popular plotting libraries. Its frequently abbreviated as <code>plt</code>.</li>
+<li><a href="https://docs.python.org/3/library/glob.html">glob</a> (part of core Python) provides Unix style pathname pattern expansion</li>
+</ul>
+<p>Then we define functions to process a single MARC21 record. We would like to extract two pieces of information: the publication year and the number of subjects. For these we define two functions: <code>extract_subjects</code> that returns the distinct subjects a record has, and <code>extract_date</code> that extracts the publication year.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_record(record):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'subject_count'</span>].append(<span class="bu">len</span>(extract_subjects(record)))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    data[<span class="st">'date'</span>].append(extract_date(record))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>len()</code> returns the number of elements of its argument. It can be used for any type of collections: arrays, lists, dictionaries, even Pandas. The subject extraction function is familiar: it is nothing else than a simplified version of what we already saw. To return only distinct subjects, we collected them into a set, that <em>per definitionem</em> stores only distinct values – we do not have to check ourselves if the element is already there:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_subjects(record):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    subjects <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> subject <span class="kw">in</span> record.subjects:</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> subject.get(<span class="st">'a'</span>) <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            subjects.add(subject.get(<span class="st">'a'</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> subjects</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The bulk of the date extraction function might be also familiar, however this time we are not interested in knowing the irregular date strings or its statistics. We check if the date cleaned with regular expressions fits to Undate, and return it after converting (or to say it Pythonic: casting) to integer. If such a check fails or the record does not have a publication year field at all it returns <code>None</code> – this way we always return something, and ensure that the two lists of the data collector used in the record processing function have the same number of elements.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_date(record):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> record.pubyear <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        date_cleaned <span class="op">=</span> record.pubyear.strip()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        reg_found <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> reg <span class="kw">in</span> regs:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">not</span> reg_found:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                m <span class="op">=</span> reg.match(date_cleaned)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> m <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                    reg_found <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                    date_cleaned <span class="op">=</span> m.group(<span class="dv">1</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">break</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">"-"</span> <span class="kw">in</span> date_cleaned:</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            date_cleaned <span class="op">=</span> re.sub(<span class="st">"-"</span>, <span class="st">"0"</span>, date_cleaned)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            date_undate <span class="op">=</span> Undate(date_cleaned)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            date <span class="op">=</span> <span class="bu">int</span>(date_cleaned)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">pass</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> date</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>After defining the functions, let’s see the main part of the process. First we define our data collector: a dictionary with two keys: <code>subject_count</code> and <code>date</code> – we already saw how <code>process_record</code> fill these lists with values. The <code>output_file_name</code> contains the name of the file into which we save the data.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'subject_count'</span>: [],</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'date'</span>: []</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>output_file_name <span class="op">=</span> <span class="st">'data_output/year-subject-count.csv'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>And here is a trick: since processing XML files take much longer time than visualizing the data we make a cache. If the cache file (<code>output_file_name</code>) does not exist we extract the data from each available XML file, create a Pandas data frame, and save the result into a CSV file. If we already have created the file, we do not process XMLs again, just read the CSV.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.isfile(output_file_name):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    hits <span class="op">=</span> glob.glob(os.path.join(<span class="st">'raw-data'</span>, <span class="st">'yale'</span>, <span class="st">"bib_20250706_full_00?_0?.xml"</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> input_file_name <span class="kw">in</span> <span class="bu">sorted</span>(hits):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(input_file_name)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        map_xml(process_record, input_file_name)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(data)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.dropna(how<span class="op">=</span><span class="st">"any"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'date'</span>] <span class="op">=</span> df[<span class="st">'date'</span>].astype(<span class="st">'In16'</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    df.to_csv(output_file_name, index <span class="op">=</span> <span class="va">False</span>) <span class="co"># do not </span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(output_file_name, dtype<span class="op">=</span>np.int16)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There are some new things in this code snippet: * <code>glob.glob()</code> uses Unix style file and directory name patterns, so you can use the wildchars ?, . and * to find files. It returns a list, that we sort by name and process each file one by one. * after we create the dataframe we remove those rows that have NAs. Remember that we gave <code>None</code> when the publication year was missing or wrong, this line removes them. Then we convert the date to 16 bit long integer values. * <code>to_csv()</code> saves the content of a data frame into a CSV file. <code>index = False</code> prevents writing the row names (the data frame index) into the file. Unfortunately, the default value of this argument is True, which makes CSV a bit weird. * <code>read_csv()</code> is the opposite of <code>to_csv()</code>: it created a data frame from a CSV. With <code>dtype=np.int16</code> we ensure that each number in it is a 16 bit long integer.</p>
+<p>Now we have a data frame, however depending on how many XML files you downloaded and extracted the distribution might be highly unequal. As the first files contain more records about publications from the 20th century, we extract a subset:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>year_min <span class="op">=</span> <span class="dv">1950</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>year_max <span class="op">=</span> <span class="dv">1995</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[(df[<span class="st">"date"</span>] <span class="op">&gt;=</span> year_min) <span class="op">&amp;</span> (df[<span class="st">"date"</span>] <span class="op">&lt;=</span> year_max)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="creating-line-charts" class="level5" data-number="8.0.0.1.2">
+<h5 data-number="8.0.0.1.2" class="anchored" data-anchor-id="creating-line-charts"><span class="header-section-number">8.0.0.1.2</span> Creating line charts</h5>
+<p>Finally we start the visualization! It is interesting how subjects are assigned to individual records, and how it changed over the time. We have to calculate it by:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>yearly_mean <span class="op">=</span> df.groupby([<span class="st">'date'</span>]).agg(<span class="st">'mean'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>groupby</code> creates subgroups within the data frame. As here we use <code>date</code>, we will group the records by publication dates. <code>agg</code> runs an aggregation function – a calculation – on each group. With it we calculate the average number of subject headings per year. The result is another data frame of which the index is the publication year, and it will have one more column: its name remains <code>subject_count</code>, but its value became the yearly average of it.</p>
+<p>This is the data frame we want to visualize as a line chart, with the publication year on the x (horizontal) axis and the yearly average on the y (vertical) axis. We use pyplot’s functions (using its usual abbreviation <code>plt</code>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(yearly_mean)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'average number of subjects per record'</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'publication year'</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.axis((year_min, year_max, <span class="dv">0</span>, <span class="bu">max</span>(yearly_mean[<span class="st">'subject_count'</span>]) <span class="op">*</span> <span class="fl">1.1</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.savefig(os.path.join(<span class="st">'fig_output'</span>, <span class="st">'mean-subjects-per-year.png'</span>), bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>plt.plot()</code> takes a data frame and draws a line chart. It utilizes the dataframe index for the x values, and all other columns for y values. Each column will be represented as a distinct line with distinct color. It gives us the basic image, but we would like to add additional attributes. <code>title()</code> sets a title, <code>xlabel()</code> sets an explanation for the horizontal axis, <code>grid()</code> draws grid lines. With <code>axis()</code> we specify the ‘viewport’ of the chart. We gave a list of four values: the beginning and the end of x values, and the beginning and end of y values. If we do not give anything, the library takes the minimum and maximum values and adds some margins on all sides. Our averages range between 1.4 and 2.0, but we thought that it is more realistic to the human eye if we set the viewport to zero (and add a small margin on the top as the 10% of the maximum value). <code>savefig()</code> saves the figure; its first argument is the file name, while the <code>bbox_inches</code> argument sets a minimal margin around the chart. <code>close()</code> is an important step when you draw multiple images in one script: it starts a clearing process, removes references from the memory, so the new image will start from scratch, otherwise – as pyplot image creation is a statefull process, it “remembers” previous steps – there is a chance that different graphical elements will survive in other images.</p>
+<p>The image looks like this:</p>
+<p>{% include figure.html filename=“en-or-enablar-lesson-5-01.png” alt=“Visual description of figure image” caption=“Figure 1. Average number of subjects per record” %}</p>
+<p>Sometimes we would like to put two charts side by side, because we would like to compare them, or because they express different sides of the same phenomenon. Right now we know the average numbers, but how many records don’t have at all any subject headings? As the number of records per year are not equal, we are interested in both the absolute numbers and the ratio. If we put multiple charts on the same image, we should take care of both the overarching image and the individual charts (they are called subplots or Axes).</p>
+<p>Start, as always, with calculation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>yearly_counts <span class="op">=</span> df.groupby([<span class="st">'date'</span>]).count()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>yearly_no_subject <span class="op">=</span> df[df[<span class="st">'subject_count'</span>] <span class="op">==</span> <span class="dv">0</span>].groupby([<span class="st">'date'</span>]).count()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df_merged <span class="op">=</span> (pd.merge(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    yearly_counts.rename(columns<span class="op">=</span>{<span class="st">'subject_count'</span>: <span class="st">'total'</span>}), </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    yearly_no_subject.rename(columns<span class="op">=</span>{<span class="st">'subject_count'</span>: <span class="st">'missing'</span>}), </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    on<span class="op">=</span><span class="st">'date'</span>))</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>df_merged[<span class="st">'percent'</span>] <span class="op">=</span> df_merged.missing <span class="op">*</span> <span class="dv">100</span> <span class="op">/</span> df_merged.total</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>First, we calculate the number of records per each year. We group by date as in the previous example, but we apply a different calculation: <code>count()</code>, that returns the total number. Second, we subset the data frame by selecting only the rows where the subject count is zero, then calculate the yearly count as in the previous step. Third, with <code>pd.merge()</code> join the two tables together. The connection between them is the <code>date</code> column. However, as both tables have the subject count column, we rename it to ‘total’ in the first table and to ‘missing’ in the second. Forth, we calculate the percentage of missing values.</p>
+<p>The resulting data frame will be something like this:</p>
+<pre><code>      total  missing    percent
+date                           
+1950   4396      546  12.420382
+1951   3235      483  14.930448
+1952   3327      457  13.736099
+1953   3360      475  14.136905
+1954   3658      487  13.313286</code></pre>
+<p>After data preparation, we should prepare the main image, and the subplots:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="fl">8.0</span>, <span class="fl">6.0</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>axes1 <span class="op">=</span> fig.add_subplot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>axes2 <span class="op">=</span> fig.add_subplot(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>figure()</code> creates the main image, <code>figsize</code>‘s contains width and height values in inch. We slice and dice this image with subplots, and we specify it with <code>add_subplot()</code>’s arguments: the number of rows, the number of columns and the index of the particular subplot. This time we created two rows and one column, thus <code>axes1</code> refers to the top ’cell’, and <code>axes2</code> to the bottom one.</p>
+<p>Fill the first cell!</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>axes1.plot(df_merged.index, df_merged.total, df_merged.missing)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>axes1.legend([<span class="st">'all'</span>, <span class="st">'without subject'</span>])</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>axes1.set_title(<span class="st">'number of records'</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>axes1.set_xlabel(<span class="st">'publication year'</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>axes1.axis((year_min, year_max, <span class="bu">max</span>(df_merged[<span class="st">'total'</span>]) <span class="op">*</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="bu">max</span>(df_merged[<span class="st">'total'</span>]) <span class="op">*</span> <span class="fl">1.1</span>))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>axes1.grid(<span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We apply the plot function not on <code>plt</code> that represents the library, but on <code>axes1</code> object that represents the subplot. As we would like to draw multiple lines we call it differently (there are a number of ways to use the function, see <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html">here</a>): we set the values for the x axis, the y values for the first line, and the y values of the second line. As we have an additional column, if we simply would add the data frame, the result will be three lines instead of two. The lines will be drawn with different, automatically assigned colors. With <code>legend()</code> we add an annotation to the image to explain what colors mean. <code>set_title()</code> and <code>set_xlabel()</code> are the subplot variants of <code>title()</code> and <code>xlabel()</code>. As in several years the number of missing values are (visually) close to zero, we set the viewport a bit lower, shifting with 10% of the maximum value.</p>
+<p>Now comes the second cell:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>axes2.plot(df_merged.percent)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>axes2.set_title(<span class="st">'records without subjects'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>axes2.set_xlabel(<span class="st">'publication year'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>axes2.set_ylabel(<span class="st">'percent'</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>axes2.axis((year_min, year_max, <span class="dv">0</span>, <span class="bu">max</span>(df_merged[<span class="st">'percent'</span>]) <span class="op">*</span> <span class="fl">1.1</span>))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>axes2.grid(<span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here we meet a third variation of <code>plot()</code>, we simply set only the y values, thus we ignore the two other columns in this chart. We also set a label for the horizontal axis with <code>set_ylabel()</code>.</p>
+<p>As a final step, we set a minimalistic margin, save the image and clear it from the memory.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'fig_output/records-per-year.png'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The final image looks like this:</p>
+<p>{% include figure.html filename=“en-or-enablar-lesson-5-02.png” alt=“Visual description of figure image” caption=“Figure 2. Records without subjects” %}</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -307,6 +573,8 @@ Koeser, Rebecca Sutton, Julia Damerow, Robert Casties, and Cole Crawford. 2025. 
 Mariani, Fabio. 2023. <span>“Introducing <span>VISU</span>: <span>Vagueness</span>, <span>Incompleteness</span>, <span>Subjectivity</span>, and <span>Uncertainty</span> in <span>Art</span> <span>Provenance</span> <span>Data</span>.”</span> In <em>Proceedings of the <span>Workshop</span> on <span>Computational</span> <span>Methods</span> in the <span>Humanities</span> 2022</em>, Vol-3602. Workshop <span>Proceedings</span>. <a href="https://ceur-ws.org/Vol-3602/paper5.pdf">https://ceur-ws.org/Vol-3602/paper5.pdf</a>.
 </div>
 </div>
+</section>
+</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
@@ -320,6 +588,8 @@ Mariani, Fabio. 2023. <span>“Introducing <span>VISU</span>: <span>Vagueness</s
 <li id="fn8"><p><a href="https://bartoc.org">https://bartoc.org</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p><span class="citation" data-cites="marianiIntroducingVISUVagueness2023">(<a href="references.html#ref-marianiIntroducingVISUVagueness2023" role="doc-biblioref">Mariani 2023</a>)</span><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p>Thaller, Manfred, On vagueness and uncertainty in historical data = Ivory Tower blog, 2020. <a href="https://ivorytower.hypotheses.org/88">https://ivorytower.hypotheses.org/88</a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Lahti, Leo, Hege Roivainen, Niko Ilomaki, and Mikko Tolonen. 2016. <em>Bibliographica. Tools for bibliographic data analysis.</em> R package. Github <a href="https://github.com/COMHIS/bibliographica">https://github.com/COMHIS/bibliographica</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>Koeser, Rebecca Sutton, Cole Crawford, Julia Damerow, Malte Vogl, and Robert Casties. 2025. <em>Undate Python Library.</em> V. 0.5. Released June. DOI <a href="https://doi.org/10.5281/zenodo.11068868">10.5281/zenodo.11068868</a>. About the origin and goals of the package see Koeser, Rebecca Sutton, Julia Damerow, Robert Casties, and Cole Crawford. “Undate: Humanistic Dates for Computation.” <em>Computational Humanities Research</em>, August 5, 2025. DOI <a href="https://doi.org/10.1017/chr.2025.10006">10.1017/chr.2025.10006</a><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
